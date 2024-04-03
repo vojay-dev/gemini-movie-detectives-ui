@@ -1,5 +1,5 @@
 <template>
-    quiz
+  quiz
 </template>
 
 <script>
