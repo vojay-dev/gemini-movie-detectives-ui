@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gemini {
+    background: radial-gradient(circle, #4285f4, #d96570);
+    background-clip: text;
+    color: transparent;
+    animation: gemini 15s linear infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gemini {
+    0%{
+        background-position: 0% 0%;
+    }
+    50%{
+        background-position: 100% 100%;
+    }
+    100%{
+        background-position: 0% 0%;
+    }
+}

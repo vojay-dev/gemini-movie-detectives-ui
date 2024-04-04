@@ -179,6 +179,7 @@
 
 <script>
 import Pixelate from 'pixelate'
+import { API_BASE_URI } from '../config.js'
 
 export default {
   name: 'Quiz',
@@ -201,7 +202,7 @@ export default {
     async fetchQuizData() {
       try {
         this.loading = true
-        const response = await fetch('http://localhost:8000/quiz', {
+        const response = await fetch(`${API_BASE_URI}/quiz`, {
           method: 'POST'
         })
         if (!response.ok) {
@@ -221,7 +222,7 @@ export default {
       }
 
       try {
-        const url = `http://localhost:8000/quiz/${this.quizData.quiz_id}/answer`
+        const url = `${API_BASE_URI}/quiz/${this.quizData.quiz_id}/answer`
         const requestBody = {
           answer: this.userInput.trim()
         }
