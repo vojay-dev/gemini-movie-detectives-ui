@@ -92,6 +92,13 @@
       <!-- Game finished -->
       <div v-if="!processingAnswer && gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
 
+        <div class="chat chat-end px-3">
+          <div class="chat-header">
+            You
+          </div>
+          <div class="chat-bubble chat-bubble-info">{{ answerData.user_answer }}</div>
+        </div>
+
         <div class="chat chat-start">
           <div class="chat-image avatar">
             <div class="w-10 rounded-full">
@@ -102,6 +109,21 @@
             Gemini
           </div>
           <div class="chat-bubble">{{ answerData.answer.answer }}</div>
+          <div class="chat-footer opacity-50">
+            Session: {{ quizData.quiz_id }}
+          </div>
+        </div>
+
+        <div class="chat chat-start">
+          <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+              <img alt="Tailwind CSS chat bubble component" :src="generateRoboHash()" />
+            </div>
+          </div>
+          <div class="chat-header">
+            Gemini
+          </div>
+          <div class="chat-bubble">The movie I was looking for is: <strong>{{ answerData.movie.title }}</strong></div>
           <div class="chat-footer opacity-50">
             Session: {{ quizData.quiz_id }}
           </div>
