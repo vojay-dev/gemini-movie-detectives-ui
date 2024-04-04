@@ -1,5 +1,5 @@
 <template>
-  <div class="hero min-h-screen" style="background-image: url(https://unsplash.com/photos/evlkOfkQ5rE/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8bW92aWV8ZGV8MHx8fHwxNzEyMTI2OTI4fDA&force=true&w=1920);">
+  <div class="hero min-h-screen" :style="{ 'background-image': `url(${this.backgroundImg})` }">
     <div class="hero-overlay bg-opacity-80"></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-screen-md">
@@ -12,7 +12,14 @@
 </template>
 
 <script>
+import backgroundImg from '../assets/bg-home.webp'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  data() {
+    return {
+      backgroundImg: backgroundImg
+    }
+  }
 }
 </script>

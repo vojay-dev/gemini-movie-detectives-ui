@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!gameStarted && !loading" class="hero min-h-screen" style="background-image: url(https://unsplash.com/photos/SnXIF8_2oPw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NjN8fG1vdmllfGRlfDB8fHx8MTcxMjE0MTExOHww&force=true&w=1920);">
+  <div v-if="!gameStarted && !loading" class="hero min-h-screen" :style="{ 'background-image': `url(${this.backgroundImg})` }">
     <div class="hero-overlay bg-opacity-90"></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-screen-md">
@@ -180,6 +180,7 @@
 <script>
 import Pixelate from 'pixelate'
 import { API_BASE_URI } from '../config.js'
+import backgroundImg from '../assets/bg-quiz.webp'
 
 export default {
   name: 'Quiz',
@@ -192,7 +193,8 @@ export default {
       showHint2: false,
       userInput: '',
       processingAnswer: false,
-      answerData: null
+      answerData: null,
+      backgroundImg: backgroundImg
     }
   },
   created() {
