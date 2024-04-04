@@ -15,9 +15,14 @@
     <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4">
       <div class="md:row-span-2">
         <figure class="max-w-lg">
-          <img class="h-auto max-w-full rounded-lg" :src="quizData.movie.poster_url" alt="movie poster">
-          <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Movie poster</figcaption>
+          <img
+              ref="posterImage"
+              class="h-auto max-w-full rounded-lg opacity-0"
+              :src="quizData.movie.poster_url"
+              @load="pixelatePoster"
+          >
         </figure>
+        <div ref="posterCanvasContainer"><canvas ref="posterCanvas" class="h-auto max-w-full rounded-lg"></canvas></div>
       </div>
 
       <!-- Game running -->
@@ -151,6 +156,8 @@
 </style>
 
 <script>
+import Pixelate from 'pixelate'
+
 export default {
   name: 'Quiz',
   data() {
@@ -187,15 +194,11 @@ export default {
       }
     },
     async submitAnswer() {
+      if (this.gameFinished || !this.userInput.trim()) {
+        return
+      }
+
       try {
-        if (this.gameFinished) {
-          return
-        }
-
-        if (!this.userInput.trim()) {
-          return
-        }
-
         const url = `http://localhost:8000/quiz/${this.quizData.quiz_id}/answer`
         const requestBody = {
           answer: this.userInput.trim()
@@ -221,10 +224,25 @@ export default {
       } finally {
         this.processingAnswer = false
         this.gameFinished = true
+        this.revealPoster()
       }
     },
     generateRoboHash() {
       return `https://robohash.org/${this.randomRobot}`
+    },
+    pixelatePoster() {
+      const image = this.$refs.posterImage;
+      const canvas = this.$refs.posterCanvas;
+
+      this.pixelate = new Pixelate(image, {amount: 0.99, canvas})
+      image.classList.toggle("hidden")
+    },
+    revealPoster() {
+      const image = this.$refs.posterImage;
+
+      image.classList.toggle("hidden")
+      image.classList.toggle("opacity-0")
+      this.pixelate.canvas.classList.toggle("hidden")
     }
   }
 }
