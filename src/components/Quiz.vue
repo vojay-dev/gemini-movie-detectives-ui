@@ -256,14 +256,14 @@ export default {
       return `https://robohash.org/${this.randomRobot}`
     },
     pixelatePoster() {
-      const image = this.$refs.posterImage;
-      const canvas = this.$refs.posterCanvas;
+      const image = this.$refs.posterImage
+      const canvas = this.$refs.posterCanvas
 
       this.pixelate = new Pixelate(image, {amount: 0.99, canvas})
       image.classList.toggle("hidden")
     },
     revealPoster() {
-      const image = this.$refs.posterImage;
+      const image = this.$refs.posterImage
 
       image.classList.toggle("hidden")
       image.classList.toggle("opacity-0")
