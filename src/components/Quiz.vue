@@ -1,11 +1,37 @@
 <template>
   <div v-if="!gameStarted && !loading" class="hero min-h-screen" :style="{ 'background-image': `url(${this.backgroundImg})` }">
-    <div class="hero-overlay bg-opacity-90"></div>
+
+    <div class="hero-overlay bg-opacity-95"></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-screen-md">
-        <h1 class="mb-5 text-5xl font-bold">Movie Quiz</h1>
-        <p class="mb-5">When you click on <span class="text-success">Start Game</span>, a random movie will be selected and Gemini will think about a proper riddle for you. Your task is to guess the movie. Give it a try and see how many points you can get!</p>
-        <button @click="fetchQuizData" class="btn btn-success">Start Game</button>
+        <h1 class="mb-5 text-5xl font-bold"><span class="gemini">Movie</span> Quiz</h1>
+        <p class="mb-5">When you click on Start Game, a random movie will be selected and Gemini will think about a proper riddle for you. Your task is to guess the movie. Give it a try and see how many points you can get!</p>
+        <div class="collapse bg-neutral-900">
+          <input type="checkbox" class="peer" />
+          <div class="text-left collapse-title bg-neutral-900 peer-checked:bg-info peer-checked:text-info-content">
+            Toggle quiz configuration
+          </div>
+          <div class="collapse-content bg-neutral-900 peer-checked:bg-neutral-800">
+            <p class="text-left py-3">With the following settings you can customize the quiz and adjust the difficulty. The default settings ensure that you have a balanced experienced, adjust them with care.</p>
+            <div class="label">
+              <span class="label-text">Minimum number of votes: </span><span class="badge badge-secondary badge-outline">{{ minVotes }}</span>
+            </div>
+            <input type="range" min="100" max="5000" value="1000" class="range range-secondary" v-model="minVotes"/>
+            <div class="label">
+              <span class="label-text">Minimum average rating:</span><span class="badge badge-info badge-outline">{{ minAvgRating }}</span>
+            </div>
+            <input type="range" min="1" max="8" value="5" step="1" class="range range-info" v-model="minAvgRating" />
+            <div class="label">
+              <span class="label-text">Popularity:</span>
+            </div>
+            <input type="range" min="1" max="3" value="3" step="1" class="range range-warning" v-model="popularity" />
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>I know them all, challenge me</span>
+              <span>Mostly popular</span>
+            </div>
+          </div>
+        </div>
+        <button @click="fetchQuizData" class="btn btn-success mt-5">Start Game</button>
       </div>
     </div>
   </div>
@@ -194,7 +220,10 @@ export default {
       userInput: '',
       processingAnswer: false,
       answerData: null,
-      backgroundImg: backgroundImg
+      backgroundImg: backgroundImg,
+      minVotes: 1000,
+      minAvgRating: 5,
+      popularity: 3
     }
   },
   created() {
@@ -204,7 +233,7 @@ export default {
     async fetchQuizData() {
       try {
         this.loading = true
-        const response = await fetch(`${API_BASE_URI}/quiz`, {
+        const response = await fetch(`${API_BASE_URI}/quiz?votes=${this.minVotes}&rating=${this.minAvgRating}&popularity=${this.popularity}`, {
           method: 'POST'
         })
         if (!response.ok) {
