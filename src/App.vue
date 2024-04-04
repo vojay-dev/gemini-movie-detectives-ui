@@ -5,8 +5,8 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
-        <li><router-link to="/" v-bind:class="{ 'active': currentRouteName == 'Home' }">Home</router-link></li>
-        <li><router-link to="/quiz" v-bind:class="{ 'active': currentRouteName == 'Quiz' }">Quiz</router-link></li>
+        <li><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">Home</router-link></li>
+        <li><router-link to="/quiz" v-bind:class="{ 'active': currentRouteName === 'Quiz' }">Quiz</router-link></li>
       </ul>
     </div>
   </div>
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 export default {
   name: 'App',
