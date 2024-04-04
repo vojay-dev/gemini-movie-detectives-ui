@@ -10,7 +10,7 @@
       </ul>
     </div>
   </div>
-  <router-view class="py-4"></router-view>
+  <router-view></router-view>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto flex justify-center">
+  <div class="container mx-auto flex justify-center py-4">
     <button v-if="!gameStarted && !loading" @click="fetchQuizData" class="btn btn-primary">Start Game</button>
     <div v-if="loading" class="text-center"><span class="loading loading-spinner text-info"></span></div>
     <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4">
@@ -9,7 +9,9 @@
           <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Movie poster</figcaption>
         </figure>
       </div>
-      <div class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
+
+      <!-- Game running -->
+      <div v-if="!processingAnswer && !gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
         <div class="grid grid-cols-1 gap-4 px-4 py-4">
 
           <div class="chat chat-start">
@@ -66,8 +68,49 @@
 
         </div>
       </div>
+
+      <!-- Processing Answer -->
+      <div v-if="processingAnswer && !gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
+        <div class="text-center"><span class="loading loading-spinner text-info"></span></div>
+      </div>
+
+      <!-- Game finished -->
+      <div v-if="!processingAnswer && gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
+
+        <div class="chat chat-start">
+          <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+              <img alt="Tailwind CSS chat bubble component" :src="generateRoboHash()" />
+            </div>
+          </div>
+          <div class="chat-header">
+            Gemini
+          </div>
+          <div class="chat-bubble">{{ answerData.answer.answer }}</div>
+          <div class="chat-footer opacity-50">
+            Session: {{ quizData.quiz_id }}
+          </div>
+        </div>
+
+        <div class="chat chat-start">
+          <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+              <img alt="Tailwind CSS chat bubble component" :src="generateRoboHash()" />
+            </div>
+          </div>
+          <div class="chat-header">
+            Gemini
+          </div>
+          <div class="chat-bubble">I give you {{ answerData.answer.points }} point(s)!</div>
+          <div class="chat-footer opacity-50">
+            Points
+          </div>
+        </div>
+
+      </div>
+
       <div class="md:col-span-2 md:col-start-2 row-start-2">
-        <div class="flex flex-row gap-2">
+        <div v-if="!gameFinished" class="flex flex-row gap-2">
           <div class="basis-3/4">
             <input type="text" v-model="userInput" @keyup.enter="submitAnswer" placeholder="Type your answer here" class="input input-bordered input-info w-full" />
           </div>
@@ -78,7 +121,13 @@
             </button>
           </div>
         </div>
-        <div class="my-2">Press <kbd class="kbd">enter ↵</kbd> or click <span class="text-success">Send</span> to submit your answer, hover text to see second hint</div>
+        <div v-if="!gameFinished" class="my-2">Press <kbd class="kbd">enter ↵</kbd> or click <span class="text-success">Send</span> to submit your answer, hover text to see second hint</div>
+        <div v-if="gameFinished">
+          <router-link to="/" tag="button" class="btn btn-outline btn-info w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-linejoin="round" stroke-width="4" d="M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z" clip-rule="evenodd"/></svg>
+            Back home
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -97,10 +146,13 @@ export default {
   data() {
     return {
       gameStarted: false,
+      gameFinished: false,
       loading: false,
       quizData: null,
       showHint2: false,
-      userInput: ''
+      userInput: '',
+      processingAnswer: false,
+      answerData: null
     }
   },
   created() {
@@ -126,6 +178,10 @@ export default {
     },
     async submitAnswer() {
       try {
+        if (this.gameFinished) {
+          return
+        }
+
         if (!this.userInput.trim()) {
           return
         }
@@ -135,6 +191,7 @@ export default {
           answer: this.userInput.trim()
         }
 
+        this.processingAnswer = true
         const response = await fetch(url, {
           method: 'POST',
           headers: {
@@ -147,10 +204,13 @@ export default {
           throw new Error('Failed to submit answer')
         }
 
-        this.responseData = await response.json()
+        this.answerData = await response.json()
         this.userInput = ''
       } catch (error) {
         console.error(error)
+      } finally {
+        this.processingAnswer = false
+        this.gameFinished = true
       }
     },
     generateRoboHash() {
