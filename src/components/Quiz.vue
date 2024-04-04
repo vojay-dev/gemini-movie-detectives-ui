@@ -69,10 +69,10 @@
       <div class="md:col-span-2 md:col-start-2 row-start-2">
         <div class="flex flex-row gap-2">
           <div class="basis-3/4">
-            <input type="text" placeholder="Type your answer here" class="input input-bordered input-info w-full" />
+            <input type="text" v-model="userInput" @keyup.enter="submitAnswer" placeholder="Type your answer here" class="input input-bordered input-info w-full" />
           </div>
           <div class="basis-1/4">
-            <button class="btn btn-outline btn-success w-full">
+            <button @click="submitAnswer" class="btn btn-outline btn-success w-full">
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1792 1792"><path fill="currentColor" d="M1764 11q33 24 27 64l-256 1536q-5 29-32 45q-14 8-31 8q-11 0-24-5l-453-185l-242 295q-18 23-49 23q-13 0-22-4q-19-7-30.5-23.5T640 1728v-349l864-1059l-1069 925l-395-162q-37-14-40-55q-2-40 32-59L1696 9q15-9 32-9q20 0 36 11"/></svg>
               Send
             </button>
@@ -99,7 +99,8 @@ export default {
       gameStarted: false,
       loading: false,
       quizData: null,
-      showHint2: false // Track hover state
+      showHint2: false,
+      userInput: ''
     }
   },
   created() {
@@ -121,6 +122,35 @@ export default {
         console.error(error)
       } finally {
         this.loading = false
+      }
+    },
+    async submitAnswer() {
+      try {
+        if (!this.userInput.trim()) {
+          return
+        }
+
+        const url = `http://localhost:8000/quiz/${this.quizData.quiz_id}/answer`
+        const requestBody = {
+          answer: this.userInput.trim()
+        }
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to submit answer')
+        }
+
+        this.responseData = await response.json()
+        this.userInput = ''
+      } catch (error) {
+        console.error(error)
       }
     },
     generateRoboHash() {
