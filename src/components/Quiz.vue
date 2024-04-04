@@ -11,6 +11,7 @@
       </div>
       <div class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
         <div class="grid grid-cols-1 gap-4 px-4 py-4">
+
           <div class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
@@ -21,24 +22,48 @@
               Gemini
             </div>
             <div class="chat-bubble">{{ quizData.question.question }}</div>
+            <div class="chat-footer opacity-50">
+              Session: {{ quizData.quiz_id }}
+            </div>
           </div>
-          <div class="content-center">Hint 1: {{ quizData.question.hint1 }}</div>
+
+          <div class="chat chat-start">
+            <div class="chat-image avatar">
+              <div class="w-10 rounded-full">
+                <img alt="Tailwind CSS chat bubble component" :src="generateRoboHash()" />
+              </div>
+            </div>
+            <div class="chat-header">
+              Gemini
+            </div>
+            <div class="chat-bubble">{{ quizData.question.hint1 }}</div>
+            <div class="chat-footer opacity-50">
+              Hint 1
+            </div>
+          </div>
+
           <div
               class="content-center"
-              v-if="showHint2"
+              :class="{ blurred: !showHint2 }"
               @mouseover="showHint2 = true"
               @mouseleave="showHint2 = false"
           >
-            Hint 2: {{ quizData.question.hint2 }}
+            <div class="chat chat-start">
+              <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                  <img alt="Tailwind CSS chat bubble component" :src="generateRoboHash()" />
+                </div>
+              </div>
+              <div class="chat-header">
+                Gemini
+              </div>
+              <div class="chat-bubble">{{ quizData.question.hint2 }}</div>
+              <div class="chat-footer opacity-50">
+                Hint 2
+              </div>
+            </div>
           </div>
-          <div
-              class="content-center blurred"
-              v-else
-              @mouseover="showHint2 = true"
-              @mouseleave="showHint2 = false"
-          >
-            Hint 2: {{ quizData.question.hint2 }}
-          </div>
+
         </div>
       </div>
       <div class="md:col-span-2 md:col-start-2 row-start-2">
@@ -77,7 +102,7 @@ export default {
       showHint2: false // Track hover state
     }
   },
-  create() {
+  created() {
     this.randomRobot = Math.floor(Math.random() * 1000)
   },
   methods: {
