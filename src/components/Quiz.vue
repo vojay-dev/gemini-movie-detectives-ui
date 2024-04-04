@@ -2,7 +2,7 @@
   <div v-if="!gameStarted && !loading" class="hero min-h-screen" style="background-image: url(https://unsplash.com/photos/SnXIF8_2oPw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NjN8fG1vdmllfGRlfDB8fHx8MTcxMjE0MTExOHww&force=true&w=1920);">
     <div class="hero-overlay bg-opacity-90"></div>
     <div class="hero-content text-center text-neutral-content">
-      <div class="max-w-md">
+      <div class="max-w-screen-md">
         <h1 class="mb-5 text-5xl font-bold">Movie Quiz</h1>
         <p class="mb-5">When you click on <span class="text-success">Start Game</span>, a random movie will be selected and Gemini will think about a proper riddle for you. Your task is to guess the movie. Give it a try and see how many points you can get!</p>
         <button @click="fetchQuizData" class="btn btn-success">Start Game</button>
