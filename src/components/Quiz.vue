@@ -137,7 +137,7 @@
           <div class="chat-header">
             Gemini
           </div>
-          <div class="chat-bubble">{{ answerData.answer.answer }}</div>
+          <div class="chat-bubble">{{ answerData.result.answer }}</div>
           <div class="chat-footer opacity-50">
             Session: {{ quizData.quiz_id }}
           </div>
@@ -167,7 +167,7 @@
           <div class="chat-header">
             Gemini
           </div>
-          <div class="chat-bubble">I give you {{ answerData.answer.points }} point(s)!</div>
+          <div class="chat-bubble">I give you {{ answerData.result.points }} point(s)!</div>
           <div class="chat-footer opacity-50">
             Points
           </div>
@@ -235,10 +235,22 @@ export default {
   methods: {
     async fetchQuizData() {
       try {
+        const url = `${API_BASE_URI}/quiz/`
+        const requestBody = {
+          vote_avg_min: this.minAvgRating,
+          vote_count_min: this.minVotes,
+          popularity: this.popularity
+        }
+
         this.loading = true
-        const response = await fetch(`${API_BASE_URI}/quiz?votes=${this.minVotes}&rating=${this.minAvgRating}&popularity=${this.popularity}`, {
-          method: 'POST'
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
         })
+
         if (!response.ok) {
           throw new Error('Failed to fetch quiz data')
         }
