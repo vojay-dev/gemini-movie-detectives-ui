@@ -1,7 +1,30 @@
-# Vue 3 + Vite
+# Gemini Movie Detectives UI
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![logo](doc/logo.png)
+Try it yourself: [movie-detectives.com](https://movie-detectives.com/)
 
-## Recommended IDE Setup
+## Project overview
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+- VueJS 3.4
+- Vite
+
+![system overview](doc/system-overview.png)
+*Movie Detectives - System Overview*
+
+## Project setup
+
+```sh
+npm install
+```
+
+## Run
+
+```sh
+npm run dev
+```
+
+## Build
+
+```sh
+npm run build
+```
