@@ -1,5 +1,5 @@
 <template>
-  <div class="hero min-h-screen" :style="{ 'background-image': `url(${this.backgroundImg})` }">
+  <div class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${this.backgroundImg})` }">
     <div class="hero-overlay bg-opacity-80"></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-screen-md">

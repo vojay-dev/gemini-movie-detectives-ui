@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!gameStarted && !loading" class="hero min-h-screen" :style="{ 'background-image': `url(${this.backgroundImg})` }">
+  <div v-if="!gameStarted && !loading" class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${this.backgroundImg})` }">
 
     <div class="hero-overlay bg-opacity-95"></div>
     <div class="hero-content text-center text-neutral-content">
@@ -31,7 +31,10 @@
             </div>
           </div>
         </div>
-        <button @click="fetchQuizData" class="btn btn-success mt-5">Start Game</button>
+        <button @click="fetchQuizData" class="btn btn-outline btn-success mt-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M464.7 221.5L86.1 7.3C52.5-11.7 25 7.5 25 50v412c0 42.5 27.5 61.7 61.1 42.7l378.6-214.1c33.5-19.1 33.5-50.1 0-69.1"/></svg>
+          Start Game
+        </button>
       </div>
     </div>
   </div>
