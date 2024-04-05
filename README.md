@@ -1,5 +1,7 @@
 # Gemini Movie Detectives UI
 
+Backend: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie-detectives-api)
+
 ![logo](doc/logo.png)
 Try it yourself: [movie-detectives.com](https://movie-detectives.com/)
 
