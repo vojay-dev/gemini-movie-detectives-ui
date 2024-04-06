@@ -39,10 +39,11 @@
     </div>
   </div>
 
-  <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4">
+  <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4 px-4">
     <div v-if="loading" class="text-center"><span class="loading loading-spinner text-info"></span></div>
     <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4">
       <div class="md:row-span-2">
+        <div class="divider divider-info py-4 my-6 md:hidden">Movie Poster</div>
         <figure class="max-w-lg">
           <img
               ref="posterImage"
