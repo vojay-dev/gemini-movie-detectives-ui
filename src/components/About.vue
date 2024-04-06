@@ -6,6 +6,8 @@
         <p class="mb-2 text-justify">
           Gemini Movie Detectives is a project aimed at leveraging the power of the Gemini 1.0 Pro model via VertexAI to
           create an engaging quiz game using the latest movie data from The Movie Database (TMDB).
+          <br /><br />
+          This project was created as part of the <a href="https://googleai.devpost.com/" class="link link-hover link-secondary" target="_blank">Google AI Hackathon 2024</a>.
         </p>
         <h2 class="text-2xl gemini">Backend</h2>
         <p class="mb-2 text-justify">
