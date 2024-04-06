@@ -1,8 +1,7 @@
 <template>
   <div v-if="!gameStarted && !loading" class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${this.backgroundImg})` }">
-
     <div class="hero-overlay bg-opacity-95"></div>
-    <div class="hero-content text-center text-neutral-content">
+    <div class="hero-content text-center text-neutral-content mb-16">
       <div class="max-w-screen-md">
         <h1 class="mb-5 text-5xl font-bold"><span class="gemini">Movie</span> Quiz</h1>
         <p class="mb-5">When you click on Start Game, a random movie will be selected and Gemini will think about a proper riddle for you. Your task is to guess the movie. Give it a try and see how many points you can get!</p>
@@ -28,6 +27,24 @@
             <div class="w-full flex justify-between text-xs px-2">
               <span>I know them all, challenge me</span>
               <span>Mostly popular</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <div>
+                <div class="label"><span class="label-text">AI Personality (<i>experimental</i>)</span></div>
+                <select v-model="personality" class="select select-primary w-full max-w-xs">
+                  <option value="default">Default</option>
+                  <option value="christmas">Santa Claus</option>
+                  <option value="scientist">Scientist</option>
+                  <option value="dad">Dad Jokes</option>
+                </select>
+              </div>
+              <div>
+                <div class="label"><span class="label-text">Language (<i>experimental</i>)</span></div>
+                <select v-model="language" class="select select-primary w-full max-w-xs">
+                  <option value="default">English</option>
+                  <option value="german">German</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -211,6 +228,7 @@
 import Pixelate from 'pixelate'
 import { API_BASE_URI } from '../config.js'
 import backgroundImg from '../assets/bg-quiz.webp'
+import { ref } from "vue";
 
 export default {
   name: 'Quiz',
@@ -227,7 +245,9 @@ export default {
       backgroundImg: backgroundImg,
       minVotes: 1000,
       minAvgRating: 5,
-      popularity: 3
+      popularity: 3,
+      personality: ref('default'),
+      language: ref('default')
     }
   },
   created() {
@@ -240,7 +260,9 @@ export default {
         const requestBody = {
           vote_avg_min: this.minAvgRating,
           vote_count_min: this.minVotes,
-          popularity: this.popularity
+          popularity: this.popularity,
+          personality: this.personality,
+          language: this.language
         }
 
         this.loading = true
