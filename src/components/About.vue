@@ -7,7 +7,7 @@
           Gemini Movie Detectives is a project aimed at leveraging the power of the Gemini 1.0 Pro model via VertexAI to
           create an engaging quiz game using the latest movie data from The Movie Database (TMDB).
           <br /><br />
-          This project was created as part of the <a href="https://googleai.devpost.com/" class="link link-hover link-secondary" target="_blank">Google AI Hackathon 2024</a>.
+          This project was created as part of the <a href="https://googleai.devpost.com/" class="link link-hover link-info" target="_blank">Google AI Hackathon 2024</a>.
         </p>
         <h2 class="text-2xl gemini">Backend</h2>
         <p class="mb-2 text-justify">
@@ -27,7 +27,10 @@
           In Movie Detectives, quiz answers are interpreted by the Language Model (LLM) once again, allowing for dynamic
           scoring and personalized responses. This showcases the potential of integrating LLM with RAG in game design and
           development, paving the way for truly individualized gaming experiences. Furthermore, it demonstrates the
-          potential for creating engaging quiz trivia or educational games by involving LLM.
+          potential for creating engaging quiz trivia or educational games by involving LLM. Adding and changing personalities
+          or languages is as easy as adding more Jinja template modules. With very little effort, this can change the
+          full game experience, reducing the effort for developers. Try it yourself and change the AI personality
+          in the quiz configuration.
         </p>
       </div>
     </div>
