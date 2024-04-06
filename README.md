@@ -29,6 +29,8 @@ scoring and personalized responses. This showcases the potential of integrating 
 development, paving the way for truly individualized gaming experiences. Furthermore, it demonstrates the
 potential for creating engaging quiz trivia or educational games by involving LLM.
 
+![demo](doc/mobile-browser-demo.png)
+
 Backend: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie-detectives-api)
 
 ## Project overview
