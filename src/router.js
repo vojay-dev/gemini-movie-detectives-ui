@@ -3,6 +3,7 @@ import Home from './components/Home.vue'
 import Quiz from './components/Quiz.vue'
 import Sessions from './components/Sessions.vue'
 import About from './components/About.vue'
+import Stats from './components/Stats.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About
+  },
+  {
+    path: '/stats',
+    name: 'Stats',
+    component: Stats
   }
 ]
 

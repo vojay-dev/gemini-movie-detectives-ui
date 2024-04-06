@@ -6,7 +6,6 @@
         <table class="table table-zebra">
           <thead>
           <tr>
-            <th></th>
             <th>Session ID</th>
             <th>Movie title</th>
             <th>Started at</th>
@@ -14,7 +13,6 @@
           </thead>
           <tbody>
           <tr v-for="session in sessions">
-            <th>1</th>
             <td>{{ session.quiz_id }}</td>
             <td>{{ session.movie.title }}</td>
             <td>{{ session.started_at }}</td>
