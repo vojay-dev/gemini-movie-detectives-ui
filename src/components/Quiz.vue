@@ -28,7 +28,7 @@
               <span>I know them all, challenge me</span>
               <span>Mostly popular</span>
             </div>
-            <div class="grid grid-cols-2 gap-2 mt-4">
+            <div class="grid grid-cols-2 gap-2 items-end mt-4">
               <div>
                 <div class="label"><span class="label-text">AI Personality (<i>experimental</i>)</span></div>
                 <select v-model="personality" class="select select-primary w-full max-w-xs">
