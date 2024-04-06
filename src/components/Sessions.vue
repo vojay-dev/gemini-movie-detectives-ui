@@ -44,7 +44,7 @@ export default {
     async fetchSessions() {
       this.loading = true
       try {
-        const response = await fetch(`${API_BASE_URI}/sessions`)
+        const response = await fetch(`${API_BASE_URI}/sessions`, {redirect: 'follow'})
         if (!response.ok) {
           throw new Error('Failed to fetch sessions')
         }

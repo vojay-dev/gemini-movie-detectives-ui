@@ -58,7 +58,7 @@ export default {
     async fetchLimitStats() {
       this.loading = true
       try {
-        const response = await fetch(`${API_BASE_URI}/limit`)
+        const response = await fetch(`${API_BASE_URI}/limit`, {redirect: 'follow'})
         if (!response.ok) {
           throw new Error('Failed to fetch limit stats')
         }

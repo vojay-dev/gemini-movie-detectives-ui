@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <button @click="fetchQuizData" class="btn btn-outline btn-success mt-5">
+        <button @click="startQuiz" class="btn btn-outline btn-success mt-5">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M464.7 221.5L86.1 7.3C52.5-11.7 25 7.5 25 50v412c0 42.5 27.5 61.7 61.1 42.7l378.6-214.1c33.5-19.1 33.5-50.1 0-69.1"/></svg>
           Start Game
         </button>
@@ -233,9 +233,9 @@ export default {
     this.randomRobot = Math.floor(Math.random() * 1000)
   },
   methods: {
-    async fetchQuizData() {
+    async startQuiz() {
       try {
-        const url = `${API_BASE_URI}/quiz/`
+        const url = `${API_BASE_URI}/quiz`
         const requestBody = {
           vote_avg_min: this.minAvgRating,
           vote_count_min: this.minVotes,
@@ -248,7 +248,8 @@ export default {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(requestBody)
+          body: JSON.stringify(requestBody),
+          redirect: 'follow'
         })
 
         if (!response.ok) {
@@ -279,7 +280,8 @@ export default {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(requestBody)
+          body: JSON.stringify(requestBody),
+          redirect: 'follow'
         })
 
         if (!response.ok) {
