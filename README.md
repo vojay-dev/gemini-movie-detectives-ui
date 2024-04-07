@@ -46,6 +46,8 @@ Backend: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie
 
 ## Project setup
 
+Ensure to configure the correct API endpoint for local or live usage in `src/config.js`.
+
 ```sh
 npm install
 ```
