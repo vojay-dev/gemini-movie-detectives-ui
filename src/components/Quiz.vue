@@ -215,6 +215,19 @@
       </div>
     </div>
   </div>
+
+  <!-- modal for API errors -->
+  <dialog id="errorModal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-neutral-900">
+      <h3 class="font-bold text-lg gemini">API Error</h3>
+      <p class="py-2">Oops! Something went wrong. Keep in mind, this is a prototype. Take a break, watch a movie, and come back for another round!</p>
+      <p class="py-2 font-bold text-lg">Error:</p>
+      <pre class="bg-neutral-950 rounded p-3 py-2 text-xs" style="white-space: pre-wrap;">{{ errorMessage }}</pre>
+      <div class="modal-action">
+        <button @click="closeModal" class="btn">Close</button>
+      </div>
+    </div>
+  </dialog>
 </template>
 
 <style scoped>
@@ -228,7 +241,7 @@
 import Pixelate from 'pixelate'
 import { API_BASE_URI } from '../config.js'
 import backgroundImg from '../assets/bg-quiz.webp'
-import { ref } from "vue";
+import { ref } from "vue"
 
 export default {
   name: 'Quiz',
@@ -247,13 +260,26 @@ export default {
       minAvgRating: 5,
       popularity: 3,
       personality: ref('default'),
-      language: ref('default')
+      language: ref('default'),
+      errorMessage: ''
     }
   },
   created() {
     this.randomRobot = Math.floor(Math.random() * 1000)
   },
   methods: {
+    showModal() {
+      const modal = document.getElementById('errorModal')
+      modal.showModal()
+    },
+
+    closeModal() {
+      const modal = document.getElementById('errorModal')
+      modal.close()
+      // redirect to home after error message is closed
+      this.$router.push('/')
+    },
+
     async startQuiz() {
       try {
         const url = `${API_BASE_URI}/quiz`
@@ -276,16 +302,21 @@ export default {
         })
 
         if (!response.ok) {
-          throw new Error('Failed to fetch quiz data')
+          const error = await response.text()
+          throw new Error(error)
         }
         this.quizData = await response.json()
         this.gameStarted = true
       } catch (error) {
+        this.errorMessage = error.toString()
+        this.errorMessage = this.errorMessage.substring(0, 500)
+        this.showModal()
         console.error(error)
       } finally {
         this.loading = false
       }
     },
+
     async submitAnswer() {
       if (this.gameFinished || !this.userInput.trim()) {
         return
@@ -308,12 +339,15 @@ export default {
         })
 
         if (!response.ok) {
-          throw new Error('Failed to submit answer')
+          const error = await response.text()
+          throw new Error(error)
         }
-
         this.answerData = await response.json()
         this.userInput = ''
       } catch (error) {
+        this.errorMessage = error.toString()
+        this.errorMessage = this.errorMessage.substring(0, 500)
+        this.showModal()
         console.error(error)
       } finally {
         this.processingAnswer = false
@@ -321,9 +355,11 @@ export default {
         this.revealPoster()
       }
     },
+
     generateRoboHash() {
       return `https://robohash.org/${this.randomRobot}`
     },
+
     pixelatePoster() {
       const image = this.$refs.posterImage
       const canvas = this.$refs.posterCanvas
@@ -331,6 +367,7 @@ export default {
       this.pixelate = new Pixelate(image, {amount: 0.99, canvas})
       image.classList.toggle("hidden")
     },
+
     revealPoster() {
       const image = this.$refs.posterImage
 
