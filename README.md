@@ -44,6 +44,37 @@ Backend: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie
 ![system overview](doc/system-overview.png)
 *Movie Detectives - System Overview*
 
+## Components
+
+The Movie Detectives frontend is split into four main components and uses vue-router to navigate between them.
+
+### Home
+
+The Home component simply displays the welcome message.
+
+### Quiz
+
+The Quiz component displays the quiz itself and talks to the API via `fetch`. To create a quiz, it sends a POST
+request to `api/quiz` with the desired settings. The backend is then selecting a random movie based on the user
+settings, creates the prompt with the modular prompt generator, uses Gemini to generate the question and hints and
+finally returns everything back to the component so that the quiz can be rendered.
+
+Additionally, each quiz gets a session ID assigned in the backend and is stored in a limited LRU cache.
+
+### Sessions
+
+For debugging purposes, this component fetches data from the `api/sessions` endpoint. This returns all **active**
+sessions from the cache.
+
+### Stats
+
+This component displays statistics about the service. However, so far there is only one category of data displayed,
+which is the quiz limit. To limit the costs for VertexAI and GCP usage in general, there is a daily limit of quiz
+sessions, which will reset with the first quiz of the next day. Data is retrieved form the `api/limit` endpoint.
+
+![system overview](doc/frontend-components.png)
+*Movie Detectives - Vue Components*
+
 ## Project setup
 
 Ensure to configure the correct API endpoint for local or live usage in `src/config.js`.
