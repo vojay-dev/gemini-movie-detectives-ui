@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading" class="text-center"><span class="loading loading-spinner text-info"></span></div>
+    <div v-if="loading" class="text-center"><span class="loading loading-lg loading-spinner text-info"></span></div>
     <div v-else-if="limitStats">
       <div class="overflow-x-auto">
         <table class="table table-zebra">
