@@ -1,4 +1,9 @@
 <template>
+  <vue-particles
+      v-if="answerData && answerData.result.points > 0"
+      id="tsparticles"
+      :options=particleSettings
+  />
   <div v-if="!gameStarted && !loading" class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${this.backgroundImg})` }">
     <div class="hero-overlay bg-opacity-95"></div>
     <div class="hero-content text-center text-neutral-content mb-16">
@@ -239,7 +244,7 @@
 
 <script>
 import Pixelate from 'pixelate'
-import { API_BASE_URI } from '../config.js'
+import { API_BASE_URI, PARTICLE_SETTINGS } from '../config.js'
 import backgroundImg from '../assets/bg-quiz.webp'
 import { ref } from "vue"
 
@@ -261,7 +266,8 @@ export default {
       popularity: 3,
       personality: ref('default'),
       language: ref('default'),
-      errorMessage: ''
+      errorMessage: '',
+      particleSettings: PARTICLE_SETTINGS
     }
   },
   created() {

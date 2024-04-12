@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tsparticles/vue3": "^3.0.1",
     "daisyui": "^4.9.0",
     "pixelate": "^0.0.5",
+    "tsparticles": "^3.3.0",
     "vue": "^3.4.21",
     "vue-router": "^4.0.13"
   },
