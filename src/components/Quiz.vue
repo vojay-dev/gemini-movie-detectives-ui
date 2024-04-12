@@ -222,7 +222,7 @@
       <h3 class="font-bold text-lg gemini">API Error</h3>
       <p class="py-2">Oops! Something went wrong. Keep in mind, this is a prototype. Take a break, watch a movie, and come back for another round!</p>
       <p class="py-2 font-bold text-lg">Error:</p>
-      <pre class="bg-neutral-950 rounded p-3 py-2 text-xs" style="white-space: pre-wrap;">{{ errorMessage }}</pre>
+      <pre class="bg-neutral-950 rounded p-3 py-2 text-xs" style="white-space: pre-wrap; overflow-wrap: anywhere;">{{ errorMessage }}</pre>
       <div class="modal-action">
         <button @click="closeModal" class="btn">Close</button>
       </div>
