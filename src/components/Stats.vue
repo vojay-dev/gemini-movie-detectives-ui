@@ -1,8 +1,9 @@
 <template>
   <div>
+    <div class="text-center py-8"><h1 class="mb-5 text-5xl font-bold"><span class="gemini">Quiz</span> Stats</h1></div>
     <div v-if="loadingStats" class="text-center"><span class="loading loading-lg loading-spinner text-info"></span></div>
     <div v-else-if="stats">
-      <div class="text-center py-8">
+      <div class="text-center py-2">
         <div class="stats stats-vertical lg:stats-horizontal shadow">
 
           <div class="stat">

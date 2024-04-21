@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="text-center py-8"><h1 class="mb-5 text-5xl font-bold"><span class="gemini">Quiz</span> Sessions</h1></div>
     <div v-if="loading" class="text-center"><span class="loading loading-lg loading-spinner text-info"></span></div>
     <div v-else-if="sessions">
       <div class="overflow-x-auto">
