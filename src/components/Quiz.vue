@@ -142,7 +142,7 @@
       </div>
 
       <!-- Game finished -->
-      <div v-if="!processingAnswer && gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
+      <div v-if="!processingAnswer && gameFinished && answerData" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
 
         <div class="chat chat-end px-3">
           <div class="chat-header">
@@ -177,7 +177,7 @@
           </div>
           <div class="chat-bubble">
             The movie I was looking for is: <strong class="gemini">{{ answerData.movie.title }}</strong>. It was released
-            at <strong class="text-primary">{{ answerData.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">{{ answerData.movie.budget.toLocaleString() }}$</strong>
+            at <strong class="text-primary">{{ answerData.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{ answerData.movie.budget.toLocaleString() }}</strong>
             and has an average rating of <strong class="text-primary">{{ answerData.movie.vote_average }}</strong> with <strong class="text-primary">{{ answerData.movie.vote_count }}</strong>
             votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" href="#" target="_blank">TMDB</a>.
           </div>
