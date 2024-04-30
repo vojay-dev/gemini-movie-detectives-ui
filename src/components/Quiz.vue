@@ -175,7 +175,12 @@
           <div class="chat-header">
             Gemini
           </div>
-          <div class="chat-bubble">The movie I was looking for is: <strong>{{ answerData.movie.title }}</strong></div>
+          <div class="chat-bubble">
+            The movie I was looking for is: <strong class="gemini">{{ answerData.movie.title }}</strong>. It was released
+            at <strong class="text-primary">{{ answerData.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">{{ answerData.movie.budget.toLocaleString() }}$</strong>
+            and has an average rating of <strong class="text-primary">{{ answerData.movie.vote_average }}</strong> with <strong class="text-primary">{{ answerData.movie.vote_count }}</strong>
+            votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" href="#" target="_blank">TMDB</a>.
+          </div>
           <div class="chat-footer opacity-50">
             Session: {{ quizData.quiz_id }}
           </div>
@@ -190,7 +195,7 @@
           <div class="chat-header">
             Gemini
           </div>
-          <div class="chat-bubble">I give you {{ answerData.result.points }} point(s)!</div>
+          <div class="chat-bubble">I give you <strong class="text-warning">{{ answerData.result.points }} point(s)</strong>!</div>
           <div class="chat-footer opacity-50">
             Points
           </div>
@@ -211,11 +216,19 @@
           </div>
         </div>
         <div v-if="!gameFinished" class="my-2">Press <kbd class="kbd">enter ↵</kbd> or click <span class="text-success">Send</span> to submit your answer, hover text to see second hint</div>
-        <div v-if="gameFinished">
-          <router-link to="/" tag="button" class="btn btn-outline btn-info w-full">
+        <div v-if="gameFinished" class="flex flex-row justify-end gap-2">
+          <router-link to="/" tag="button" class="btn btn-outline btn-info">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-linejoin="round" stroke-width="4" d="M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z" clip-rule="evenodd"/></svg>
             Back home
           </router-link>
+          <a :href="'https://www.imdb.com/title/' + quizData.movie.imdb_id" target="_blank" class="btn btn-outline btn-warning">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
+            IMDB
+          </a>
+          <a :href="'https://www.themoviedb.org/movie/' + quizData.movie.id" target="_blank" class="btn btn-outline btn-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
+            TMDB
+          </a>
         </div>
       </div>
     </div>
