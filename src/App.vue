@@ -1,45 +1,31 @@
 <template>
   <header>
     <div class="navbar bg-base-300 shadow-lg text-neutral-content">
-      <div class="flex-1">
-        <router-link to="/" class="btn btn-ghost text-xl">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M12 2c5.523 0 10 4.477 10 10a9.982 9.982 0 0 1-3.76 7.814l-.239.186H20a1 1 0 0 1 .117 1.993L20 22h-8C6.477 22 2 17.523 2 12S6.477 2 12 2m0 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16m0 10a2 2 0 1 1 0 4a2 2 0 0 1 0-4m-4-4a2 2 0 1 1 0 4a2 2 0 0 1 0-4m8 0a2 2 0 1 1 0 4a2 2 0 0 1 0-4m-4-4a2 2 0 1 1 0 4a2 2 0 0 1 0-4"/></g></svg>
-        </router-link>
+      <div class="navbar-start">
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li class="px-1"><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">Home</router-link></li>
+            <li class="px-1"><router-link to="/about" v-bind:class="{ 'active': currentRouteName === 'About' }">About</router-link></li>
+            <li class="px-1"><router-link to="/sessions" v-bind:class="{ 'active': currentRouteName === 'Sessions' }">Sessions</router-link></li>
+            <li class="px-1"><router-link to="/stats" v-bind:class="{ 'active': currentRouteName === 'Stats' }">Stats</router-link></li>
+          </ul>
+        </div>
       </div>
-      <div class="flex-none">
-        <ul class="menu menu-horizontal px-4">
-          <li class="px-1"><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">Home</router-link></li>
-          <li class="px-1"><router-link to="/quiz" v-bind:class="{ 'active': currentRouteName === 'Quiz' }">Quiz</router-link></li>
-          <li class="z-50">
-            <details>
-              <summary>Project</summary>
-              <ul class="p-2 bg-base-300 rounded-t-none">
-                <li class="px-1"><router-link to="/about" v-bind:class="{ 'active': currentRouteName === 'About' }">About</router-link></li>
-                <li class="px-1"><router-link to="/sessions" v-bind:class="{ 'active': currentRouteName === 'Sessions' }">Sessions</router-link></li>
-                <li class="px-1"><router-link to="/stats" v-bind:class="{ 'active': currentRouteName === 'Stats' }">Stats</router-link></li>
-                <li class="px-1"><a href="https://github.com/vojay-dev/gemini-movie-detectives-api" target="_blank">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-                  Backend
-                </a></li>
-                <li class="px-1"><a href="https://github.com/vojay-dev/gemini-movie-detectives-ui" target="_blank">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-                  Frontend
-                </a></li>
-                <li class="px-1"><a href="https://medium.com/towards-data-science/create-an-ai-driven-movie-quiz-with-gemini-llm-python-fastapi-pydantic-rag-and-more-e15322be4f66" target="_blank">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M0 1.5A1.5 1.5 0 0 1 1.5 0h12A1.5 1.5 0 0 1 15 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 13.5zM4 5H3V4h1.5a.5.5 0 0 1 .4.2l2.6 3.467l2.593-3.458A.5.5 0 0 1 10.5 4H12v1h-1v5h1v1H9v-1h1V6L7.5 9.333L5 6v4h1v1H3v-1h1z" clip-rule="evenodd"/></svg>
-                  Learn
-                </a></li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <label class="swap swap-rotate">
-              <input type="checkbox" class="theme-controller" value="synthwave" />
-              <svg class="swap-off fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
-              <svg class="swap-on fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><path fill="currentColor" d="M19.875 0a1 1 0 0 0-.594.281L13 6.563L9.719 3.28A1.016 1.016 0 1 0 8.28 4.72L11.562 8H3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h20a3 3 0 0 0 3-3V11a3 3 0 0 0-3-3h-8.563l6.282-6.281A1 1 0 0 0 19.875 0M10.5 10c7.445 0 8.5.021 8.5 7c0 6.98-1.128 7-8.5 7c-7.406 0-8.5-.074-8.5-7c0-6.924 1.094-7 8.5-7m12 2.938c.866 0 1.563.696 1.563 1.562a1.56 1.56 0 0 1-1.563 1.563a1.559 1.559 0 0 1-1.563-1.563a1.56 1.56 0 0 1 1.563-1.563zm0 4c.866 0 1.563.696 1.563 1.562a1.56 1.56 0 0 1-1.563 1.563a1.559 1.559 0 0 1-1.563-1.563a1.56 1.56 0 0 1 1.563-1.563z"/></svg>
-            </label>
-          </li>
-        </ul>
+      <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full bg-base-100">
+              <img :src="user ? user.photoURL : generateRoboHash()" />
+            </div>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li v-if="user"><a @click="signOut">Logout</a></li>
+            <li v-else><a @click="signinRedirect()">Sign in</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </header>
@@ -67,16 +53,42 @@
   </footer>
 </template>
 
-<script>
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+<script setup>
+import {useRoute} from 'vue-router'
+import {computed, onMounted, ref} from 'vue'
+import {useCurrentUser, useFirebaseAuth} from "vuefire";
+import {googleAuthProvider} from "./main.js";
+import {getRedirectResult, signInWithRedirect} from 'firebase/auth'
 
-export default {
-  name: 'App',
-  setup () {
-    const route = useRoute()
-    const currentRouteName = computed(() => route.name)
-    return { currentRouteName }
-  }
+const route = useRoute()
+const currentRouteName = computed(() => route.name)
+
+const auth = useFirebaseAuth()
+const user = useCurrentUser()
+
+const randomRobot = ref(Math.floor(Math.random() * 1000))
+const error = ref(null)
+
+function signinRedirect() {
+  signInWithRedirect(auth, googleAuthProvider).catch((reason) => {
+    console.error('failed signin redirect', reason)
+    error.value = reason
+  })
 }
+
+function signOut() {
+  auth.signOut()
+}
+
+function generateRoboHash() {
+  return `https://robohash.org/${randomRobot.value}`
+}
+
+// only on client side
+onMounted(() => {
+  getRedirectResult(auth).catch((reason) => {
+    console.error('failed redirect result', reason)
+    error.value = reason
+  })
+})
 </script>

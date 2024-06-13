@@ -42,8 +42,5 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'About'
-}
+<script setup>
 </script>

@@ -11,11 +11,13 @@
   "dependencies": {
     "@tsparticles/vue3": "^3.0.1",
     "daisyui": "^4.9.0",
+    "firebase": "^10.12.2",
     "pixelate": "^0.0.5",
     "tsparticles": "^3.3.0",
     "vue": "^3.4.21",
     "vue-gtag": "^2.0.1",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vuefire": "^3.1.23"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

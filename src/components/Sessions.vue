@@ -26,36 +26,28 @@
   </div>
 </template>
 
-<script>
-import { API_BASE_URI } from '../config.js'
+<script setup>
+import {API_BASE_URI} from '../config.js'
+import {onMounted, ref} from 'vue'
 
-export default {
-  name: 'Sessions',
-  data() {
-    return {
-      sessions: null,
-      loading: false,
-      error: null
+const sessions = ref(null)
+const loading = ref(false)
+const error = ref(null)
+
+async function fetchSessions() {
+  loading.value = true
+  try {
+    const response = await fetch(`${API_BASE_URI}/sessions`, {redirect: 'follow'})
+    if (!response.ok) {
+      throw new Error('Failed to fetch sessions')
     }
-  },
-  mounted() {
-    this.fetchSessions()
-  },
-  methods: {
-    async fetchSessions() {
-      this.loading = true
-      try {
-        const response = await fetch(`${API_BASE_URI}/sessions`, {redirect: 'follow'})
-        if (!response.ok) {
-          throw new Error('Failed to fetch sessions')
-        }
-        this.sessions = await response.json()
-      } catch (error) {
-        this.error = error.message
-      } finally {
-        this.loading = false
-      }
-    }
+    sessions.value = await response.json()
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
   }
 }
+
+onMounted(fetchSessions)
 </script>

@@ -4,7 +4,7 @@
       id="tsparticles"
       :options=particleSettings
   />
-  <div v-if="!gameStarted && !loading" class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${this.backgroundImg})` }">
+  <div v-if="!gameStarted && !loading" class="hero h-[calc(100vh-68px)]" :style="{ 'background-image': `url(${backgroundImg})` }">
     <div class="hero-overlay bg-opacity-95"></div>
     <div class="hero-content text-center text-neutral-content mb-16">
       <div class="max-w-screen-md">
@@ -248,152 +248,158 @@
   </dialog>
 </template>
 
+<script setup>
+import Pixelate from 'pixelate'
+import {API_BASE_URI, PARTICLE_SETTINGS} from '../config.js'
+import backgroundImg from '../assets/bg-quiz.webp'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+
+const gameStarted = ref(false)
+const gameFinished = ref(false)
+const loading = ref(false)
+const quizData = ref(null)
+const showHint2 = ref(false)
+const userInput = ref('')
+const processingAnswer = ref(false)
+const answerData = ref(null)
+const randomRobot = ref(Math.floor(Math.random() * 1000))
+const minVotes = ref(1000)
+const minAvgRating = ref(5)
+const popularity = ref(3)
+const personality = ref('default')
+const language = ref('default')
+const errorMessage = ref('')
+const particleSettings = PARTICLE_SETTINGS
+const pixelate = ref(null)
+const router = useRouter()
+
+const posterImage = ref(null)
+const posterCanvas = ref(null)
+
+function showModal() {
+  const modal = document.getElementById('errorModal')
+  modal.showModal()
+}
+
+function closeModal() {
+  const modal = document.getElementById('errorModal')
+  modal.close()
+  router.push('/')
+}
+
+async function startQuiz() {
+  try {
+    const url = `${API_BASE_URI}/quiz`
+    const requestBody = {
+      vote_avg_min: minAvgRating.value,
+      vote_count_min: minVotes.value,
+      popularity: popularity.value,
+      personality: personality.value,
+      language: language.value
+    }
+
+    loading.value = true
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody),
+      redirect: 'follow'
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(error)
+    }
+    quizData.value = await response.json()
+    gameStarted.value = true
+  } catch (error) {
+    errorMessage.value = error.toString().substring(0, 500)
+    showModal()
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function submitAnswer() {
+  if (gameFinished.value || !userInput.value.trim()) {
+    return
+  }
+
+  try {
+    const url = `${API_BASE_URI}/quiz/${quizData.value.quiz_id}/answer`
+    const requestBody = {
+      answer: userInput.value.trim()
+    }
+
+    processingAnswer.value = true
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody),
+      redirect: 'follow'
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(error)
+    }
+    answerData.value = await response.json()
+    userInput.value = ''
+  } catch (error) {
+    errorMessage.value = error.toString().substring(0, 500)
+    showModal()
+    console.error(error)
+  } finally {
+    processingAnswer.value = false
+    gameFinished.value = true
+    revealPoster()
+  }
+}
+
+function generateRoboHash() {
+  return `https://robohash.org/${randomRobot.value}`
+}
+
+async function pixelatePoster() {
+  const imageElement = posterImage.value
+  const canvasElement = posterCanvas.value
+
+  // Ensure image respects CORS
+  if (imageElement.complete) {
+    setupPixelate()
+  } else {
+    imageElement.crossOrigin = 'Anonymous'
+    imageElement.onload = setupPixelate
+    imageElement.src = `${imageElement.src}?${new Date().getTime()}`
+  }
+}
+
+function setupPixelate() {
+  const imageElement = posterImage.value
+  const canvasElement = posterCanvas.value
+
+  pixelate.value = new Pixelate(imageElement, { amount: 0.99, canvas: canvasElement })
+  imageElement.classList.toggle("hidden")
+}
+
+function revealPoster() {
+  const imageElement = posterImage.value
+
+  imageElement.classList.toggle("hidden")
+  imageElement.classList.toggle("opacity-0")
+  pixelate.value.canvas.classList.toggle("hidden")
+}
+</script>
+
 <style scoped>
 .blurred {
   filter: blur(5px);
   cursor: pointer;
 }
 </style>
-
-<script>
-import Pixelate from 'pixelate'
-import { API_BASE_URI, PARTICLE_SETTINGS } from '../config.js'
-import backgroundImg from '../assets/bg-quiz.webp'
-import { ref } from "vue"
-
-export default {
-  name: 'Quiz',
-  data() {
-    return {
-      gameStarted: false,
-      gameFinished: false,
-      loading: false,
-      quizData: null,
-      showHint2: false,
-      userInput: '',
-      processingAnswer: false,
-      answerData: null,
-      backgroundImg: backgroundImg,
-      minVotes: 1000,
-      minAvgRating: 5,
-      popularity: 3,
-      personality: ref('default'),
-      language: ref('default'),
-      errorMessage: '',
-      particleSettings: PARTICLE_SETTINGS
-    }
-  },
-  created() {
-    this.randomRobot = Math.floor(Math.random() * 1000)
-  },
-  methods: {
-    showModal() {
-      const modal = document.getElementById('errorModal')
-      modal.showModal()
-    },
-
-    closeModal() {
-      const modal = document.getElementById('errorModal')
-      modal.close()
-      // redirect to home after error message is closed
-      this.$router.push('/')
-    },
-
-    async startQuiz() {
-      try {
-        const url = `${API_BASE_URI}/quiz`
-        const requestBody = {
-          vote_avg_min: this.minAvgRating,
-          vote_count_min: this.minVotes,
-          popularity: this.popularity,
-          personality: this.personality,
-          language: this.language
-        }
-
-        this.loading = true
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(requestBody),
-          redirect: 'follow'
-        })
-
-        if (!response.ok) {
-          const error = await response.text()
-          throw new Error(error)
-        }
-        this.quizData = await response.json()
-        this.gameStarted = true
-      } catch (error) {
-        this.errorMessage = error.toString()
-        this.errorMessage = this.errorMessage.substring(0, 500)
-        this.showModal()
-        console.error(error)
-      } finally {
-        this.loading = false
-      }
-    },
-
-    async submitAnswer() {
-      if (this.gameFinished || !this.userInput.trim()) {
-        return
-      }
-
-      try {
-        const url = `${API_BASE_URI}/quiz/${this.quizData.quiz_id}/answer`
-        const requestBody = {
-          answer: this.userInput.trim()
-        }
-
-        this.processingAnswer = true
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(requestBody),
-          redirect: 'follow'
-        })
-
-        if (!response.ok) {
-          const error = await response.text()
-          throw new Error(error)
-        }
-        this.answerData = await response.json()
-        this.userInput = ''
-      } catch (error) {
-        this.errorMessage = error.toString()
-        this.errorMessage = this.errorMessage.substring(0, 500)
-        this.showModal()
-        console.error(error)
-      } finally {
-        this.processingAnswer = false
-        this.gameFinished = true
-        this.revealPoster()
-      }
-    },
-
-    generateRoboHash() {
-      return `https://robohash.org/${this.randomRobot}`
-    },
-
-    pixelatePoster() {
-      const image = this.$refs.posterImage
-      const canvas = this.$refs.posterCanvas
-
-      this.pixelate = new Pixelate(image, {amount: 0.99, canvas})
-      image.classList.toggle("hidden")
-    },
-
-    revealPoster() {
-      const image = this.$refs.posterImage
-
-      image.classList.toggle("hidden")
-      image.classList.toggle("opacity-0")
-      this.pixelate.canvas.classList.toggle("hidden")
-    }
-  }
-}
-</script>

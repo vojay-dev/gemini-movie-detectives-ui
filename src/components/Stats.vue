@@ -61,36 +61,28 @@
   </div>
 </template>
 
-<script>
-import { API_BASE_URI } from '../config.js'
+<script setup>
+import {API_BASE_URI} from '../config.js'
+import {onMounted, ref} from 'vue'
 
-export default {
-  name: 'Stats',
-  data() {
-    return {
-      stats: null,
-      loadingStats: false,
-      error: null
+const stats = ref(null)
+const loadingStats = ref(false)
+const error = ref(null)
+
+async function fetchStats() {
+  loadingStats.value = true
+  try {
+    const response = await fetch(`${API_BASE_URI}/stats`, {redirect: 'follow'})
+    if (!response.ok) {
+      throw new Error('Failed to fetch stats')
     }
-  },
-  mounted() {
-    this.fetchStats()
-  },
-  methods: {
-    async fetchStats() {
-      this.loadingStats = true
-      try {
-        const response = await fetch(`${API_BASE_URI}/stats`, {redirect: 'follow'})
-        if (!response.ok) {
-          throw new Error('Failed to fetch stats')
-        }
-        this.stats = await response.json()
-      } catch (error) {
-        this.error = error.message
-      } finally {
-        this.loadingStats = false
-      }
-    }
+    stats.value = await response.json()
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loadingStats.value = false
   }
 }
+
+onMounted(fetchStats)
 </script>
