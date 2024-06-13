@@ -84,7 +84,6 @@ function generateRoboHash() {
   return `https://robohash.org/${randomRobot.value}`
 }
 
-// only on client side
 onMounted(() => {
   getRedirectResult(auth).catch((reason) => {
     console.error('failed redirect result', reason)

@@ -16,6 +16,7 @@
     "tsparticles": "^3.3.0",
     "vue": "^3.4.21",
     "vue-gtag": "^2.0.1",
+    "vue-kinesis": "^2.0.5",
     "vue-router": "^4.0.13",
     "vuefire": "^3.1.23"
   },

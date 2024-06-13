@@ -7,7 +7,8 @@ import {loadFull} from "tsparticles";
 import VueGtag from "vue-gtag";
 import {initializeApp} from 'firebase/app'
 import {VueFire, VueFireAuth} from "vuefire";
-import { GoogleAuthProvider } from 'firebase/auth'
+import {GoogleAuthProvider} from 'firebase/auth'
+import VueKinesis from 'vue-kinesis'
 
 export const firebaseApp = initializeApp({
     apiKey: "AIzaSyBGlPfTQpNVpMS3Nu_mpSiEOwIXXE-PE74",
@@ -36,4 +37,4 @@ createApp(App).use(router).use(Particles, {
     modules: [
         VueFireAuth()
     ]
-}).mount('#app')
+}).use(VueKinesis).mount('#app')
