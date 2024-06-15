@@ -1,18 +1,24 @@
 <template>
   <header>
-    <div class="navbar bg-base-300 shadow-lg text-neutral-content">
+    <div class="navbar bg-neutral-900 shadow-lg text-neutral-content">
       <div class="navbar-start">
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
           </div>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
             <li class="px-1"><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">Home</router-link></li>
             <li class="px-1"><router-link to="/about" v-bind:class="{ 'active': currentRouteName === 'About' }">About</router-link></li>
             <li class="px-1"><router-link to="/sessions" v-bind:class="{ 'active': currentRouteName === 'Sessions' }">Sessions</router-link></li>
             <li class="px-1"><router-link to="/stats" v-bind:class="{ 'active': currentRouteName === 'Stats' }">Stats</router-link></li>
           </ul>
         </div>
+      </div>
+      <div class="navbar-center">
+        <a class="btn btn-ghost text-lg gemini">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#ffffff" d="M12 20h8v2h-8C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10a9.96 9.96 0 0 1-2 6h-2.708A8 8 0 1 0 12 20m0-10a2 2 0 1 1 0-4a2 2 0 0 1 0 4m-4 4a2 2 0 1 1 0-4a2 2 0 0 1 0 4m8 0a2 2 0 1 1 0-4a2 2 0 0 1 0 4m-4 4a2 2 0 1 1 0-4a2 2 0 0 1 0 4"/></svg>
+          Movie Detectives
+        </a>
       </div>
       <div class="navbar-end">
         <div class="dropdown dropdown-end">
@@ -21,7 +27,7 @@
               <img :src="user ? user.photoURL : generateRoboHash()" />
             </div>
           </div>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
             <li v-if="user"><a @click="signOut">Logout</a></li>
             <li v-else><a @click="signinRedirect()">Sign in</a></li>
           </ul>
