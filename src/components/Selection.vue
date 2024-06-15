@@ -9,7 +9,7 @@
       <div>
         <kinesis-container>
           <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all">
+            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all" @mouseenter="play" @mouseleave="stop">
               <figure><img src="../assets/type1.jpg" alt="Title Detectives" /></figure>
               <div class="card-body">
                 <h2 class="card-title selection-card-title">Title Detectives</h2>
@@ -25,7 +25,7 @@
       <div>
         <kinesis-container>
           <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-green-600 transition-all">
+            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-green-600 transition-all" @mouseenter="play" @mouseleave="stop">
               <figure><img src="../assets/type2.jpg" alt="AI Sequel Salad" /></figure>
               <div class="card-body">
                 <h2 class="card-title selection-card-title">AI Sequel Salad</h2>
@@ -41,7 +41,7 @@
       <div>
         <kinesis-container>
           <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-orange-600 transition-all">
+            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-orange-600 transition-all" @mouseenter="play" @mouseleave="stop">
               <figure><img src="../assets/type4.jpg" alt="Back to the Future Trivia" /></figure>
               <div class="card-body">
                 <h2 class="card-title selection-card-title">Back to the Future Trivia</h2>
@@ -57,7 +57,7 @@
       <div>
         <kinesis-container>
           <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-yellow-300 transition-all">
+            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-yellow-300 transition-all" @mouseenter="play" @mouseleave="stop">
               <figure><img src="../assets/type3.jpg" alt="Movie Fun Facts" /></figure>
               <div class="card-body">
                 <h2 class="card-title selection-card-title">Movie Fun Facts</h2>
@@ -80,6 +80,10 @@ import {useRoute, useRouter} from 'vue-router'
 import {useCurrentUser} from 'vuefire'
 import CLOUDS from 'vanta/dist/vanta.clouds.min'
 import * as THREE from 'three'
+import { useSound } from '@vueuse/sound'
+import selectionSfx from '../assets/selection.mp3'
+
+const { play, stop } = useSound(selectionSfx)
 
 const router = useRouter()
 const route = useRoute()

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tsparticles/vue3": "^3.0.1",
+    "@vueuse/sound": "^2.0.1",
     "daisyui": "^4.9.0",
     "firebase": "^10.12.2",
     "pixelate": "^0.0.5",

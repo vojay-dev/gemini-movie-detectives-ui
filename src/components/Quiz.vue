@@ -385,15 +385,15 @@ function setupPixelate() {
   const canvasElement = posterCanvas.value
 
   pixelate.value = new Pixelate(imageElement, { amount: 0.99, canvas: canvasElement })
-  imageElement.classList.toggle("hidden")
+  imageElement.classList.toggle('hidden')
 }
 
 function revealPoster() {
   const imageElement = posterImage.value
 
-  imageElement.classList.toggle("hidden")
-  imageElement.classList.toggle("opacity-0")
-  pixelate.value.canvas.classList.toggle("hidden")
+  imageElement.classList.toggle('hidden')
+  imageElement.classList.toggle('opacity-0')
+  pixelate.value.canvas.classList.toggle('hidden')
 }
 </script>
 

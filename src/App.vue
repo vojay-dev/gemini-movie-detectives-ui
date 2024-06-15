@@ -60,8 +60,8 @@
 <script setup>
 import {useRoute} from 'vue-router'
 import {computed, onMounted, ref} from 'vue'
-import {useCurrentUser, useFirebaseAuth} from "vuefire";
-import {googleAuthProvider} from "./main.js";
+import {useCurrentUser, useFirebaseAuth} from 'vuefire'
+import {googleAuthProvider} from './main.js'
 import {getRedirectResult, signInWithRedirect} from 'firebase/auth'
 
 const route = useRoute()
