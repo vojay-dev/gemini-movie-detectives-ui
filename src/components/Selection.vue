@@ -15,7 +15,7 @@
                 <h2 class="card-title selection-card-title">Title Detectives</h2>
                 <p>Guess the title of a movie based on AI generated hints</p>
                 <div class="card-actions justify-end">
-                  <button class="btn btn-primary">Start</button>
+                  <button class="btn btn-outline btn-primary btn-block">Start</button>
                 </div>
               </div>
             </div>
@@ -31,7 +31,7 @@
                 <h2 class="card-title selection-card-title">AI Sequel Salad</h2>
                 <p>The AI generates a sequel, can you guess the franchise?</p>
                 <div class="card-actions justify-end">
-                  <button class="btn btn-primary">Start</button>
+                  <button class="btn btn-outline btn-primary btn-block">Start</button>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
                 <h2 class="card-title selection-card-title">Back to the Future Trivia</h2>
                 <p>Ready for an AI adventure with Doc and Marty McFly?</p>
                 <div class="card-actions justify-end">
-                  <button class="btn btn-primary">Start</button>
+                  <button class="btn btn-outline btn-primary btn-block">Start</button>
                 </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
                 <h2 class="card-title selection-card-title">Movie Fun Facts</h2>
                 <p>Prove your movie knowledge with AI generated questions</p>
                 <div class="card-actions justify-end">
-                  <button class="btn btn-primary">Start</button>
+                  <button class="btn btn-outline btn-primary btn-block">Start</button>
                 </div>
               </div>
             </div>
@@ -107,7 +107,8 @@ const getUrlQueryParams = async () => {
 onMounted(() => {
   vantaEffect = CLOUDS({
     el: vantaRef.value,
-    THREE: THREE
+    THREE: THREE,
+    skyColor: 0xfaa382
   })
 })
 
