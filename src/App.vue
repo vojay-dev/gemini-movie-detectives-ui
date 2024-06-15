@@ -30,7 +30,11 @@
     </div>
   </header>
   <main>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
   <footer class="footer footer-center p-1 px-2 bg-base-100 bg-opacity-70 text-neutral-content fixed bottom-0">
     <aside class="items-center grid-flow-col">

@@ -1,5 +1,5 @@
 <template>
-  <div ref='vantaRef'>
+  <div ref="vantaRef">
     <div class="hero h-[calc(100vh-68px)]">
       <div class="hero-overlay bg-none"></div>
       <div class="hero-content text-center text-neutral-content">
@@ -13,7 +13,7 @@
                 <p class="mb-5"><span v-if="user">Hi, <span class="text-primary">{{ user.displayName }}!</span></span> Test your movie knowledge, powered by <span class="badge badge-info badge-outline">AI</span>!</p>
                 <div class="flex flex-wrap gap-4 items-center justify-center">
                   <div>
-                    <router-link to="/quiz" tag="button" class="btn btn-primary w-48">
+                    <router-link to="/selection" tag="button" class="btn btn-primary w-48">
                       <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path d="m4 4l2 4h3L7 4h2l2 4h3l-2-4h2l2 4h3l-2-4h3q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20H4q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4"/></svg>
                       Get started
                     </router-link>
@@ -40,12 +40,12 @@
 
 <script setup>
 import backgroundImg from '../assets/bg-home.webp'
-import {useCurrentUser, useFirebaseAuth} from "vuefire";
-import {onBeforeUnmount, onMounted, ref} from "vue";
-import {getRedirectResult, signInWithRedirect} from "firebase/auth";
-import {googleAuthProvider} from "../main.js";
+import {useCurrentUser, useFirebaseAuth} from 'vuefire'
+import {onBeforeUnmount, onMounted, ref} from 'vue'
+import {getRedirectResult, signInWithRedirect} from 'firebase/auth'
+import {googleAuthProvider} from '../main.js'
 import HALO from 'vanta/dist/vanta.halo.min'
-import * as THREE from 'three';
+import * as THREE from 'three'
 
 const auth = useFirebaseAuth()
 const user = useCurrentUser()
@@ -65,20 +65,20 @@ onMounted(() => {
   })
 })
 
-const vantaRef = ref(null);
-let vantaEffect;
+const vantaRef = ref(null)
+let vantaEffect
 
 onMounted(() => {
   vantaEffect = HALO({
     el: vantaRef.value,
     THREE: THREE,
     size: 2
-  });
-});
+  })
+})
 
 onBeforeUnmount(() => {
   if (vantaEffect) {
-    vantaEffect.destroy();
+    vantaEffect.destroy()
   }
-});
+})
 </script>

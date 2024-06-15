@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Calligraffitti&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,4 +36,33 @@
 
 .menu {
     z-index: 100;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.selection-title {
+    font-family: 'Calligraffitti', cursive;
+    font-weight: 700;
+    font-size: 5rem;
+    letter-spacing: 0.02em;
+    color: #f9f1cc;
+    text-shadow:
+        2px 2px 0 #f9a271,
+        4px 4px 0 #fcd777,
+        6px 6px 0 #f66b6b,
+        8px 8px 0 #ef333e,
+        10px 10px 0 #3284b9,
+        12px 12px 0 #654ea7;
+}
+
+.selection-card-title {
+    color: #f9f1cc;
 }
