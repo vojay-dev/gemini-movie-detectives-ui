@@ -15,7 +15,7 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">The cool kid</h2>
                   <div class="card-actions justify-end">
-                    <router-link to="/configuration" tag="button" class="btn btn-outline btn-secondary btn-block">Choose</router-link>
+                    <router-link to="/quiz" tag="button" class="btn btn-outline btn-secondary btn-block">Select</router-link>
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Dad jokes dad</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">Choose</button>
+                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Santa Claus</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">Choose</button>
+                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">The professor</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">choose</button>
+                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
                   </div>
                 </div>
               </div>
