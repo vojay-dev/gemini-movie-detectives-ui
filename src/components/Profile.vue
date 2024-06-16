@@ -3,47 +3,36 @@
     <div ref="vantaRef" class="h-[calc(100vh-68px)]">
       <div class="flex flex-row justify-center pt-10">
         <div class="avatar">
-          <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img :src="user.photoURL" />
+          <div v-if="userDoc" class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img :src="userDoc.photo" />
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row justify-center pt-3">
-        <div class="profile-user">{{ user.displayName }}</div>
+      <div v-if="userDoc" class="flex flex-row justify-center pt-3">
+        <div class="profile-user">{{ userDoc.name }}</div>
       </div>
 
-      <div class="flex flex-row justify-center pt-3 pb-10">
-        <div class="stats shadow">
+      <div v-if="userDoc" class="flex flex-row justify-center pt-3 pb-10">
+        <div class="stats shadow z-50">
 
-        <div class="stat">
-          <div class="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div class="stat">
+            <div class="stat-figure text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M44 28H28v16h16zM13 4l9 16H4zm23 16a8 8 0 1 0 0-16a8 8 0 0 0 0 16Z"/><path stroke-linecap="round" d="m4 28l16 16m0-16L4 44"/></g></svg>
+            </div>
+            <div class="stat-title">Games played</div>
+            <div class="stat-value">{{ userDoc.gamesTotal }}</div>
           </div>
-          <div class="stat-title">Games played</div>
-          <div class="stat-value">31K</div>
-          <div class="stat-desc">Jan 1st - Feb 1st</div>
-        </div>
 
-        <div class="stat">
-          <div class="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+          <div class="stat">
+            <div class="stat-figure text-success">
+              <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="4"><path stroke-linecap="round" stroke-linejoin="round" d="M13 42h22l6-21l-10 5l-7-14l-7 14l-10-5z"/><circle cx="7" cy="18" r="3"/><circle cx="24" cy="9" r="3"/><circle cx="41" cy="18" r="3"/></g></svg>
+            </div>
+            <div class="stat-title">Total score</div>
+            <div class="stat-value">{{ userDoc.scoreTotal }}</div>
           </div>
-          <div class="stat-title">Total points</div>
-          <div class="stat-value">4,200</div>
-          <div class="stat-desc">↗︎ 400 (22%)</div>
-        </div>
 
-        <div class="stat">
-          <div class="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-          </div>
-          <div class="stat-title">Favorite mode</div>
-          <div class="stat-value">1,200</div>
-          <div class="stat-desc">↘︎ 90 (14%)</div>
         </div>
-
-      </div>
       </div>
 
       <div class="flex flex-row justify-center pt-3">
@@ -57,20 +46,32 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import {useCurrentUser} from 'vuefire'
 import WAVES from 'vanta/dist/vanta.waves.min.js'
 import * as THREE from 'three'
-
-const user = useCurrentUser()
+import {getCurrentUserDocument} from "../main.js";
 
 const vantaRef = ref(null)
 let vantaEffect
 
-onMounted(() => {
+const userDoc = ref(null)
+const error = ref(null)
+
+async function fetchUserDocument() {
+  try {
+    userDoc.value = await getCurrentUserDocument()
+  } catch (err) {
+    console.error('Error fetching user document:', err.message)
+    error.value = err.message
+  }
+}
+
+onMounted(async () => {
   vantaEffect = WAVES({
     el: vantaRef.value,
     THREE: THREE
   })
+
+  await fetchUserDocument()
 })
 
 onBeforeUnmount(() => {

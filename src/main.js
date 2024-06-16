@@ -6,7 +6,7 @@ import Particles from "@tsparticles/vue3";
 import {loadFull} from "tsparticles";
 import VueGtag from "vue-gtag";
 import {initializeApp} from 'firebase/app'
-import {VueFire, VueFireAuth} from 'vuefire'
+import {getCurrentUser, VueFire, VueFireAuth} from 'vuefire'
 import {getAuth, getRedirectResult, GoogleAuthProvider, signInWithRedirect} from 'firebase/auth'
 import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
 import VueKinesis from 'vue-kinesis'
@@ -32,15 +32,28 @@ export async function handleRedirectResult() {
     try {
         const result = await getRedirectResult(auth)
         if (result && result.user) {
-            const userRef = doc(db, "users", result.user.uid)
+            const userRef = doc(db, 'users', result.user.uid)
             const userDoc = await getDoc(userRef)
 
             if (!userDoc.exists()) {
                 await setDoc(userRef, {
                     name: result.user.displayName,
                     email: result.user.email,
-                    score: 0,
-                    games: 0,
+                    photo: result.user.photoURL,
+                    score: {
+                        titleDetectives: 0,
+                        sequelSalad: 0,
+                        bttfTrivia: 0,
+                        trivia: 0
+                    },
+                    scoreTotal: 0,
+                    games: {
+                        titleDetectives: 0,
+                        sequelSalad: 0,
+                        bttfTrivia: 0,
+                        trivia: 0
+                    },
+                    gamesTotal: 0,
                     lastLogin: Date.now(),
                     uid: result.user.uid
                 })
@@ -57,6 +70,22 @@ export async function handleRedirectResult() {
 
 export function signOutUser() {
     return auth.signOut()
+}
+
+export async function getCurrentUserDocument() {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+        throw new Error('No user is currently signed in');
+    }
+
+    const userRef = await doc(db, 'users', currentUser.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (!userDoc.exists()) {
+        throw new Error('User document does not exist');
+    }
+
+    return userDoc.data();  // Returns the document data
 }
 
 createApp(App).use(router).use(Particles, {
