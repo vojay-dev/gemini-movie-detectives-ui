@@ -1,103 +1,107 @@
 <template>
-  <div ref="vantaRef" class="h-[calc(100vh-68px)]">
-    <div class="flex flex-row justify-center pt-10">
-      <div class="w-full selection-title text-center">
-        Choose a personality
+  <div>
+    <div ref="vantaRef" class="h-[calc(100vh-68px)]">
+      <div class="flex flex-row justify-center pt-10">
+        <div class="w-full selection-title text-center">
+          Choose a personality
+        </div>
+      </div>
+      <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-10">
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="20" type="depth">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+                <figure><img src="../assets/cool.jpg" alt="The cool kid" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">The cool kid</h2>
+                  <div class="card-actions justify-end">
+                    <router-link to="/configuration" tag="button" class="btn btn-outline btn-secondary btn-block">Choose</router-link>
+                  </div>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="20" type="depth">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+                <figure><img src="../assets/dad.jpg" alt="Dad jokes dad" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Dad jokes dad</h2>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-outline btn-secondary btn-block">Choose</button>
+                  </div>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="20" type="depth">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+                <figure><img src="../assets/santa.jpg" alt="Santa Claus" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Santa Claus</h2>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-outline btn-secondary btn-block">Choose</button>
+                  </div>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="20" type="depth">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+                <figure><img src="../assets/prof.jpg" alt="The professor" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">The professor</h2>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-outline btn-secondary btn-block">choose</button>
+                  </div>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
       </div>
     </div>
-    <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-10">
-      <div>
-        <kinesis-container>
-          <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
-              <figure><img src="../assets/cool.jpg" alt="The cool kid" /></figure>
-              <div class="card-body">
-                <h2 class="card-title selection-card-title">The cool kid</h2>
-                <div class="card-actions justify-end">
-                  <router-link to="/configuration" tag="button" class="btn btn-outline btn-secondary btn-block">Choose</router-link>
-                </div>
-              </div>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
-      </div>
-      <div>
-        <kinesis-container>
-          <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
-              <figure><img src="../assets/dad.jpg" alt="Dad jokes dad" /></figure>
-              <div class="card-body">
-                <h2 class="card-title selection-card-title">Dad jokes dad</h2>
-                <div class="card-actions justify-end">
-                  <button class="btn btn-outline btn-secondary btn-block">Choose</button>
-                </div>
-              </div>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
-      </div>
-      <div>
-        <kinesis-container>
-          <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
-              <figure><img src="../assets/santa.jpg" alt="Santa Claus" /></figure>
-              <div class="card-body">
-                <h2 class="card-title selection-card-title">Santa Claus</h2>
-                <div class="card-actions justify-end">
-                  <button class="btn btn-outline btn-secondary btn-block">Choose</button>
-                </div>
-              </div>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
-      </div>
-      <div>
-        <kinesis-container>
-          <kinesis-element :strength="20" type="depth">
-            <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
-              <figure><img src="../assets/prof.jpg" alt="The professor" /></figure>
-              <div class="card-body">
-                <h2 class="card-title selection-card-title">The professor</h2>
-                <div class="card-actions justify-end">
-                  <button class="btn btn-outline btn-secondary btn-block">choose</button>
-                </div>
-              </div>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
+    <div class="toast toast-start opacity-70 hover:opacity-90 transition-all">
+      <div role="alert" class="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M44 28H28v16h16zM13 4l9 16H4zm23 16a8 8 0 1 0 0-16a8 8 0 0 0 0 16Z"/><path stroke-linecap="round" d="m4 28l16 16m0-16L4 44"/></g></svg>
+        <span class="text-lg">Game mode: <span class="badge badge-lg badge-outline badge-accent">{{ formatMode(props.mode) }}</span></span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
-import {useCurrentUser} from 'vuefire'
+import {defineProps, onBeforeUnmount, onMounted, ref} from 'vue'
 import NET from 'vanta/dist/vanta.net.min'
 import * as THREE from 'three'
-import { useSound } from '@vueuse/sound'
+import {useSound} from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
 
+const props = defineProps({
+  mode: String
+})
+
 const { play, stop } = useSound(selectionSfx)
-
-const router = useRouter()
-const route = useRoute()
-
-const user = useCurrentUser()
 
 const vantaRef = ref(null)
 let vantaEffect
 
-console.log(route.query)
-
-onMounted(() => {
-  getUrlQueryParams()
-})
-
-const getUrlQueryParams = async () => {
-  await router.isReady()
-  console.log(route.query)
+function formatMode(mode) {
+  switch (mode) {
+    case 'title-detectives': return 'Title Detectives'
+    case 'sequel-salad': return 'AI Sequel Salad'
+    case 'bttf-trivia': return 'Back to the Future Trivia\n'
+    case 'trivia': return 'Movie Fun Facts'
+    default: return mode
+  }
 }
 
 onMounted(() => {
@@ -106,6 +110,8 @@ onMounted(() => {
     THREE: THREE,
     color: 0xb778ff
   })
+
+  console.log(props.mode)
 })
 
 onBeforeUnmount(() => {

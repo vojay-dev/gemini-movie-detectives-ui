@@ -66,3 +66,7 @@
 .selection-card-title {
     color: #f9f1cc;
 }
+
+.toast {
+    z-index: 100;
+}

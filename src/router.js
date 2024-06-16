@@ -45,9 +45,10 @@ const routes = [
     component: Selection
   },
   {
-    path: '/configuration',
+    path: '/configuration/:mode',
     name: 'Configuration',
-    component: Configuration
+    component: Configuration,
+    props: true
   }
 ]
 
