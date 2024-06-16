@@ -28,7 +28,7 @@
             </div>
           </div>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
-            <li v-if="user"><a @click="signOut">Logout</a></li>
+            <li v-if="user"><a @click="signOutUser()">Logout</a></li>
             <li v-else><a @click="signinRedirect()">Sign in</a></li>
           </ul>
         </div>
@@ -66,38 +66,22 @@
 <script setup>
 import {useRoute} from 'vue-router'
 import {computed, onMounted, ref} from 'vue'
-import {useCurrentUser, useFirebaseAuth} from 'vuefire'
-import {googleAuthProvider} from './main.js'
-import {getRedirectResult, signInWithRedirect} from 'firebase/auth'
+import {useCurrentUser} from 'vuefire'
+import {handleRedirectResult, signinRedirect, signOutUser} from "./main.js";
 
 const route = useRoute()
 const currentRouteName = computed(() => route.name)
 
-const auth = useFirebaseAuth()
 const user = useCurrentUser()
-
 const randomRobot = ref(Math.floor(Math.random() * 1000))
-const error = ref(null)
-
-function signinRedirect() {
-  signInWithRedirect(auth, googleAuthProvider).catch((reason) => {
-    console.error('failed signin redirect', reason)
-    error.value = reason
-  })
-}
-
-function signOut() {
-  auth.signOut()
-}
 
 function generateRoboHash() {
   return `https://robohash.org/${randomRobot.value}`
 }
 
-onMounted(() => {
-  getRedirectResult(auth).catch((reason) => {
+onMounted(async () => {
+  await handleRedirectResult().catch((reason) => {
     console.error('failed redirect result', reason)
-    error.value = reason
   })
 })
 </script>

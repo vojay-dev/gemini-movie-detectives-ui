@@ -40,30 +40,13 @@
 
 <script setup>
 import backgroundImg from '../assets/bg-home.webp'
-import {useCurrentUser, useFirebaseAuth} from 'vuefire'
+import {useCurrentUser} from 'vuefire'
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import {getRedirectResult, signInWithRedirect} from 'firebase/auth'
-import {googleAuthProvider} from '../main.js'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
+import {signinRedirect} from "../main.js";
 
-const auth = useFirebaseAuth()
 const user = useCurrentUser()
-const error = ref(null)
-
-function signinRedirect() {
-  signInWithRedirect(auth, googleAuthProvider).catch((reason) => {
-    console.error('failed signin redirect', reason)
-    error.value = reason
-  })
-}
-
-onMounted(() => {
-  getRedirectResult(auth).catch((reason) => {
-    console.error('failed redirect result', reason)
-    error.value = reason
-  })
-})
 
 const vantaRef = ref(null)
 let vantaEffect
