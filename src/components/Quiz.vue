@@ -2,7 +2,7 @@
   <div>
     <!-- particles for correct answers -->
     <vue-particles
-        v-if="answerData && answerData.result.points > 0"
+        v-if="answerData && answerData.result.points > 1"
         id="tsparticles"
         :options=particleSettings
     />
@@ -295,6 +295,9 @@ async function startQuiz(personality) {
     }
     quizData.value = await response.json()
     gameStarted.value = true
+
+    const audio = new Audio(`${API_BASE_URI}${quizData.value.speech}`)
+    audio.play()
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)
     showModal()
@@ -331,6 +334,9 @@ async function submitAnswer() {
     }
     answerData.value = await response.json()
     userInput.value = ''
+
+    const audio = new Audio(`${API_BASE_URI}${answerData.value.speech}`)
+    audio.play()
 
     if (user) {
       const updates = calculateUserDataUpdates(answerData.value.result.points, userDoc.value)
