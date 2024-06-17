@@ -15,7 +15,12 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">The cool kid</h2>
                   <div class="card-actions justify-end">
-                    <router-link to="/quiz" tag="button" class="btn btn-outline btn-secondary btn-block">Select</router-link>
+                    <router-link
+                        :to="{ name: 'Quiz', params: { personality: 'default' }}"
+                        tag="button"
+                        class="btn btn-outline btn-secondary btn-block"
+                    >Select
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -30,7 +35,12 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Dad jokes dad</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
+                    <router-link
+                        :to="{ name: 'Quiz', params: { personality: 'dad' }}"
+                        tag="button"
+                        class="btn btn-outline btn-secondary btn-block"
+                    >Select
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -45,7 +55,12 @@
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Santa Claus</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
+                    <router-link
+                        :to="{ name: 'Quiz', params: { personality: 'christmas' }}"
+                        tag="button"
+                        class="btn btn-outline btn-secondary btn-block"
+                    >Select
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -56,11 +71,16 @@
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
               <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
-                <figure><img src="../assets/prof.jpg" alt="The professor" /></figure>
+                <figure><img src="../assets/prof.jpg" alt="The scientist" /></figure>
                 <div class="card-body">
-                  <h2 class="card-title selection-card-title">The professor</h2>
+                  <h2 class="card-title selection-card-title">The scientist</h2>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-outline btn-secondary btn-block">Select</button>
+                    <router-link
+                        :to="{ name: 'Quiz', params: { personality: 'scientist' }}"
+                        tag="button"
+                        class="btn btn-outline btn-secondary btn-block"
+                    >Select
+                    </router-link>
                   </div>
                 </div>
               </div>

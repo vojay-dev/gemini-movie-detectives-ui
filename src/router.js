@@ -15,9 +15,10 @@ const routes = [
     component: Home
   },
   {
-    path: '/quiz',
+    path: '/quiz/:personality',
     name: 'Quiz',
-    component: Quiz
+    component: Quiz,
+    props: true
   },
   {
     path: '/sessions',
