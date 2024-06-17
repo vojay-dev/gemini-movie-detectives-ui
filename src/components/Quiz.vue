@@ -213,7 +213,8 @@ import avatar1 from '../assets/cool.jpg'
 import avatar2 from '../assets/dad.jpg'
 import avatar3 from '../assets/santa.jpg'
 import avatar4 from '../assets/prof.jpg'
-import {getCurrentUserDocument} from "../main.js";
+import {getCurrentUserDocument, updateUserDocument} from "../main.js";
+import {getCurrentUser} from "vuefire";
 
 const props = defineProps({
   personality: String
@@ -244,6 +245,8 @@ const posterCanvas = ref(null)
 
 const userDoc = ref(null)
 const error = ref(null)
+
+const user = getCurrentUser()
 
 async function fetchUserDocument() {
   try {
@@ -328,6 +331,11 @@ async function submitAnswer() {
     }
     answerData.value = await response.json()
     userInput.value = ''
+
+    if (user) {
+      const updates = calculateUserDataUpdates(answerData.value.result.points, userDoc.value)
+      await updateUserDocument(updates)
+    }
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)
     showModal()
@@ -336,6 +344,20 @@ async function submitAnswer() {
     processingAnswer.value = false
     gameFinished.value = true
     revealPoster()
+  }
+}
+
+function calculateUserDataUpdates(points, userDoc) {
+  const currentScoreGame = userDoc?.score?.titleDetectives || 0
+  const currentScoreTotal = userDoc?.scoreTotal || 0
+  const currentGamesGame = userDoc?.games?.titleDetectives || 0
+  const currentGamesTotal = userDoc?.gamesTotal || 0
+
+  return {
+    'score.titleDetectives': currentScoreGame + points,
+    'scoreTotal': currentScoreTotal + points,
+    'games.titleDetectives': currentGamesGame + 1,
+    'gamesTotal': currentGamesTotal + 1
   }
 }
 

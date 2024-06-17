@@ -37,7 +37,7 @@
 
       <div class="flex flex-row justify-center pt-3">
         <router-link to="/" tag="button" class="btn btn-neutral btn-wide">
-          Go Back
+          Home
         </router-link>
       </div>
     </div>

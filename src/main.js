@@ -68,6 +68,16 @@ export async function handleRedirectResult() {
     }
 }
 
+export async function updateUserDocument(updates) {
+    const currentUser = await getCurrentUser()
+    if (!currentUser) {
+        throw new Error('No user is currently signed in')
+    }
+
+    const userRef = doc(db, 'users', currentUser.uid)
+    await setDoc(userRef, updates, { merge: true })
+}
+
 export function signOutUser() {
     return auth.signOut()
 }

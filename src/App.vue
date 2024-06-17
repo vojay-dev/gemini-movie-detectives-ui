@@ -30,6 +30,7 @@
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
             <li v-if="user"><a @click="signOutUser()">Logout</a></li>
             <li v-else><a @click="signinRedirect()">Sign in</a></li>
+            <li v-if="user"><router-link tag="link" to="/profile">Profile</router-link></li>
           </ul>
         </div>
       </div>
