@@ -2,7 +2,7 @@
   <div>
     <!-- particles for correct answers -->
     <vue-particles
-        v-if="answerData && answerData.result.points > 1"
+        v-if="quizResult && quizResult.result.points > 1"
         id="tsparticles"
         :options=particleSettings
     />
@@ -91,18 +91,18 @@
         </div>
 
         <!-- Game finished -->
-        <div v-if="!processingAnswer && gameFinished && answerData" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
+        <div v-if="!processingAnswer && gameFinished && quizResult" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
 
           <div class="chat chat-end px-3">
-            <div v-if="userDoc && userDoc.photo" class="chat-image avatar">
+            <div v-if="profile && profile.photo_url" class="chat-image avatar">
               <div class="w-16 rounded-full">
-                <img alt="You" :src="userDoc.photo" />
+                <img alt="You" :src="profile.photo_url" />
               </div>
             </div>
             <div class="chat-header">
               You
             </div>
-            <div class="chat-bubble chat-bubble-info">{{ answerData.user_answer }}</div>
+            <div class="chat-bubble chat-bubble-info">{{ quizResult.user_answer }}</div>
           </div>
 
           <div class="chat chat-start px-3">
@@ -114,7 +114,7 @@
             <div class="chat-header">
               Gemini
             </div>
-            <div class="chat-bubble">{{ answerData.result.answer }}</div>
+            <div class="chat-bubble">{{ quizResult.result.answer }}</div>
             <div class="chat-footer opacity-50">
               Session: {{ quizData.quiz_id }}
             </div>
@@ -130,9 +130,13 @@
               Gemini
             </div>
             <div class="chat-bubble">
-              The movie I was looking for is: <strong class="gemini">{{ answerData.movie.title }}</strong>. It was released
-              at <strong class="text-primary">{{ answerData.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{ answerData.movie.budget.toLocaleString() }}</strong>
-              and has an average rating of <strong class="text-primary">{{ answerData.movie.vote_average }}</strong> with <strong class="text-primary">{{ answerData.movie.vote_count }}</strong>
+              The movie I was looking for is: <strong class="gemini">{{ quizResult.movie.title }}</strong>. It was released
+              at <strong class="text-primary">{{ quizResult.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{
+                quizResult.movie.budget.toLocaleString()
+              }}</strong>
+              and has an average rating of <strong class="text-primary">{{ quizResult.movie.vote_average }}</strong> with <strong class="text-primary">{{
+                quizResult.movie.vote_count
+              }}</strong>
               votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" href="#" target="_blank">TMDB</a>.
             </div>
             <div class="chat-footer opacity-50">
@@ -149,7 +153,7 @@
             <div class="chat-header">
               Gemini
             </div>
-            <div class="chat-bubble">I give you <strong class="text-warning">{{ answerData.result.points }} point(s)</strong>!</div>
+            <div class="chat-bubble">I give you <strong class="text-warning">{{ quizResult.result.points }} point(s)</strong>!</div>
             <div class="chat-footer opacity-50">
               Points
             </div>
@@ -213,7 +217,7 @@ import avatar1 from '../assets/cool.jpg'
 import avatar2 from '../assets/dad.jpg'
 import avatar3 from '../assets/santa.jpg'
 import avatar4 from '../assets/prof.jpg'
-import {getCurrentUser} from "vuefire";
+import {fetchProfile} from "../main.js";
 
 const props = defineProps({
   personality: String
@@ -226,7 +230,7 @@ const quizData = ref(null)
 const showHint2 = ref(false)
 const userInput = ref('')
 const processingAnswer = ref(false)
-const answerData = ref(null)
+const quizResult = ref(null)
 const randomRobot = ref(Math.floor(Math.random() * 1000))
 
 const errorMessage = ref('')
@@ -237,19 +241,7 @@ const router = useRouter()
 const posterImage = ref(null)
 const posterCanvas = ref(null)
 
-const userDoc = ref(null)
-const error = ref(null)
-
-const user = getCurrentUser()
-
-async function fetchUserDocument() {
-  try {
-    userDoc.value = await getCurrentUserDocument()
-  } catch (err) {
-    console.error('Error fetching user document:', err.message)
-    error.value = err.message
-  }
-}
+const profile = ref(null)
 
 function showModal() {
   const modal = document.getElementById('errorModal')
@@ -266,10 +258,10 @@ async function startQuiz(personality) {
   try {
     const url = `${API_BASE_URI}/quiz/title-detectives`
     const requestBody = {
+      quiz_type: 'title-detectives',
       personality: personality
     }
 
-    loading.value = true
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -286,14 +278,10 @@ async function startQuiz(personality) {
     quizData.value = await response.json()
     gameStarted.value = true
 
-    const audio = new Audio(`${API_BASE_URI}${quizData.value.quiz_data.speech}`)
-    audio.play()
+    return new Audio(`${API_BASE_URI}${quizData.value.quiz_data.speech}`)
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)
     showModal()
-    console.error(error)
-  } finally {
-    loading.value = false
   }
 }
 
@@ -302,9 +290,12 @@ async function submitAnswer() {
     return
   }
 
+  let speech
+
   try {
     const url = `${API_BASE_URI}/quiz/${quizData.value.quiz_id}/answer`
     const requestBody = {
+      quiz_id: quizData.value.quiz_id,
       answer: userInput.value.trim()
     }
 
@@ -322,11 +313,12 @@ async function submitAnswer() {
       const error = await response.text()
       throw new Error(error)
     }
-    answerData.value = await response.json()
+    const finishQuizResponse = await response.json()
+
+    quizResult.value = finishQuizResponse.quiz_result
     userInput.value = ''
 
-    const audio = new Audio(`${API_BASE_URI}${answerData.value.speech}`)
-    audio.play()
+    speech = new Audio(`${API_BASE_URI}${quizResult.value.speech}`)
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)
     showModal()
@@ -334,7 +326,11 @@ async function submitAnswer() {
   } finally {
     processingAnswer.value = false
     gameFinished.value = true
+
     revealPoster()
+    if (speech) {
+      await speech.play()
+    }
   }
 }
 
@@ -350,9 +346,6 @@ function getBotAvatar() {
 
 async function pixelatePoster() {
   const imageElement = posterImage.value
-  const canvasElement = posterCanvas.value
-
-  // Ensure image respects CORS
   if (imageElement.complete) {
     setupPixelate()
   } else {
@@ -379,8 +372,17 @@ function revealPoster() {
 }
 
 onMounted(async () => {
-  startQuiz(props.personality)
-  await fetchUserDocument()
+  loading.value = true
+
+  const speech = await startQuiz(props.personality)
+  const fetchProfileResult = await fetchProfile();
+
+  profile.value = fetchProfileResult.profile;
+  loading.value = false
+
+  if (speech) {
+    await speech.play()
+  }
 })
 </script>
 

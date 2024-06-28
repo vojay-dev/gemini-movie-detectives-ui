@@ -94,24 +94,17 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
-import {useCurrentUser} from 'vuefire'
+import {useRouter} from 'vue-router'
 import CLOUDS from 'vanta/dist/vanta.clouds.min'
 import * as THREE from 'three'
 import { useSound } from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
 
 const { play, stop } = useSound(selectionSfx)
-
 const router = useRouter()
-const route = useRoute()
-
-const user = useCurrentUser()
 
 const vantaRef = ref(null)
 let vantaEffect
-
-console.log(route.query)
 
 onMounted(() => {
   getUrlQueryParams()
@@ -119,7 +112,6 @@ onMounted(() => {
 
 const getUrlQueryParams = async () => {
   await router.isReady()
-  console.log(route.query)
 }
 
 onMounted(() => {
