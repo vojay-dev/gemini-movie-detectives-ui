@@ -217,7 +217,7 @@ import avatar1 from '../assets/cool.jpg'
 import avatar2 from '../assets/dad.jpg'
 import avatar3 from '../assets/santa.jpg'
 import avatar4 from '../assets/prof.jpg'
-import {fetchProfile} from "../main.js";
+import {fetchProfile, getAuthHeader} from "../main.js";
 
 const props = defineProps({
   personality: String
@@ -302,9 +302,7 @@ async function submitAnswer() {
     processingAnswer.value = true
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: await getAuthHeader(),
       body: JSON.stringify(requestBody),
       redirect: 'follow'
     })

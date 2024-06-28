@@ -34,29 +34,29 @@ export function signOutUser() {
 }
 
 export async function getAuthHeader() {
-    const currentUser = await getCurrentUser()
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+
+    const currentUser = await getCurrentUser();
 
     if (currentUser) {
-        const token = await currentUser.getIdToken()
-        const headers = {
-            'Authorization': `Bearer ${token}`
-        }
+        const token = await currentUser.getIdToken();
+        headers['Authorization'] = `Bearer ${token}`;
 
-        const userDocRef = doc(db, 'users', currentUser.uid)
-        const userDoc = await getDoc(userDocRef)
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
 
         if (!userDoc.exists()) {
             // send additional info for new registrations
             headers['X-User-Info'] = JSON.stringify({
                 displayName: currentUser.displayName,
                 photoURL: currentUser.photoURL
-            })
+            });
         }
-
-        return headers
     }
 
-    return {}
+    return headers;
 }
 
 export async function fetchProfile() {
