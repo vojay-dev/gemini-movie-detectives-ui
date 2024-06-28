@@ -33,7 +33,7 @@
             <div class="chat chat-start">
               <div class="chat-image avatar">
                 <div class="w-16 rounded-full">
-                  <img alt="Chat" :src="getBotAvatar()" />
+                  <img alt="Chat" :src="getBotAvatar(props.personality)" />
                 </div>
               </div>
               <div class="chat-header">
@@ -48,7 +48,7 @@
             <div class="chat chat-start">
               <div class="chat-image avatar">
                 <div class="w-16 rounded-full">
-                  <img alt="Chat" :src="getBotAvatar()" />
+                  <img alt="Chat" :src="getBotAvatar(props.personality)" />
                 </div>
               </div>
               <div class="chat-header">
@@ -69,7 +69,7 @@
               <div class="chat chat-start">
                 <div class="chat-image avatar">
                   <div class="w-16 rounded-full">
-                    <img alt="Chat" :src="getBotAvatar()" />
+                    <img alt="Chat" :src="getBotAvatar(props.personality)" />
                   </div>
                 </div>
                 <div class="chat-header">
@@ -108,7 +108,7 @@
           <div class="chat chat-start px-3">
             <div class="chat-image avatar">
               <div class="w-16 rounded-full">
-                <img alt="Chat" :src="getBotAvatar()" />
+                <img alt="Chat" :src="getBotAvatar(props.personality)" />
               </div>
             </div>
             <div class="chat-header">
@@ -123,7 +123,7 @@
           <div class="chat chat-start px-3">
             <div class="chat-image avatar">
               <div class="w-16 rounded-full">
-                <img alt="Chat" :src="getBotAvatar()" />
+                <img alt="Chat" :src="getBotAvatar(props.personality)" />
               </div>
             </div>
             <div class="chat-header">
@@ -147,7 +147,7 @@
           <div class="chat chat-start px-3">
             <div class="chat-image avatar">
               <div class="w-16 rounded-full">
-                <img alt="Chat" :src="getBotAvatar()" />
+                <img alt="Chat" :src="getBotAvatar(props.personality)" />
               </div>
             </div>
             <div class="chat-header">
@@ -212,13 +212,9 @@ import Pixelate from 'pixelate'
 import {API_BASE_URI, PARTICLE_SETTINGS} from '../config.js'
 import {defineProps, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
-
-import avatar1 from '../assets/cool.jpg'
-import avatar2 from '../assets/dad.jpg'
-import avatar3 from '../assets/santa.jpg'
-import avatar4 from '../assets/prof.jpg'
 import {fetchProfile, getHeaders} from "../main.js";
 import {finishQuiz, startQuiz} from "../quiz.js";
+import {getBotAvatar, playAudio} from "../util.js";
 
 const props = defineProps({
   personality: String
@@ -272,28 +268,10 @@ async function submitAnswer() {
   processingAnswer.value = false
   gameFinished.value = true
 
-  const speech = new Audio(`${API_BASE_URI}${quizResult.value.speech}`)
-  if (speech) {
-    try {
-      await speech.play()
-    } catch (err) {
-      console.log('could not play audio')
-    }
-  }
+  await playAudio(`${API_BASE_URI}${quizResult.value.speech}`)
 
   revealPoster()
 }
-
-function getBotAvatar() {
-  switch (props.personality) {
-    case 'default': return avatar1
-    case 'dad': return avatar2
-    case 'christmas': return avatar3
-    case 'scientist': return avatar4
-    default: return `https://robohash.org/${randomRobot.value}`
-  }
-}
-
 async function pixelatePoster() {
   const imageElement = posterImage.value
   if (imageElement.complete) {
@@ -334,7 +312,6 @@ onMounted(async () => {
 
   quizId.value = startQuizData.quiz_id
   quizData.value = startQuizData.quiz_data
-  const speech = new Audio(`${API_BASE_URI}${quizData.value.speech}`)
 
   const fetchProfileResult = await fetchProfile();
 
@@ -342,13 +319,7 @@ onMounted(async () => {
   loading.value = false
   gameStarted.value = true
 
-  if (speech) {
-    try {
-      await speech.play()
-    } catch (err) {
-      console.log('could not play audio')
-    }
-  }
+  await playAudio(`${API_BASE_URI}${quizData.value.speech}`)
 })
 </script>
 
