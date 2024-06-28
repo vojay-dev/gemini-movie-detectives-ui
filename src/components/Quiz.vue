@@ -213,7 +213,6 @@ import avatar1 from '../assets/cool.jpg'
 import avatar2 from '../assets/dad.jpg'
 import avatar3 from '../assets/santa.jpg'
 import avatar4 from '../assets/prof.jpg'
-import {getCurrentUserDocument, updateUserDocument} from "../main.js";
 import {getCurrentUser} from "vuefire";
 
 const props = defineProps({
@@ -330,8 +329,8 @@ async function submitAnswer() {
     audio.play()
 
     if (user) {
-      const updates = calculateUserDataUpdates(answerData.value.result.points, userDoc.value)
-      await updateUserDocument(updates)
+      // const updates = calculateUserDataUpdates(answerData.value.result.points, userDoc.value)
+      // await updateUserDocument(updates)
     }
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)

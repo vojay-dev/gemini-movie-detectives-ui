@@ -7,8 +7,9 @@ import {loadFull} from "tsparticles";
 import VueGtag from "vue-gtag";
 import {initializeApp} from 'firebase/app'
 import {getCurrentUser, VueFire, VueFireAuth} from 'vuefire'
-import {getAuth, getRedirectResult, GoogleAuthProvider, signInWithRedirect} from 'firebase/auth'
-import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
+import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import {doc, getDoc} from 'firebase/firestore'
 import VueKinesis from 'vue-kinesis'
 
 export const firebaseApp = initializeApp({
@@ -22,80 +23,39 @@ export const firebaseApp = initializeApp({
 
 export const auth = getAuth(firebaseApp)
 export const db = getFirestore(firebaseApp)
-export const googleAuthProvider = new GoogleAuthProvider()
 
-export function signinRedirect() {
-    return signInWithRedirect(auth, googleAuthProvider)
-}
-
-export async function handleRedirectResult() {
-    try {
-        const result = await getRedirectResult(auth)
-        if (result && result.user) {
-            const userRef = doc(db, 'users', result.user.uid)
-            const userDoc = await getDoc(userRef)
-
-            if (!userDoc.exists()) {
-                await setDoc(userRef, {
-                    name: result.user.displayName,
-                    email: result.user.email,
-                    photo: result.user.photoURL,
-                    score: {
-                        titleDetectives: 0,
-                        sequelSalad: 0,
-                        bttfTrivia: 0,
-                        trivia: 0
-                    },
-                    scoreTotal: 0,
-                    games: {
-                        titleDetectives: 0,
-                        sequelSalad: 0,
-                        bttfTrivia: 0,
-                        trivia: 0
-                    },
-                    gamesTotal: 0,
-                    lastLogin: Date.now(),
-                    uid: result.user.uid
-                })
-            } else {
-                await setDoc(userRef, {
-                    lastLogin: Date.now()
-                }, { merge: true })
-            }
-        }
-    } catch (error) {
-        console.error('Error handling redirect result:', error.message)
-    }
-}
-
-export async function updateUserDocument(updates) {
-    const currentUser = await getCurrentUser()
-    if (!currentUser) {
-        throw new Error('No user is currently signed in')
-    }
-
-    const userRef = doc(db, 'users', currentUser.uid)
-    await setDoc(userRef, updates, { merge: true })
+export function signInUser() {
+    return signInWithPopup(auth, new GoogleAuthProvider())
 }
 
 export function signOutUser() {
     return auth.signOut()
 }
 
-export async function getCurrentUserDocument() {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) {
-        throw new Error('No user is currently signed in');
+export async function getAuthHeader() {
+    const currentUser = await getCurrentUser()
+
+    if (currentUser) {
+        const token = await currentUser.getIdToken()
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        }
+
+        const userDocRef = doc(db, 'users', currentUser.uid)
+        const userDoc = await getDoc(userDocRef)
+
+        if (!userDoc.exists()) {
+            // send additional info for new registrations
+            headers['X-User-Info'] = JSON.stringify({
+                displayName: currentUser.displayName,
+                photoURL: currentUser.photoURL
+            })
+        }
+
+        return headers
     }
 
-    const userRef = await doc(db, 'users', currentUser.uid);
-    const userDoc = await getDoc(userRef);
-
-    if (!userDoc.exists()) {
-        throw new Error('User document does not exist');
-    }
-
-    return userDoc.data();  // Returns the document data
+    return {}
 }
 
 createApp(App).use(router).use(Particles, {

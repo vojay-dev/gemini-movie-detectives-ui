@@ -29,7 +29,7 @@
           </div>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
             <li v-if="user"><a @click="signOutUser()">Logout</a></li>
-            <li v-else><a @click="signinRedirect()">Sign in</a></li>
+            <li v-else><a @click="signInUser()">Sign in with Google</a></li>
             <li v-if="user"><router-link tag="link" to="/profile">Profile</router-link></li>
           </ul>
         </div>
@@ -66,9 +66,9 @@
 
 <script setup>
 import {useRoute} from 'vue-router'
-import {computed, onMounted, ref} from 'vue'
+import {computed, ref} from 'vue'
 import {useCurrentUser} from 'vuefire'
-import {handleRedirectResult, signinRedirect, signOutUser} from "./main.js";
+import {signInUser, signOutUser} from "./main.js";
 
 const route = useRoute()
 const currentRouteName = computed(() => route.name)
@@ -79,10 +79,4 @@ const randomRobot = ref(Math.floor(Math.random() * 1000))
 function generateRoboHash() {
   return `https://robohash.org/${randomRobot.value}`
 }
-
-onMounted(async () => {
-  await handleRedirectResult().catch((reason) => {
-    console.error('failed redirect result', reason)
-  })
-})
 </script>

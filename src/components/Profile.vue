@@ -1,19 +1,41 @@
 <template>
   <div>
     <div ref="vantaRef" class="h-[calc(100vh-68px)]">
+
+      <div v-if="loading" class="flex flex-row justify-center pt-10">
+        <div class="text-center"><span class="loading loading-lg loading-spinner text-white pt-10 z-10"></span></div>
+      </div>
+
+      <div v-if="signedOut" class="flex flex-row justify-center pt-10">
+        <div role="alert" class="alert alert-info shadow w-1/2 z-50">
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="h-6 w-6 shrink-0 stroke-current">
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Please sign in to see your profile.</span>
+        </div>
+      </div>
+
       <div class="flex flex-row justify-center pt-10">
         <div class="avatar">
-          <div v-if="userDoc" class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img :src="userDoc.photo" />
+          <div v-if="profile" class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img :src="profile.photo_url" />
           </div>
         </div>
       </div>
 
-      <div v-if="userDoc" class="flex flex-row justify-center pt-3">
-        <div class="profile-user">{{ userDoc.name }}</div>
+      <div v-if="profile" class="flex flex-row justify-center pt-3">
+        <div class="profile-user">{{ profile.display_name }}</div>
       </div>
 
-      <div v-if="userDoc" class="flex flex-row justify-center pt-3 pb-10">
+      <div v-if="profile" class="flex flex-row justify-center pt-3 pb-10">
         <div class="stats shadow z-50">
 
           <div class="stat">
@@ -21,7 +43,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M44 28H28v16h16zM13 4l9 16H4zm23 16a8 8 0 1 0 0-16a8 8 0 0 0 0 16Z"/><path stroke-linecap="round" d="m4 28l16 16m0-16L4 44"/></g></svg>
             </div>
             <div class="stat-title">Games played</div>
-            <div class="stat-value">{{ userDoc.gamesTotal }}</div>
+            <div class="stat-value">{{ profile.games_total }}</div>
           </div>
 
           <div class="stat">
@@ -29,7 +51,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="4"><path stroke-linecap="round" stroke-linejoin="round" d="M13 42h22l6-21l-10 5l-7-14l-7 14l-10-5z"/><circle cx="7" cy="18" r="3"/><circle cx="24" cy="9" r="3"/><circle cx="41" cy="18" r="3"/></g></svg>
             </div>
             <div class="stat-title">Total score</div>
-            <div class="stat-value">{{ userDoc.scoreTotal }}</div>
+            <div class="stat-value">{{profile.score_total }}</div>
           </div>
 
         </div>
@@ -45,23 +67,37 @@
 </template>
 
 <script setup>
+import {API_BASE_URI} from '../config.js'
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import WAVES from 'vanta/dist/vanta.waves.min.js'
 import * as THREE from 'three'
-import {getCurrentUserDocument} from "../main.js";
+import {getAuthHeader} from "../main.js";
 
 const vantaRef = ref(null)
 let vantaEffect
 
-const userDoc = ref(null)
+const profile = ref(null)
+const loading = ref(true)
 const error = ref(null)
+const signedOut = ref(false)
 
-async function fetchUserDocument() {
+async function fetchProfile() {
   try {
-    userDoc.value = await getCurrentUserDocument()
+    const response = await fetch(`${API_BASE_URI}/profile`, {headers: await getAuthHeader(), redirect: 'follow'})
+
+    if (response.status === 401) {
+      signedOut.value = true;
+      throw new Error('Unauthorized access');
+    }
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch profile')
+    }
+    profile.value = await response.json()
   } catch (err) {
-    console.error('Error fetching user document:', err.message)
     error.value = err.message
+  } finally {
+    loading.value = false
   }
 }
 
@@ -71,7 +107,7 @@ onMounted(async () => {
     THREE: THREE
   })
 
-  await fetchUserDocument()
+  await fetchProfile()
 })
 
 onBeforeUnmount(() => {

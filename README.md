@@ -1,3 +1,13 @@
+# REFACTORING NOTES
+
+https://codepen.io/1kodum/embed/VwGGXNe?height=300&theme-id=dark&default-tab=result&slug-hash=VwGGXNe&user=1kodum&name=cp_embed_57#result-box
+https://codepen.io/1kodum/embed/MWqqXYa?height=300&theme-id=dark&default-tab=result&slug-hash=MWqqXYa&user=1kodum&name=cp_embed_54#result-box
+https://codepen.io/jackrugile/embed/GROaam?height=300&default-tab=result&slug-hash=GROaam&user=jackrugile&name=cp_embed_41#result-box
+https://codepen.io/ahmadbassamemran/embed/bXRPdr?height=423&theme-id=dark&default-tab=result&slug-hash=bXRPdr&user=ahmadbassamemran&name=cp_embed_29#result-box
+
+
+
+
 # Gemini Movie Detectives UI
 
 **This project was created as part of the [Google AI Hackathon 2024](https://googleai.devpost.com/)**.
