@@ -127,7 +127,7 @@ function formatMode(mode) {
 function getComponent(mode) {
   switch (mode) {
     case 'title-detectives': return 'TitleDetectives'
-    case 'sequel-salad': return 'TitleDetectives'
+    case 'sequel-salad': return 'SequelSalad'
     case 'bttf-trivia': return 'TitleDetectives'
     case 'trivia': return 'TitleDetectives'
     default: return mode

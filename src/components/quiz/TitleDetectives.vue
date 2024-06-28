@@ -9,7 +9,7 @@
 
     <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4 px-4">
       <!-- loading -->
-      <div v-if="loading" class="text-center"><span class="loading loading-lg loading-spinner text-info"></span></div>
+      <div v-if="loading" class="text-center"><span class="loading loading-xl loading-spinner text-info"></span></div>
 
       <!-- game started -->
       <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4">
@@ -212,9 +212,9 @@ import Pixelate from 'pixelate'
 import {API_BASE_URI, PARTICLE_SETTINGS} from '../../config.js'
 import {defineProps, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {fetchProfile, getHeaders} from "../../main.js";
-import {finishQuiz, startQuiz} from "../../quiz.js";
-import {getBotAvatar, playAudio} from "../../util.js";
+import {fetchProfile, getHeaders} from "../../main.js"
+import {finishQuiz, startQuiz} from "../../quiz.js"
+import {getBotAvatar, playAudio} from "../../util.js"
 
 const props = defineProps({
   personality: String
@@ -312,9 +312,9 @@ onMounted(async () => {
   quizId.value = startQuizData.quiz_id
   quizData.value = startQuizData.quiz_data
 
-  const fetchProfileResult = await fetchProfile();
+  const fetchProfileResult = await fetchProfile()
 
-  profile.value = fetchProfileResult.profile;
+  profile.value = fetchProfileResult.profile
   loading.value = false
   gameStarted.value = true
 

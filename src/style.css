@@ -83,3 +83,7 @@
     1px 5px 1px #919191;
     z-index: 100;
 }
+
+.loading-xl {
+    width: 3.5rem;
+}

@@ -1,12 +1,14 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from './components/Home.vue'
 import TitleDetectives from './components/quiz/TitleDetectives.vue'
+import SequelSalad from "./components/quiz/SequelSalad.vue"
 import Sessions from './components/Sessions.vue'
 import About from './components/About.vue'
 import Stats from './components/Stats.vue'
 import Profile from './components/Profile.vue'
 import Selection from './components/Selection.vue'
 import Configuration from './components/Configuration.vue'
+
 
 const routes = [
   {
@@ -18,6 +20,12 @@ const routes = [
     path: '/title-detectives/:personality',
     name: 'TitleDetectives',
     component: TitleDetectives,
+    props: true
+  },
+  {
+    path: '/sequel-salad/:personality',
+    name: 'SequelSalad',
+    component: SequelSalad,
     props: true
   },
   {
