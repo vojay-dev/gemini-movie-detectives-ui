@@ -3,6 +3,8 @@ import avatar2 from "./assets/dad.jpg";
 import avatar3 from "./assets/santa.jpg";
 import avatar4 from "./assets/prof.jpg";
 
+const randomRobot = Math.floor(Math.random() * 1000)
+
 export async function playAudio(audioUrl) {
     const audio = new Audio(audioUrl)
 

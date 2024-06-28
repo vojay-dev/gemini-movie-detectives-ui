@@ -231,7 +231,6 @@ const showHint2 = ref(false)
 const userInput = ref('')
 const processingAnswer = ref(false)
 const quizResult = ref(null)
-const randomRobot = ref(Math.floor(Math.random() * 1000))
 
 const errorMessage = ref('')
 const particleSettings = PARTICLE_SETTINGS
