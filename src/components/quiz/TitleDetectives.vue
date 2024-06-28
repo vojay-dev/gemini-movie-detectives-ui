@@ -15,20 +15,28 @@
       <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4">
         <div class="md:row-span-2">
           <div class="divider divider-info py-4 my-6 md:hidden">Movie Poster</div>
-          <figure class="max-w-lg">
-            <img
-                ref="posterImage"
-                class="h-auto max-w-full rounded-lg opacity-0"
-                :src="quizData.movie.poster_url"
-                @load="pixelatePoster"
-            >
-          </figure>
-          <div ref="posterCanvasContainer"><canvas ref="posterCanvas" class="h-auto max-w-full rounded-lg"></canvas></div>
+          <kinesis-container>
+            <kinesis-element :strength="20" type="depth">
+              <figure class="max-w-lg">
+                <img
+                    ref="posterImage"
+                    class="h-auto max-w-full rounded-lg opacity-0"
+                    :src="quizData.movie.poster_url"
+                    @load="pixelatePoster"
+                >
+              </figure>
+              <div ref="posterCanvasContainer"><canvas ref="posterCanvas" class="h-auto max-w-full rounded-lg"></canvas></div>
+            </kinesis-element>
+          </kinesis-container>
         </div>
 
         <!-- Game running -->
         <div v-if="!processingAnswer && !gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
           <div class="grid grid-cols-1 gap-4 px-4 py-4">
+
+            <div class="w-full quiz-mode-title text-center">
+              Title Detectives
+            </div>
 
             <div class="chat chat-start">
               <div class="chat-image avatar">
@@ -271,6 +279,7 @@ async function submitAnswer() {
 
   revealPoster()
 }
+
 async function pixelatePoster() {
   const imageElement = posterImage.value
   if (imageElement.complete) {
