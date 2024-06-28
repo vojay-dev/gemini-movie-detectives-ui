@@ -43,7 +43,7 @@
       </transition>
     </router-view>
   </main>
-  <footer class="footer footer-center p-1 px-2 bg-base-100 bg-opacity-70 text-neutral-content fixed bottom-0">
+  <footer class="footer footer-center p-1 px-2 bg-base-100 bg-opacity-70 text-neutral-content fixed bottom-0 z-50">
     <aside class="items-center grid-flow-col">
       <p>© 2024 Volker Janz</p>
       <nav class="grid-flow-col gap-1 md:place-self-center md:justify-self-end">
