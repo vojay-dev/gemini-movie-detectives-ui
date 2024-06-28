@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from './components/Home.vue'
-import Quiz from './components/Quiz.vue'
+import TitleDetectives from './components/quiz/TitleDetectives.vue'
 import Sessions from './components/Sessions.vue'
 import About from './components/About.vue'
 import Stats from './components/Stats.vue'
@@ -15,9 +15,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/quiz/:personality',
-    name: 'Quiz',
-    component: Quiz,
+    path: '/title-detectives/:personality',
+    name: 'TitleDetectives',
+    component: TitleDetectives,
     props: true
   },
   {

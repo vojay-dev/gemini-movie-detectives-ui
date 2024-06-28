@@ -16,7 +16,7 @@
                   <h2 class="card-title selection-card-title">The cool kid</h2>
                   <div class="card-actions justify-end">
                     <router-link
-                        :to="{ name: 'Quiz', params: { personality: 'default' }}"
+                        :to="{ name: getComponent(props.mode), params: { personality: 'default' }}"
                         tag="button"
                         class="btn btn-outline btn-secondary btn-block"
                     >Select
@@ -36,7 +36,7 @@
                   <h2 class="card-title selection-card-title">Dad jokes dad</h2>
                   <div class="card-actions justify-end">
                     <router-link
-                        :to="{ name: 'Quiz', params: { personality: 'dad' }}"
+                        :to="{ name: getComponent(props.mode), params: { personality: 'dad' }}"
                         tag="button"
                         class="btn btn-outline btn-secondary btn-block"
                     >Select
@@ -56,7 +56,7 @@
                   <h2 class="card-title selection-card-title">Santa Claus</h2>
                   <div class="card-actions justify-end">
                     <router-link
-                        :to="{ name: 'Quiz', params: { personality: 'christmas' }}"
+                        :to="{ name: getComponent(props.mode), params: { personality: 'christmas' }}"
                         tag="button"
                         class="btn btn-outline btn-secondary btn-block"
                     >Select
@@ -76,7 +76,7 @@
                   <h2 class="card-title selection-card-title">The scientist</h2>
                   <div class="card-actions justify-end">
                     <router-link
-                        :to="{ name: 'Quiz', params: { personality: 'scientist' }}"
+                        :to="{ name: getComponent(props.mode), params: { personality: 'scientist' }}"
                         tag="button"
                         class="btn btn-outline btn-secondary btn-block"
                     >Select
@@ -118,8 +118,18 @@ function formatMode(mode) {
   switch (mode) {
     case 'title-detectives': return 'Title Detectives'
     case 'sequel-salad': return 'AI Sequel Salad'
-    case 'bttf-trivia': return 'Back to the Future Trivia\n'
+    case 'bttf-trivia': return 'Back to the Future Trivia'
     case 'trivia': return 'Movie Fun Facts'
+    default: return mode
+  }
+}
+
+function getComponent(mode) {
+  switch (mode) {
+    case 'title-detectives': return 'TitleDetectives'
+    case 'sequel-salad': return 'TitleDetectives'
+    case 'bttf-trivia': return 'TitleDetectives'
+    case 'trivia': return 'TitleDetectives'
     default: return mode
   }
 }

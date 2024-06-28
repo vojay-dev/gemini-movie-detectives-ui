@@ -209,12 +209,12 @@
 
 <script setup>
 import Pixelate from 'pixelate'
-import {API_BASE_URI, PARTICLE_SETTINGS} from '../config.js'
+import {API_BASE_URI, PARTICLE_SETTINGS} from '../../config.js'
 import {defineProps, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {fetchProfile, getHeaders} from "../main.js";
-import {finishQuiz, startQuiz} from "../quiz.js";
-import {getBotAvatar, playAudio} from "../util.js";
+import {fetchProfile, getHeaders} from "../../main.js";
+import {finishQuiz, startQuiz} from "../../quiz.js";
+import {getBotAvatar, playAudio} from "../../util.js";
 
 const props = defineProps({
   personality: String
