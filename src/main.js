@@ -11,6 +11,7 @@ import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import {doc, getDoc} from 'firebase/firestore'
 import VueKinesis from 'vue-kinesis'
+import {API_BASE_URI} from "./config.js";
 
 export const firebaseApp = initializeApp({
     apiKey: "AIzaSyBGlPfTQpNVpMS3Nu_mpSiEOwIXXE-PE74",
@@ -56,6 +57,35 @@ export async function getAuthHeader() {
     }
 
     return {}
+}
+
+export async function fetchProfile() {
+    let profile = null;
+    let error = null;
+    let signedOut = false;
+
+    try {
+        const response = await fetch(`${API_BASE_URI}/profile`, { headers: await getAuthHeader(), redirect: 'follow' });
+
+        if (response.status === 401) {
+            signedOut = true;
+            throw new Error('Unauthorized access');
+        }
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch profile');
+        }
+
+        profile = await response.json();
+    } catch (err) {
+        error = err.message;
+    }
+
+    return {
+        profile,
+        error,
+        signedOut
+    };
 }
 
 createApp(App).use(router).use(Particles, {

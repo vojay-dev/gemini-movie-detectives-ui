@@ -327,11 +327,6 @@ async function submitAnswer() {
 
     const audio = new Audio(`${API_BASE_URI}${answerData.value.speech}`)
     audio.play()
-
-    if (user) {
-      // const updates = calculateUserDataUpdates(answerData.value.result.points, userDoc.value)
-      // await updateUserDocument(updates)
-    }
   } catch (error) {
     errorMessage.value = error.toString().substring(0, 500)
     showModal()
@@ -340,20 +335,6 @@ async function submitAnswer() {
     processingAnswer.value = false
     gameFinished.value = true
     revealPoster()
-  }
-}
-
-function calculateUserDataUpdates(points, userDoc) {
-  const currentScoreGame = userDoc?.score?.titleDetectives || 0
-  const currentScoreTotal = userDoc?.scoreTotal || 0
-  const currentGamesGame = userDoc?.games?.titleDetectives || 0
-  const currentGamesTotal = userDoc?.gamesTotal || 0
-
-  return {
-    'score.titleDetectives': currentScoreGame + points,
-    'scoreTotal': currentScoreTotal + points,
-    'games.titleDetectives': currentGamesGame + 1,
-    'gamesTotal': currentGamesTotal + 1
   }
 }
 

@@ -59,6 +59,7 @@
 
       <div class="flex flex-row justify-center pt-3">
         <router-link to="/" tag="button" class="btn btn-neutral btn-wide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M249.38 336L170 256l79.38-80m-68.35 80H342"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192s192-86 192-192Z"/></svg>
           Home
         </router-link>
       </div>
@@ -67,39 +68,18 @@
 </template>
 
 <script setup>
-import {API_BASE_URI} from '../config.js'
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import WAVES from 'vanta/dist/vanta.waves.min.js'
 import * as THREE from 'three'
-import {getAuthHeader} from "../main.js";
+import {fetchProfile} from "../main.js";
 
 const vantaRef = ref(null)
 let vantaEffect
 
-const profile = ref(null)
 const loading = ref(true)
+const profile = ref(null)
 const error = ref(null)
 const signedOut = ref(false)
-
-async function fetchProfile() {
-  try {
-    const response = await fetch(`${API_BASE_URI}/profile`, {headers: await getAuthHeader(), redirect: 'follow'})
-
-    if (response.status === 401) {
-      signedOut.value = true;
-      throw new Error('Unauthorized access');
-    }
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch profile')
-    }
-    profile.value = await response.json()
-  } catch (err) {
-    error.value = err.message
-  } finally {
-    loading.value = false
-  }
-}
 
 onMounted(async () => {
   vantaEffect = WAVES({
@@ -107,7 +87,13 @@ onMounted(async () => {
     THREE: THREE
   })
 
-  await fetchProfile()
+  const result = await fetchProfile();
+
+  profile.value = result.profile;
+  error.value = result.error;
+  signedOut.value = result.signedOut;
+
+  loading.value = false;
 })
 
 onBeforeUnmount(() => {
