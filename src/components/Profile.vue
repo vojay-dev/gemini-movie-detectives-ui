@@ -35,7 +35,7 @@
         <div class="profile-user">{{ profile.display_name }}</div>
       </div>
 
-      <div v-if="profile" class="flex flex-row justify-center pt-3 pb-10">
+      <div v-if="profile" class="flex flex-row justify-center pt-3 pb-3">
         <div class="stats shadow z-50">
 
           <div class="stat">
@@ -54,6 +54,42 @@
             <div class="stat-value">{{profile.score_total }}</div>
           </div>
 
+        </div>
+      </div>
+
+      <div v-if="profile" class="flex flex-row justify-center pt-1 pb-3">
+        <div class="overflow-x-auto z-50">
+          <table class="table table-xs bg-primary-content/30 bg-opacity-80 rounded-lg">
+            <thead>
+            <tr class="border-none">
+              <th></th>
+              <th>Games played</th>
+              <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-none">
+              <th>Title Detectives</th>
+              <td>{{ profile.games_title_detectives }}</td>
+              <td>{{ profile.score_title_detectives }}</td>
+            </tr>
+            <tr class="border-none">
+              <th>AI Sequel Salad</th>
+              <td>{{ profile.games_sequel_salad }}</td>
+              <td>{{ profile.score_sequel_salad }}</td>
+            </tr>
+            <tr class="border-none">
+              <th>Back to the Future Trivia</th>
+              <td>{{ profile.games_bttf_trivia }}</td>
+              <td>{{ profile.score_bttf_trivia }}</td>
+            </tr>
+            <tr class="border-none">
+              <th>Movie Fun Facts</th>
+              <td>{{ profile.games_trivia }}</td>
+              <td>{{ profile.score_trivia }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -94,6 +130,7 @@ onMounted(async () => {
   signedOut.value = result.signedOut;
 
   loading.value = false;
+  console.log(profile.value)
 })
 
 onBeforeUnmount(() => {
