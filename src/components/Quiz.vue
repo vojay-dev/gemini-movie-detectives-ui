@@ -19,7 +19,7 @@
             <img
                 ref="posterImage"
                 class="h-auto max-w-full rounded-lg opacity-0"
-                :src="quizData.quiz_data.movie.poster_url"
+                :src="quizData.movie.poster_url"
                 @load="pixelatePoster"
             >
           </figure>
@@ -39,9 +39,9 @@
               <div class="chat-header">
                 Gemini
               </div>
-              <div class="chat-bubble">{{ quizData.quiz_data.question.question }}</div>
+              <div class="chat-bubble">{{ quizData.question.question }}</div>
               <div class="chat-footer opacity-50">
-                Session: {{ quizData.quiz_id }}
+                Session: {{ quizId }}
               </div>
             </div>
 
@@ -54,7 +54,7 @@
               <div class="chat-header">
                 Gemini
               </div>
-              <div class="chat-bubble">{{ quizData.quiz_data.question.hint1 }}</div>
+              <div class="chat-bubble">{{ quizData.question.hint1 }}</div>
               <div class="chat-footer opacity-50">
                 Hint 1
               </div>
@@ -75,7 +75,7 @@
                 <div class="chat-header">
                   Gemini
                 </div>
-                <div class="chat-bubble">{{ quizData.quiz_data.question.hint2 }}</div>
+                <div class="chat-bubble">{{ quizData.question.hint2 }}</div>
                 <div class="chat-footer opacity-50">
                   Hint 2
                 </div>
@@ -116,7 +116,7 @@
             </div>
             <div class="chat-bubble">{{ quizResult.result.answer }}</div>
             <div class="chat-footer opacity-50">
-              Session: {{ quizData.quiz_id }}
+              Session: {{ quizId }}
             </div>
           </div>
 
@@ -140,7 +140,7 @@
               votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" href="#" target="_blank">TMDB</a>.
             </div>
             <div class="chat-footer opacity-50">
-              Session: {{ quizData.quiz_id }}
+              Session: {{ quizId }}
             </div>
           </div>
 
@@ -179,11 +179,11 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-linejoin="round" stroke-width="4" d="M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z" clip-rule="evenodd"/></svg>
               Back home
             </router-link>
-            <a :href="'https://www.imdb.com/title/' + quizData.quiz_data.movie.imdb_id" target="_blank" class="btn btn-outline btn-warning">
+            <a :href="'https://www.imdb.com/title/' + quizData.movie.imdb_id" target="_blank" class="btn btn-outline btn-warning">
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
               IMDB
             </a>
-            <a :href="'https://www.themoviedb.org/movie/' + quizData.quiz_data.movie.id" target="_blank" class="btn btn-outline btn-accent">
+            <a :href="'https://www.themoviedb.org/movie/' + quizData.movie.id" target="_blank" class="btn btn-outline btn-accent">
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
               TMDB
             </a>
@@ -217,7 +217,8 @@ import avatar1 from '../assets/cool.jpg'
 import avatar2 from '../assets/dad.jpg'
 import avatar3 from '../assets/santa.jpg'
 import avatar4 from '../assets/prof.jpg'
-import {fetchProfile, getAuthHeader} from "../main.js";
+import {fetchProfile, getHeaders} from "../main.js";
+import {finishQuiz, startQuiz} from "../quiz.js";
 
 const props = defineProps({
   personality: String
@@ -226,7 +227,10 @@ const props = defineProps({
 const gameStarted = ref(false)
 const gameFinished = ref(false)
 const loading = ref(false)
+
+const quizId = ref(null)
 const quizData = ref(null)
+
 const showHint2 = ref(false)
 const userInput = ref('')
 const processingAnswer = ref(false)
@@ -254,82 +258,30 @@ function closeModal() {
   router.push('/')
 }
 
-async function startQuiz(personality) {
-  try {
-    const url = `${API_BASE_URI}/quiz/title-detectives`
-    const requestBody = {
-      quiz_type: 'title-detectives',
-      personality: personality
-    }
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody),
-      redirect: 'follow'
-    })
-
-    if (!response.ok) {
-      const error = await response.text()
-      throw new Error(error)
-    }
-    quizData.value = await response.json()
-    gameStarted.value = true
-
-    return new Audio(`${API_BASE_URI}${quizData.value.quiz_data.speech}`)
-  } catch (error) {
-    errorMessage.value = error.toString().substring(0, 500)
-    showModal()
-  }
-}
-
 async function submitAnswer() {
   if (gameFinished.value || !userInput.value.trim()) {
     return
   }
 
-  let speech
+  processingAnswer.value = true
 
-  try {
-    const url = `${API_BASE_URI}/quiz/${quizData.value.quiz_id}/answer`
-    const requestBody = {
-      quiz_id: quizData.value.quiz_id,
-      answer: userInput.value.trim()
-    }
+  const finishQuizData = await finishQuiz(quizId.value, userInput.value.trim())
+  userInput.value = ''
+  quizResult.value = finishQuizData.quiz_result
 
-    processingAnswer.value = true
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: await getAuthHeader(),
-      body: JSON.stringify(requestBody),
-      redirect: 'follow'
-    })
+  processingAnswer.value = false
+  gameFinished.value = true
 
-    if (!response.ok) {
-      const error = await response.text()
-      throw new Error(error)
-    }
-    const finishQuizResponse = await response.json()
-
-    quizResult.value = finishQuizResponse.quiz_result
-    userInput.value = ''
-
-    speech = new Audio(`${API_BASE_URI}${quizResult.value.speech}`)
-  } catch (error) {
-    errorMessage.value = error.toString().substring(0, 500)
-    showModal()
-    console.error(error)
-  } finally {
-    processingAnswer.value = false
-    gameFinished.value = true
-
-    revealPoster()
-    if (speech) {
+  const speech = new Audio(`${API_BASE_URI}${quizResult.value.speech}`)
+  if (speech) {
+    try {
       await speech.play()
+    } catch (err) {
+      console.log('could not play audio')
     }
   }
+
+  revealPoster()
 }
 
 function getBotAvatar() {
@@ -372,14 +324,30 @@ function revealPoster() {
 onMounted(async () => {
   loading.value = true
 
-  const speech = await startQuiz(props.personality)
+  const startQuizData = await startQuiz(props.personality, 'title-detectives')
+
+  if (startQuizData.error) {
+    errorMessage.value = startQuizData.error.substring(0, 500)
+    showModal()
+    return
+  }
+
+  quizId.value = startQuizData.quiz_id
+  quizData.value = startQuizData.quiz_data
+  const speech = new Audio(`${API_BASE_URI}${quizData.value.speech}`)
+
   const fetchProfileResult = await fetchProfile();
 
   profile.value = fetchProfileResult.profile;
   loading.value = false
+  gameStarted.value = true
 
   if (speech) {
-    await speech.play()
+    try {
+      await speech.play()
+    } catch (err) {
+      console.log('could not play audio')
+    }
   }
 })
 </script>

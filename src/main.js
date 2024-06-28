@@ -2,16 +2,16 @@ import {createApp} from 'vue'
 import './style.css'
 import router from './router'
 import App from './App.vue'
-import Particles from "@tsparticles/vue3";
-import {loadFull} from "tsparticles";
-import VueGtag from "vue-gtag";
+import Particles from "@tsparticles/vue3"
+import {loadFull} from "tsparticles"
+import VueGtag from "vue-gtag"
 import {initializeApp} from 'firebase/app'
 import {getCurrentUser, VueFire, VueFireAuth} from 'vuefire'
 import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import {doc, getDoc} from 'firebase/firestore'
 import VueKinesis from 'vue-kinesis'
-import {API_BASE_URI} from "./config.js";
+import {API_BASE_URI} from "./config.js"
 
 export const firebaseApp = initializeApp({
     apiKey: "AIzaSyBGlPfTQpNVpMS3Nu_mpSiEOwIXXE-PE74",
@@ -33,64 +33,64 @@ export function signOutUser() {
     return auth.signOut()
 }
 
-export async function getAuthHeader() {
+export async function getHeaders() {
     const headers = {
         'Content-Type': 'application/json'
-    };
+    }
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser()
 
     if (currentUser) {
-        const token = await currentUser.getIdToken();
-        headers['Authorization'] = `Bearer ${token}`;
+        const token = await currentUser.getIdToken()
+        headers['Authorization'] = `Bearer ${token}`
 
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
+        const userDocRef = doc(db, 'users', currentUser.uid)
+        const userDoc = await getDoc(userDocRef)
 
         if (!userDoc.exists()) {
             // send additional info for new registrations
             headers['X-User-Info'] = JSON.stringify({
                 displayName: currentUser.displayName,
                 photoURL: currentUser.photoURL
-            });
+            })
         }
     }
 
-    return headers;
+    return headers
 }
 
 export async function fetchProfile() {
-    let profile = null;
-    let error = null;
-    let signedOut = false;
+    let profile = null
+    let error = null
+    let signedOut = false
 
     try {
-        const response = await fetch(`${API_BASE_URI}/profile`, { headers: await getAuthHeader(), redirect: 'follow' });
+        const response = await fetch(`${API_BASE_URI}/profile`, { headers: await getHeaders(), redirect: 'follow' })
 
         if (response.status === 401) {
-            signedOut = true;
-            throw new Error('Unauthorized access');
+            signedOut = true
+            throw new Error('Unauthorized access')
         }
 
         if (!response.ok) {
-            throw new Error('Failed to fetch profile');
+            throw new Error('Failed to fetch profile')
         }
 
-        profile = await response.json();
+        profile = await response.json()
     } catch (err) {
-        error = err.message;
+        error = err.message
     }
 
     return {
         profile,
         error,
         signedOut
-    };
+    }
 }
 
 createApp(App).use(router).use(Particles, {
     init: async engine => {
-        await loadFull(engine);
+        await loadFull(engine)
     },
 }).use(VueGtag, {
     config: {
