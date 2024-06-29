@@ -253,8 +253,7 @@ function getOptionClasses(answer) {
     'hover:ring-4': !(processingAnswer.value || gameFinished.value),
     'hover:ring-white': !(processingAnswer.value || gameFinished.value),
     'hover:bg-green-700': !(processingAnswer.value || gameFinished.value),
-    'transition-all': true,
-    'w-full': true
+    'transition-all': true
   }
 }
 
