@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Home from './components/Home.vue'
 import TitleDetectives from './components/quiz/TitleDetectives.vue'
 import SequelSalad from "./components/quiz/SequelSalad.vue"
+import BttfTrivia from "./components/quiz/BttfTrivia.vue"
 import Sessions from './components/Sessions.vue'
 import About from './components/About.vue'
 import Stats from './components/Stats.vue'
@@ -26,6 +27,12 @@ const routes = [
     path: '/sequel-salad/:personality',
     name: 'SequelSalad',
     component: SequelSalad,
+    props: true
+  },
+  {
+    path: '/bttf-trivia/:personality',
+    name: 'BttfTrivia',
+    component: BttfTrivia,
     props: true
   },
   {

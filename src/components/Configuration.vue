@@ -128,7 +128,7 @@ function getComponent(mode) {
   switch (mode) {
     case 'title-detectives': return 'TitleDetectives'
     case 'sequel-salad': return 'SequelSalad'
-    case 'bttf-trivia': return 'TitleDetectives'
+    case 'bttf-trivia': return 'BttfTrivia'
     case 'trivia': return 'TitleDetectives'
     default: return mode
   }
