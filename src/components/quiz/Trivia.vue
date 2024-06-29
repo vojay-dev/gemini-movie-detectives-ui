@@ -9,7 +9,7 @@
 
     <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4 px-4">
       <!-- loading -->
-      <div v-if="loading" class="text-center"><span class="loading loading-xl loading-spinner text-info"></span></div>
+      <div v-if="loading" class="text-center"><LoadingAnimation loadingText="Loading" /></div>
 
       <!-- game started -->
       <div v-if="gameStarted && !loading" class="grid grid-cols-3 gap-4">
@@ -231,6 +231,7 @@ import {useRouter} from 'vue-router'
 import {fetchProfile} from "../../main.js"
 import {finishQuiz, startQuiz} from "../../quiz.js"
 import {getBotAvatar, playAudio} from "../../util.js"
+import LoadingAnimation from "../LoadingAnimation.vue";
 
 const props = defineProps({
   personality: String
