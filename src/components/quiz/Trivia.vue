@@ -81,7 +81,27 @@
           <div class="grid grid-cols-1 gap-4 px-4 py-4">
 
             <div class="w-full quiz-mode-title text-center">
-              Back to the Future Trivia
+              Movie Fun Facts
+            </div>
+
+            <div class="chat chat-start px-3">
+              <div class="chat-image avatar">
+                <div class="w-16 rounded-full">
+                  <img alt="Chat" :src="getBotAvatar(props.personality)" />
+                </div>
+              </div>
+              <div class="chat-header">
+                Gemini
+              </div>
+              <div class="chat-bubble">
+                My question is about the movie: <strong class="gemini">{{ quizData.movie.title }}</strong>. It was released
+                at <strong class="text-primary">{{ quizData.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{ quizData.movie.budget.toLocaleString() }}</strong>
+                and has an average rating of <strong class="text-primary">{{ quizData.movie.vote_average }}</strong> with <strong class="text-primary">{{ quizData.movie.vote_count }}</strong>
+                votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" :href="'https://www.themoviedb.org/movie/' + quizData.movie.id" target="_blank">TMDB</a>.
+              </div>
+              <div class="chat-footer opacity-50">
+                Session: {{ quizId }}
+              </div>
             </div>
 
             <div class="chat chat-start">
@@ -176,6 +196,14 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-linejoin="round" stroke-width="4" d="M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z" clip-rule="evenodd"/></svg>
               Back home
             </router-link>
+            <a :href="'https://www.imdb.com/title/' + quizData.movie.imdb_id" target="_blank" class="btn btn-outline btn-warning">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
+              IMDB
+            </a>
+            <a :href="'https://www.themoviedb.org/movie/' + quizData.movie.id" target="_blank" class="btn btn-outline btn-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="m7.671 2.743l-.964.964a1 1 0 0 1-1.414-1.414l.964-.965a4.536 4.536 0 0 1 6.415 6.415l-.965.964a1 1 0 1 1-1.414-1.414l.964-.965a2.536 2.536 0 0 0-3.585-3.585Zm-3.964 2.55a1 1 0 0 1 0 1.414l-.964.965a2.536 2.536 0 0 0 3.585 3.585l.965-.964a1 1 0 0 1 1.414 1.414l-.964.964a4.536 4.536 0 0 1-6.415-6.414l.965-.964a1 1 0 0 1 1.414 0m5.5.914a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 1.414 1.414z" clip-rule="evenodd"/></svg>
+              TMDB
+            </a>
           </div>
         </div>
       </div>
@@ -269,6 +297,9 @@ async function submitAnswer(answer) {
   quizResult.value = finishQuizData.quiz_result
   correctOption.value = finishQuizData.quiz_result.question.correct_answer
 
+  console.log(correctOption.value)
+  console.log(userOption.value)
+
   processingAnswer.value = false
   gameFinished.value = true
 
@@ -278,7 +309,7 @@ async function submitAnswer(answer) {
 onMounted(async () => {
   loading.value = true
 
-  const startQuizData = await startQuiz(props.personality, 'bttf-trivia')
+  const startQuizData = await startQuiz(props.personality, 'trivia')
 
   if (startQuizData.error) {
     errorMessage.value = startQuizData.error.substring(0, 500)

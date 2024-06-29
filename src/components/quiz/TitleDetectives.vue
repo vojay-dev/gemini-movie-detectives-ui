@@ -139,13 +139,9 @@
             </div>
             <div class="chat-bubble">
               The movie I was looking for is: <strong class="gemini">{{ quizResult.movie.title }}</strong>. It was released
-              at <strong class="text-primary">{{ quizResult.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{
-                quizResult.movie.budget.toLocaleString()
-              }}</strong>
-              and has an average rating of <strong class="text-primary">{{ quizResult.movie.vote_average }}</strong> with <strong class="text-primary">{{
-                quizResult.movie.vote_count
-              }}</strong>
-              votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" href="#" target="_blank">TMDB</a>.
+              at <strong class="text-primary">{{ quizResult.movie.release_date }}</strong>, was produced with a budget of <strong class="text-primary">${{ quizResult.movie.budget.toLocaleString() }}</strong>
+              and has an average rating of <strong class="text-primary">{{ quizResult.movie.vote_average }}</strong> with <strong class="text-primary">{{ quizResult.movie.vote_count }}</strong>
+              votes on <a class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" :href="'https://www.themoviedb.org/movie/' + quizData.movie.id" target="_blank">TMDB</a>.
             </div>
             <div class="chat-footer opacity-50">
               Session: {{ quizId }}

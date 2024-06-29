@@ -129,7 +129,7 @@ function getComponent(mode) {
     case 'title-detectives': return 'TitleDetectives'
     case 'sequel-salad': return 'SequelSalad'
     case 'bttf-trivia': return 'BttfTrivia'
-    case 'trivia': return 'TitleDetectives'
+    case 'trivia': return 'Trivia'
     default: return mode
   }
 }
