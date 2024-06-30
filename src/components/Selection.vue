@@ -10,7 +10,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('title-detectives')]" :data-tip="getUsageTip('title-detectives')" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('title-detectives'), getTooltipClass('title-detectives')]" :data-tip="getUsageTip('title-detectives')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type1.jpg" alt="Title Detectives" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Title Detectives</h2>
@@ -31,7 +31,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('sequel-salad')]" :data-tip="getUsageTip('sequel-salad')" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('sequel-salad'), getTooltipClass('sequel-salad')]" :data-tip="getUsageTip('sequel-salad')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type2.jpg" alt="AI Sequel Salad" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">AI Sequel Salad</h2>
@@ -52,7 +52,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('bttf-trivia')]" :data-tip="getUsageTip('bttf-trivia')" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('bttf-trivia'), getTooltipClass('bttf-trivia')]" :data-tip="getUsageTip('bttf-trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type4.jpg" alt="Back to the Future Trivia" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Back to the Future Trivia</h2>
@@ -73,7 +73,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('trivia')]" :data-tip="getUsageTip('trivia')" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('trivia'), getTooltipClass('trivia')]" :data-tip="getUsageTip('trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type3.jpg" alt="Movie Fun Facts" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Movie Fun Facts</h2>
@@ -148,6 +148,16 @@ function getUsageTip(mode) {
 
 function getStartLabel(mode) {
   return limitReached(mode) ? 'Daily Limit Reached' : 'Start'
+}
+
+function getHoverClass(mode) {
+  switch (mode) {
+    case 'title-detectives': return 'hover:ring-primary'
+    case 'sequel-salad': return 'hover:ring-accent'
+    case 'bttf-trivia': return 'hover:ring-orange-600'
+    case 'trivia': return 'hover:ring-yellow-300'
+    default: return 'hover:ring-primary'
+  }
 }
 
 function getTooltipClass(mode) {

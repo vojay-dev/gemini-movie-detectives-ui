@@ -6,16 +6,16 @@
 @tailwind utilities;
 
 .gemini {
-    background: radial-gradient(circle, #4285f4, #d96570);
+    background: linear-gradient(61deg, #217BFE 0.0%, #078EFB 27.0%, #A190FF 78.0%, #BD99FE 100.0%);
     background-clip: text;
     color: transparent;
-    animation: gemini 15s linear infinite;
+    animation: gemini 5s linear infinite;
     background-size: 200% 200%;
 }
 
 .gemini-button {
-    background: radial-gradient(circle, #4285f4, #d96570);
-    animation: gemini 15s linear infinite;
+    background: linear-gradient(61deg, #217BFE 0.0%, #078EFB 27.0%, #A190FF 78.0%, #BD99FE 100.0%);
+    animation: gemini 5s linear infinite;
     background-size: 200% 200%;
 }
 
