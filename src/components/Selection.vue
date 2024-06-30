@@ -10,17 +10,18 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('title-detectives')]" :data-tip="getUsageTip('title-detectives')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type1.jpg" alt="Title Detectives" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Title Detectives</h2>
-                  <p>Guess the title of a movie based on AI generated hints</p>
+                  <p class="text-left">Guess the title of a movie based on AI generated hints</p>
                   <div class="card-actions justify-end">
                     <router-link
                         :to="{ name: 'Configuration', params: { mode: 'title-detectives' }}"
                         tag="button"
                         class="btn btn-outline btn-primary btn-block"
-                    >Start</router-link>
+                        v-bind:disabled="limitReached('title-detectives') || null"
+                    >{{ getStartLabel('title-detectives') }}</router-link>
                   </div>
                 </div>
               </div>
@@ -30,17 +31,18 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-green-600 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('sequel-salad')]" :data-tip="getUsageTip('sequel-salad')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type2.jpg" alt="AI Sequel Salad" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">AI Sequel Salad</h2>
-                  <p>The AI generates a sequel, can you guess the franchise?</p>
+                  <p class="text-left">The AI generates a sequel, can you guess the franchise?</p>
                   <div class="card-actions justify-end">
                     <router-link
                         :to="{ name: 'Configuration', params: { mode: 'sequel-salad' }}"
                         tag="button"
                         class="btn btn-outline btn-primary btn-block"
-                    >Start</router-link>
+                        v-bind:disabled="limitReached('sequel-salad') || null"
+                    >{{ getStartLabel('sequel-salad') }}</router-link>
                   </div>
                 </div>
               </div>
@@ -50,17 +52,18 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-orange-600 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('bttf-trivia')]" :data-tip="getUsageTip('bttf-trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type4.jpg" alt="Back to the Future Trivia" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Back to the Future Trivia</h2>
-                  <p>Ready for an AI adventure with Doc and Marty McFly?</p>
+                  <p class="text-left">Ready for an AI adventure with Doc and Marty McFly?</p>
                   <div class="card-actions justify-end">
                     <router-link
                         :to="{ name: 'Configuration', params: { mode: 'bttf-trivia' }}"
                         tag="button"
                         class="btn btn-outline btn-primary btn-block"
-                    >Start</router-link>
+                        v-bind:disabled="limitReached('bttf-trivia') || null"
+                    >{{ getStartLabel('bttf-trivia') }}</router-link>
                   </div>
                 </div>
               </div>
@@ -70,17 +73,18 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-yellow-300 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-primary transition-all tooltip tooltip-bottom tooltip-primary', getTooltipClass('trivia')]" :data-tip="getUsageTip('trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type3.jpg" alt="Movie Fun Facts" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Movie Fun Facts</h2>
-                  <p>Prove your movie knowledge with AI generated questions</p>
+                  <p class="text-left">Prove your movie knowledge with AI generated questions</p>
                   <div class="card-actions justify-end">
                     <router-link
                         :to="{ name: 'Configuration', params: { mode: 'trivia' }}"
                         tag="button"
                         class="btn btn-outline btn-primary btn-block"
-                    >Start</router-link>
+                        v-bind:disabled="limitReached('trivia') || null"
+                    >{{ getStartLabel('trivia') }}</router-link>
                   </div>
                 </div>
               </div>
@@ -99,12 +103,17 @@ import CLOUDS from 'vanta/dist/vanta.clouds.min'
 import * as THREE from 'three'
 import { useSound } from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
+import {API_BASE_URI} from "../config.js";
 
 const { play, stop } = useSound(selectionSfx)
 const router = useRouter()
 
 const vantaRef = ref(null)
 let vantaEffect
+
+const loadingLimits = ref(true)
+const limits = ref(null)
+const usageCounts = ref(null)
 
 onMounted(() => {
   getUrlQueryParams()
@@ -114,12 +123,51 @@ const getUrlQueryParams = async () => {
   await router.isReady()
 }
 
+async function fetchLimits() {
+  loadingLimits.value = true
+  try {
+    const response = await fetch(`${API_BASE_URI}/limits`, {redirect: 'follow'})
+    if (!response.ok) {
+      throw new Error('Failed to fetch limits')
+    }
+    const response_json = await response.json()
+    limits.value = response_json['limits']
+    usageCounts.value = response_json['usage_counts']
+  } catch (err) {
+    console.log(err)
+  } finally {
+    loadingLimits.value = false
+  }
+}
+
+function getUsageTip(mode) {
+  return loadingLimits.value ?
+      'Loading usage counts...' :
+      `Daily usage: ${usageCounts.value[mode]}/${limits.value[mode]}`
+}
+
+function getStartLabel(mode) {
+  return limitReached(mode) ? 'Daily Limit Reached' : 'Start'
+}
+
+function getTooltipClass(mode) {
+  return limitReached(mode) ? 'tooltip-error' : 'tooltip-success'
+}
+
+function limitReached(mode) {
+  return usageCounts.value &&
+      limits.value &&
+      usageCounts.value[mode] >= limits.value[mode]
+}
+
 onMounted(() => {
   vantaEffect = CLOUDS({
     el: vantaRef.value,
     THREE: THREE,
     skyColor: 0xfaa382
   })
+
+  fetchLimits()
 })
 
 onBeforeUnmount(() => {
