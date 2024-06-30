@@ -9,8 +9,6 @@
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
             <li class="px-1"><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">Home</router-link></li>
             <li class="px-1"><router-link to="/about" v-bind:class="{ 'active': currentRouteName === 'About' }">About</router-link></li>
-            <li class="px-1"><router-link to="/sessions" v-bind:class="{ 'active': currentRouteName === 'Sessions' }">Sessions</router-link></li>
-            <li class="px-1"><router-link to="/stats" v-bind:class="{ 'active': currentRouteName === 'Stats' }">Stats</router-link></li>
           </ul>
         </div>
       </div>

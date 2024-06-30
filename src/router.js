@@ -4,9 +4,7 @@ import TitleDetectives from './components/quiz/TitleDetectives.vue'
 import SequelSalad from "./components/quiz/SequelSalad.vue"
 import BttfTrivia from "./components/quiz/BttfTrivia.vue"
 import Trivia from "./components/quiz/Trivia.vue"
-import Sessions from './components/Sessions.vue'
 import About from './components/About.vue'
-import Stats from './components/Stats.vue'
 import Profile from './components/Profile.vue'
 import Selection from './components/Selection.vue'
 import Configuration from './components/Configuration.vue'
@@ -43,19 +41,9 @@ const routes = [
     props: true
   },
   {
-    path: '/sessions',
-    name: 'Sessions',
-    component: Sessions
-  },
-  {
     path: '/about',
     name: 'About',
     component: About
-  },
-  {
-    path: '/stats',
-    name: 'Stats',
-    component: Stats
   },
   {
     path: '/profile',
