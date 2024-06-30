@@ -12,7 +12,7 @@
       <div v-if="loading" class="text-center"><LoadingAnimation loadingText="Loading" /></div>
 
       <!-- game started -->
-      <div v-if="gameStarted && !loading" class="grid grid-cols-3 gap-4">
+      <div v-if="gameStarted && !loading" class="grid grid-cols-3 gap-4 w-full">
 
         <div class="row-span-2 bg-base-300 p-2 rounded-3xl">
           <div>
