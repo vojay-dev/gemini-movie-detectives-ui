@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto h-[calc(100vh-68px)] pt-5 pb-10">
     <VueFlow :nodes="nodes" :edges="edges" @nodeDragStop="onNodeDragStop">
-      <MiniMap />
+      <MiniMap maskColor="rgb(7, 14, 29, 0.7)" />
       <Background />
     </VueFlow>
   </div>
@@ -13,18 +13,25 @@ import {Background} from '@vue-flow/background'
 import {MiniMap} from '@vue-flow/minimap'
 import {ref} from "vue";
 
-const position = { x: 0, y: 0 }
 const nodes = ref([
-  { id: '1', position, data: { label: 'Node 1' }},
-  { id: '2', position, data: { label: 'Node 2' }},
-  { id: '3', position, data: { label: 'Node 3' }}
+  {"id":"backend","position":{"x":542,"y":463},"data":{"label":"Movie Detectives Backend (FastAPI)"},"style":{"backgroundColor": "#4bffc8"}},
+  {"id":"frontend","position":{"x":856,"y":596},"data":{"label":"Movie Detectives Frontend (VueJS)"},"style":{"backgroundColor": "#4bffc8"}},
+  {"id":"gemini","position":{"x":120,"y":206},"data":{"label":"Gemini"},"style":{"backgroundColor": "#4ba4ff"}},
+  {"id":"imagen","position":{"x":264,"y":98},"data":{"label":"Imagen"},"style":{"backgroundColor": "#4ba4ff"}},
+  {"id":"tts","position":{"x":542,"y":28},"data":{"label":"Google Text-to-Speech"},"style":{"backgroundColor": "#da87ff"}},
+  {"id":"firebase","position":{"x":1066,"y":206},"data":{"label":"Firebase"},"style":{"backgroundColor": "#ff7070"}},
+  {"id":"wiki","position":{"x":880,"y":98},"data":{"label":"Wikipedia"},"style":{"backgroundColor": "#c3ff6e"}}
 ])
 
 // these are our edges
 const edges = ref([
-  { id: 'e1->2', source: '1', target: '2'},
-  { id: 'e2->3', source: '2', target: '3', animated: true },
-  { id: 'e3->4', source: '3', target: '4' }
+  { id: '1', source: 'backend', target: 'frontend' },
+  { id: '2', source: 'gemini', target: 'backend', animated: true, label: "Quiz generation" },
+  { id: '3', source: 'imagen', target: 'backend', animated: true, label: "Fake movie poster generation" },
+  { id: '4', source: 'tts', target: 'backend', animated: true, label: "Speech synthesis" },
+  { id: '5', source: 'firebase', target: 'backend', animated: true, label: "User data, franchise data, usage data, authentication" },
+  { id: '6', source: 'wiki', target: 'backend', animated: true, label: "Context data about movies and franchises" },
+  { id: '7', source: 'firebase', target: 'frontend', animated: true, label: "Authentication" }
 ])
 
 // log nodes on drag stop to help creating layout
