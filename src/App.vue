@@ -1,4 +1,5 @@
 <template>
+  <CustomCursor />
   <header>
     <div class="navbar bg-neutral-900 shadow-lg text-neutral-content">
       <div class="navbar-start">
@@ -75,6 +76,7 @@ import {useRoute} from 'vue-router'
 import {computed, ref} from 'vue'
 import {useCurrentUser} from 'vuefire'
 import {signInUser, signOutUser} from "./main.js";
+import CustomCursor from "./components/CustomCursor.vue";
 
 const route = useRoute()
 const currentRouteName = computed(() => route.name)
