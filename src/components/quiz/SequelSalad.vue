@@ -207,7 +207,7 @@ import {useRouter} from 'vue-router'
 import {fetchProfile} from "../../main.js"
 import {finishQuiz, startQuiz} from "../../quiz.js"
 import {getBotAvatar, playAudio} from "../../util.js"
-import LoadingAnimation from "../LoadingAnimation.vue";
+import LoadingAnimation from "../LoadingAnimation.vue"
 
 const props = defineProps({
   personality: String
@@ -229,8 +229,7 @@ const particleSettings = PARTICLE_SETTINGS
 const router = useRouter()
 
 const profile = ref(null)
-
-const imageError = ref(false);
+const imageError = ref(false)
 
 function showModal() {
   const modal = document.getElementById('errorModal')
@@ -244,7 +243,7 @@ function closeModal() {
 }
 
 function handleImageError() {
-  imageError.value = true;
+  imageError.value = true
 }
 
 async function submitAnswer() {

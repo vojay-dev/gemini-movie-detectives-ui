@@ -45,7 +45,7 @@ import {useCurrentUser} from 'vuefire'
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
-import {signInUser} from "../main.js";
+import {signInUser} from "../main.js"
 
 const user = useCurrentUser()
 

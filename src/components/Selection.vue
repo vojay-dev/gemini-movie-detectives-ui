@@ -103,7 +103,7 @@ import CLOUDS from 'vanta/dist/vanta.clouds.min'
 import * as THREE from 'three'
 import { useSound } from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
-import {API_BASE_URI} from "../config.js";
+import {API_BASE_URI} from "../config.js"
 
 const { play, stop } = useSound(selectionSfx)
 const router = useRouter()

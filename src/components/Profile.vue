@@ -107,7 +107,7 @@
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import WAVES from 'vanta/dist/vanta.waves.min.js'
 import * as THREE from 'three'
-import {fetchProfile} from "../main.js";
+import {fetchProfile} from "../main.js"
 
 const vantaRef = ref(null)
 let vantaEffect
@@ -123,13 +123,13 @@ onMounted(async () => {
     THREE: THREE
   })
 
-  const result = await fetchProfile();
+  const result = await fetchProfile()
 
-  profile.value = result.profile;
-  error.value = result.error;
-  signedOut.value = result.signedOut;
+  profile.value = result.profile
+  error.value = result.error
+  signedOut.value = result.signedOut
 
-  loading.value = false;
+  loading.value = false
   console.log(profile.value)
 })
 

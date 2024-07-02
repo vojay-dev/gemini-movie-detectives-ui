@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import {VueFlow} from "@vue-flow/core";
+import {VueFlow} from "@vue-flow/core"
 import {Background} from '@vue-flow/background'
 import {MiniMap} from '@vue-flow/minimap'
-import {ref} from "vue";
+import {ref} from "vue"
 
 const nodes = ref([
   {"id":"backend","position":{"x":542,"y":463},"data":{"label":"Movie Detectives Backend (FastAPI)"},"style":{"backgroundColor": "#4bffc8"}},
