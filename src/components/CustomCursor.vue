@@ -1,5 +1,8 @@
 <template>
-  <div class="custom-cursor" :style="cursorStyle"></div>
+  <div v-if="isDesktop">
+    <div class="custom-cursor" :style="cursorStyle"></div>
+    <div class="inner-cursor" :style="innerCursorStyle"></div>
+  </div>
 </template>
 
 <script setup>
@@ -12,10 +15,17 @@ const cursorStyle = ref({
   height: '30px'
 })
 
+const innerCursorStyle = ref({
+  left: '0px',
+  top: '0px',
+})
+
 let targetX = 0
 let targetY = 0
 let currentX = 0
 let currentY = 0
+
+const isDesktop = ref(!('ontouchstart' in window || navigator.maxTouchPoints > 0))
 
 // linear interpolation to smooth the motion
 function lerp(start, end, factor) {
@@ -26,6 +36,10 @@ function lerp(start, end, factor) {
 function updateCursorPosition(e) {
   targetX = e.clientX
   targetY = e.clientY
+
+  // Update inner cursor position immediately
+  innerCursorStyle.value.left = `${e.clientX}px`
+  innerCursorStyle.value.top = `${e.clientY}px`
 
   const target = e.target
   const isClickable =
@@ -57,12 +71,16 @@ function animateCursor() {
 }
 
 onMounted(() => {
-  window.addEventListener('mousemove', updateCursorPosition)
-  animateCursor()
+  if (isDesktop.value) {
+    window.addEventListener('mousemove', updateCursorPosition)
+    animateCursor()
+  }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', updateCursorPosition)
+  if (isDesktop.value) {
+    window.removeEventListener('mousemove', updateCursorPosition)
+  }
 })
 </script>
 
@@ -76,5 +94,16 @@ onUnmounted(() => {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width 0.3s ease, height 0.3s ease;
+}
+
+.inner-cursor {
+  position: fixed;
+  pointer-events: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #217BFE;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
 }
 </style>
