@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Calligraffitti&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -237,4 +239,9 @@
 .vue-flow__edges path {
     stroke-width: 2;
     stroke: url(#gradient-stroke) #217BFE;
+}
+
+.home-title {
+    font-family: 'Montserrat', cursive;
+    font-weight: 400;
 }
