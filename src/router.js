@@ -8,6 +8,7 @@ import About from './components/About.vue'
 import Profile from './components/Profile.vue'
 import Selection from './components/Selection.vue'
 import Configuration from './components/Configuration.vue'
+import Admin from './components/Admin.vue'
 
 
 const routes = [
@@ -60,7 +61,12 @@ const routes = [
     name: 'Configuration',
     component: Configuration,
     props: true
-  }
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
+  },
 ]
 
 
