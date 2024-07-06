@@ -56,7 +56,24 @@
           The backend infrastructure is built with FastAPI and Python, employing the Retrieval-Augmented Generation (RAG)
           methodology to enrich queries with real-time metadata. Utilizing Jinja templating, the backend modularizes
           prompt generation into base, personality, and data enhancement templates, enabling the generation of accurate
-          and engaging quiz questions.
+          and engaging quiz questions in different game modes. Each game mode uses a different combination of data source
+          showcasing the broad range of possibilities how to employ advanced Gemini applications.
+        </p>
+        <p class="mb-2 text-justify">
+          In addition to Gemini, the application leverages Google's state-of-the-art Text-to-Speech AI to synthesize quiz
+          questions, dramatically enhancing the immersive atmosphere of a professional trivia game show. Moreover, the
+          Sequel Salad game mode demonstrates the power of AI integration by utilizing Gemini to generate creative prompts.
+          These prompts are then seamlessly fed into Google's cutting-edge Imagen text-to-image diffusion model, producing
+          fake movie posters. This sophisticated interplay of various AI models showcases the limitless potential for
+          creating captivating and dynamic game experiences, pushing the boundaries of what's possible in interactive
+          entertainment.
+        </p>
+        <p class="mb-2 text-justify">
+          The application's infrastructure is further strengthened by the integration of Google Firebase. This integration
+          enables secure user authentication, facilitating personalized interactions within the app. Firestore is used to
+          store and manage essential user data, powering the dynamic rendering of user profiles with game statistics.
+          Additionally, it handles crucial metadata, including movie franchise information and game mode usage metrics
+          together with configurable limits, allowing for precise control over daily operational costs.
         </p>
         <h2 class="text-2xl gemini">Frontend</h2>
         <p class="mb-2 text-justify">
@@ -70,9 +87,13 @@
           scoring and personalized responses. This showcases the potential of integrating LLM with RAG in game design and
           development, paving the way for truly individualized gaming experiences. Furthermore, it demonstrates the
           potential for creating engaging quiz trivia or educational games by involving LLM. Adding and changing personalities
-          or languages is as easy as adding more Jinja template modules. With very little effort, this can change the
-          full game experience, reducing the effort for developers. Try it yourself and change the AI personality
-          in the quiz configuration.
+          is as easy as adding more Jinja template modules. With very little effort, this can change the full game experience,
+          reducing the effort for developers. Try it yourself and change the AI personality in the quiz configuration.
+        </p>
+        <p class="mb-2 text-justify">
+          Movie Detectives tackles the challenge of maintaining student interest, improving knowledge retention, and making
+          learning enjoyable. It's not just a movie quiz; it’s a glimpse into AI-enhanced education, pushing boundaries
+          for accessible, engaging, and effective learning experiences.
         </p>
     </div>
   </div>
