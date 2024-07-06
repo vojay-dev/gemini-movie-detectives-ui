@@ -5,6 +5,7 @@ import SequelSalad from "./components/quiz/SequelSalad.vue"
 import BttfTrivia from "./components/quiz/BttfTrivia.vue"
 import Trivia from "./components/quiz/Trivia.vue"
 import About from './components/About.vue'
+import System from './components/System.vue'
 import Profile from './components/Profile.vue'
 import Selection from './components/Selection.vue'
 import Configuration from './components/Configuration.vue'
@@ -45,6 +46,11 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About
+  },
+  {
+    path: '/system',
+    name: 'System',
+    component: System
   },
   {
     path: '/profile',

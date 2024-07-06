@@ -1,64 +1,81 @@
 <template>
-  <div class="container mx-auto h-[calc(100vh-68px)] pt-5 pb-10">
-    <svg width="0" height="0">
-      <defs>
-        <linearGradient id="gradient-stroke" gradientUnits="objectBoundingBox" gradientTransform="rotate(100)">
-          <stop offset="0%" stop-color="#217BFE"/>
-          <stop offset="27%" stop-color="#078EFB"/>
-          <stop offset="50%" stop-color="#A190FF"/>
-          <stop offset="100%" stop-color="#BD99FE"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    <VueFlow :nodes="nodes" :edges="edges" @nodeDragStop="onNodeDragStop">
-      <MiniMap maskColor="rgb(7, 14, 29, 0.7)" />
-      <Background />
-    </VueFlow>
+  <div class="flex w-3/5 flex-col border-opacity-50 mx-auto pt-10">
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
+      <h1 class="mb-5 text-5xl font-bold">About <span class="gemini">Movie Detectives</span></h1>
+    </div>
+
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
+      <p class="mb-2 text-justify">
+        Gemini Movie Detectives harnesses Google's AI to revolutionize educational gaming, transforming movie trivia
+        into a proof-of-concept gateway for AI-driven, adaptive learning across all subjects, challenging your inner
+        movie nerd while showcasing how AI can reshape education in schools and universities.
+      </p>
+
+      <div role="alert" class="alert">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="h-6 w-6 shrink-0 stroke-current">
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>
+          To manage costs and maintain the prototype as a free-to-use service, I've implemented daily limits for each
+          game mode. You can find these limits displayed on the game mode selection screen. They reset automatically at
+          midnight, ensuring a fresh start each day.
+        </span>
+      </div>
+
+    </div>
+
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
+      <img src="../assets/competition-star.svg" alt="Gemini API Developer Competition" />
+    </div>
+
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
+      <p class="mb-2 text-justify">
+        This project was created as part of the <a href="https://ai.google.dev/competition" class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" target="_blank">Gemini API Developer Competition 2024</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
+      <img src="../assets/system-overview.png" alt="system overview" width="1200px" />
+    </div>
+
+    <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-20">
+        <h2 class="text-2xl gemini">Backend</h2>
+        <p class="mb-2 text-justify">
+          The backend infrastructure is built with FastAPI and Python, employing the Retrieval-Augmented Generation (RAG)
+          methodology to enrich queries with real-time metadata. Utilizing Jinja templating, the backend modularizes
+          prompt generation into base, personality, and data enhancement templates, enabling the generation of accurate
+          and engaging quiz questions.
+        </p>
+        <h2 class="text-2xl gemini">Frontend</h2>
+        <p class="mb-2 text-justify">
+          The frontend is powered by Vue 3 and Vite, supported by daisyUI and Tailwind CSS for efficient frontend
+          development. Together, these tools provide users with a sleek and modern interface for seamless interaction
+          with the backend.
+        </p>
+        <h2 class="text-2xl gemini">Conclusion</h2>
+        <p class="mb-2 text-justify">
+          In Movie Detectives, quiz answers are interpreted by the Language Model (LLM) once again, allowing for dynamic
+          scoring and personalized responses. This showcases the potential of integrating LLM with RAG in game design and
+          development, paving the way for truly individualized gaming experiences. Furthermore, it demonstrates the
+          potential for creating engaging quiz trivia or educational games by involving LLM. Adding and changing personalities
+          or languages is as easy as adding more Jinja template modules. With very little effort, this can change the
+          full game experience, reducing the effort for developers. Try it yourself and change the AI personality
+          in the quiz configuration.
+        </p>
+    </div>
   </div>
 </template>
 
 <script setup>
-import {VueFlow} from "@vue-flow/core"
-import {Background} from '@vue-flow/background'
-import {MiniMap} from '@vue-flow/minimap'
-import {ref} from "vue"
-
-const nodes = ref([
-  {"id":"backend","position":{"x":542,"y":463},"data":{"label":"Movie Detectives Backend (FastAPI)"},"style":{"backgroundColor":"#4bffc8"}},
-  {"id":"frontend","position":{"x":856,"y":596},"data":{"label":"Movie Detectives Frontend (VueJS)"},"style":{"backgroundColor":"#4bffc8"}},
-  {"id":"gemini","position":{"x":120,"y":206},"data":{"label":"Gemini"},"style":{"backgroundColor":"#4ba4ff"}},
-  {"id":"imagen","position":{"x":264,"y":98},"data":{"label":"Imagen"},"style":{"backgroundColor":"#4ba4ff"}},
-  {"id":"tts","position":{"x":552,"y":28},"data":{"label":"Google Text-to-Speech"},"style":{"backgroundColor":"#da87ff"}},
-  {"id":"firebase","position":{"x":1137,"y":310},"data":{"label":"Firebase"},"style":{"backgroundColor":"#ff7070"}},
-  {"id":"wiki","position":{"x":880,"y":98},"data":{"label":"Wikipedia"},"style":{"backgroundColor":"#c3ff6e"}},
-  {"id":"tmdb","position":{"x":1076,"y":206},"data":{"label":"The Movie Database"},"style":{"backgroundColor":"#ffc66e"}}
-])
-
-// these are our edges
-const edges = ref([
-  { id: '1', source: 'backend', target: 'frontend' },
-  { id: '2', source: 'gemini', target: 'backend', animated: true, label: "Quiz generation" },
-  { id: '3', source: 'imagen', target: 'backend', animated: true, label: "Fake movie poster generation" },
-  { id: '4', source: 'tts', target: 'backend', animated: true, label: "Speech synthesis" },
-  { id: '5', source: 'firebase', target: 'backend', animated: true, label: "User data, franchise data, usage data, authentication" },
-  { id: '6', source: 'wiki', target: 'backend', animated: true, label: "Context data about movies and franchises" },
-  { id: '7', source: 'tmdb', target: 'backend', animated: true, label: "Movie metadata" },
-  { id: '8', source: 'firebase', target: 'frontend', animated: true, label: "Authentication" }
-])
-
-// log nodes on drag stop to help creating layout
-function onNodeDragStop(event) {
-  nodes.value.forEach((node) => {
-    if (node.id === event.node.id) {
-      node.position = event.node.position
-    }
-  })
-
-  console.log(JSON.stringify(nodes.value))
-}
 </script>
 
 <style>
-@import '@vue-flow/core/dist/style.css';
-@import '@vue-flow/core/dist/theme-default.css';
 </style>
