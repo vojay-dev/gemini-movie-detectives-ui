@@ -40,7 +40,6 @@
 </template>
 
 <script setup>
-import backgroundImg from '../assets/bg-home.webp'
 import {useCurrentUser} from 'vuefire'
 import {onBeforeUnmount, onMounted, ref} from 'vue'
 import HALO from 'vanta/dist/vanta.halo.min'
