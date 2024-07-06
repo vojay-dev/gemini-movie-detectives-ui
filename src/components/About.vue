@@ -43,7 +43,11 @@
     </div>
 
     <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
-      <img src="../assets/system-overview.png" alt="system overview" width="1200px" />
+      <img src="../assets/system-overview.png" @click="showSystemOverview = !showSystemOverview" alt="system overview" width="1200" />
+      <FsLightbox
+            :toggler="showSystemOverview"
+            :sources="[systemOverview]"
+      />
     </div>
 
     <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-20">
@@ -75,7 +79,9 @@
 </template>
 
 <script setup>
-</script>
+import FsLightbox from "fslightbox-vue/v3"
+import {ref} from "vue"
+import systemOverview from '../assets/system-overview.png'
 
-<style>
-</style>
+const showSystemOverview = ref(false)
+</script>

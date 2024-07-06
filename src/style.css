@@ -245,12 +245,3 @@
     font-family: 'Montserrat', cursive;
     font-weight: 400;
 }
-
-@media (hover: hover) and (pointer: fine) {
-    html,
-    body,
-    #app,
-    #app * {
-        cursor: none !important;
-    }
-}
