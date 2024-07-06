@@ -1,30 +1,34 @@
-# REFACTORING NOTES
-
-https://codepen.io/1kodum/embed/VwGGXNe?height=300&theme-id=dark&default-tab=result&slug-hash=VwGGXNe&user=1kodum&name=cp_embed_57#result-box
-https://codepen.io/1kodum/embed/MWqqXYa?height=300&theme-id=dark&default-tab=result&slug-hash=MWqqXYa&user=1kodum&name=cp_embed_54#result-box
-https://codepen.io/jackrugile/embed/GROaam?height=300&default-tab=result&slug-hash=GROaam&user=jackrugile&name=cp_embed_41#result-box
-https://codepen.io/ahmadbassamemran/embed/bXRPdr?height=423&theme-id=dark&default-tab=result&slug-hash=bXRPdr&user=ahmadbassamemran&name=cp_embed_29#result-box
-
-
-
-
 # Gemini Movie Detectives UI
-
-**This project was created as part of the [Google AI Hackathon 2024](https://googleai.devpost.com/)**.
 
 ![logo](doc/logo.png)
 
-Gemini Movie Detectives is a project aimed at leveraging the power of the Gemini Pro model via VertexAI to
-create an engaging quiz game using the latest movie data from The Movie Database (TMDB).
+Gemini Movie Detectives harnesses Google's AI to revolutionize educational gaming, transforming movie trivia
+into a proof-of-concept gateway for AI-driven, adaptive learning across all subjects, challenging your inner
+movie nerd while showcasing how AI can reshape education in schools and universities.
 
-Try it yourself: [movie-detectives.com](https://movie-detectives.com/)
+**Try it yourself**: [movie-detectives.com](https://movie-detectives.com/)
 
 ## Backend
 
 The backend infrastructure is built with FastAPI and Python, employing the Retrieval-Augmented Generation (RAG)
 methodology to enrich queries with real-time metadata. Utilizing Jinja templating, the backend modularizes
 prompt generation into base, personality, and data enhancement templates, enabling the generation of accurate
-and engaging quiz questions.
+and engaging quiz questions in different game modes. Each game mode uses a different combination of data source
+showcasing the broad range of possibilities how to employ advanced Gemini applications.
+
+In addition to Gemini, the application leverages Google's state-of-the-art Text-to-Speech AI to synthesize quiz
+questions, dramatically enhancing the immersive atmosphere of a professional trivia game show. Moreover, the
+Sequel Salad game mode demonstrates the power of AI integration by utilizing Gemini to generate creative prompts.
+These prompts are then seamlessly fed into Google's cutting-edge Imagen text-to-image diffusion model, producing
+fake movie posters. This sophisticated interplay of various AI models showcases the limitless potential for
+creating captivating and dynamic game experiences, pushing the boundaries of what's possible in interactive
+entertainment.
+
+The application's infrastructure is further strengthened by the integration of Google Firebase. This integration
+enables secure user authentication, facilitating personalized interactions within the app. Firestore is used to
+store and manage essential user data, powering the dynamic rendering of user profiles with game statistics.
+Additionally, it handles crucial metadata, including movie franchise information and game mode usage metrics
+together with configurable limits, allowing for precise control over daily operational costs.
 
 ## Frontend
 
@@ -38,52 +42,71 @@ In Movie Detectives, quiz answers are interpreted by the Language Model (LLM) on
 scoring and personalized responses. This showcases the potential of integrating LLM with RAG in game design and
 development, paving the way for truly individualized gaming experiences. Furthermore, it demonstrates the
 potential for creating engaging quiz trivia or educational games by involving LLM. Adding and changing personalities
-or languages is as easy as adding more Jinja template modules. With very little effort, this can change the
-full game experience, reducing the effort for developers. Try it yourself and change the AI personality
-in the quiz configuration.
+is as easy as adding more Jinja template modules. With very little effort, this can change the full game experience,
+reducing the effort for developers. Try it yourself and change the AI personality in the quiz configuration.
 
-![demo](doc/mobile-browser-demo.png)
+Movie Detectives tackles the challenge of maintaining student interest, improving knowledge retention, and making
+learning enjoyable. It's not just a movie quiz; it’s a glimpse into AI-enhanced education, pushing boundaries
+for accessible, engaging, and effective learning experiences.
 
-Backend: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie-detectives-api)
+![mockup](doc/mockup.png)
 
-## Project overview
+---
 
-- VueJS 3.4
-- Vite
+## Examples
 
-![system overview](doc/system-overview.png)
+![demo bttf trivia](doc/demo-bttf-trivia.png)
+*Game mode: Back to the Future Trivia*
+
+![demo profile](doc/demo-profile.png)
+*User profile*
+
+![demo sequel salad](doc/demo-sequel-salad.png)
+*Game mode: Sequel Salad*
+
+---
+
+**Backend**: [gemini-movie-detectives-api](https://github.com/vojay-dev/gemini-movie-detectives-api)
+
+## Tech stack and project overview
+
+- [VueJS](https://vuejs.org/) 3.4 for frontend development
+- [Vite](https://vitejs.dev/) for frontend tooling
+- [Firebase](https://firebase.google.com/) for user authentication
+- [Tailwind CSS](https://tailwindcss.com/) as a utility-first CSS framework
+- [daisyUI](https://daisyui.com/) as a component library for Tailwind CSS
+- [Vue Flow](https://vueflow.dev/) for flowcharts and graphs 
+
+![system overview](doc/architecture.png)
 *Movie Detectives - System Overview*
+
+## Quiz client
+
+Even though Movie Detectives offers different game modes, all of them are handled via the same start and finish quiz
+endpoints. To reduce code duplication, there is a centralized quiz client in `src/quiz.js`.
 
 ## Components
 
-The Movie Detectives frontend is split into four main components and uses vue-router to navigate between them.
+![components](doc/frontend-components.png)
+*Components*
 
-### Home
+The frontend is separated into the following components:
 
-The Home component simply displays the welcome message.
-
-### Quiz
-
-The Quiz component displays the quiz itself and talks to the API via `fetch`. To create a quiz, it sends a POST
-request to `api/quiz` with the desired settings. The backend is then selecting a random movie based on the user
-settings, creates the prompt with the modular prompt generator, uses Gemini to generate the question and hints and
-finally returns everything back to the component so that the quiz can be rendered.
-
-Additionally, each quiz gets a session ID assigned in the backend and is stored in a limited LRU cache.
-
-### Sessions
-
-For debugging purposes, this component fetches data from the `api/sessions` endpoint. This returns all **active**
-sessions from the cache.
-
-### Stats
-
-This component displays statistics about the service. However, so far there is only one category of data displayed,
-which is the quiz limit. To limit the costs for VertexAI and GCP usage in general, there is a daily limit of quiz
-sessions, which will reset with the first quiz of the next day. Data is retrieved form the `api/limit` endpoint.
-
-![system overview](doc/frontend-components.png)
-*Movie Detectives - Vue Components*
+- 📚 **Quiz Components**
+  - Selection: Component to select a game mode
+  - Configuration: Personality configuration for the selected game mode
+  - TitleDetectives: Title Detectives game mode
+  - SequelSalad: Sequel Salad game mode
+  - BttfTrivia: Back to the Future Trivia game mode
+  - Trivia: Movie Fun Facts game mode
+- 📄 **Page Components**
+  - Home: Start page
+  - About: About page with basic project information
+  - System: System overview implemented with Vue Flow
+  - Profile: Profile page for authenticated users
+- ⚙️ **Utility Components**
+  - CustomCursor: Custom cursor implementation
+  - LoadingAnimation: Loading animation with customizable loading text
 
 ## Project setup
 
