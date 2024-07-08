@@ -1,5 +1,6 @@
 <template>
-  <div ref="vantaRef">
+  <div>
+    <div ref="vantaRef" class="vanta-bg"></div>
     <div class="hero h-[calc(100vh-68px)]">
       <div class="hero-overlay bg-none"></div>
       <div class="hero-content text-center text-neutral-content">

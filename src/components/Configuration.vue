@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div ref="vantaRef" class="h-[calc(100vh-68px)]">
+    <div ref="vantaRef" class="vanta-bg"></div>
+    <div>
       <div class="flex flex-row justify-center pt-10">
         <div class="w-full selection-title text-center">
           Choose a personality
         </div>
       </div>
-      <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-10">
+      <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-20">
         <div>
           <kinesis-container>
             <kinesis-element :strength="20" type="depth">

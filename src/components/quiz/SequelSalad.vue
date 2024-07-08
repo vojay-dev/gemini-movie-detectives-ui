@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div ref="vantaRef" class="vanta-bg opacity-50"></div>
+    <div>
     <!-- particles for correct answers -->
     <vue-particles
         v-if="quizResult && quizResult.result.points > 1"
@@ -198,16 +200,19 @@
       </div>
     </dialog>
   </div>
+  </div>
 </template>
 
 <script setup>
 import {API_BASE_URI, PARTICLE_SETTINGS} from '../../config.js'
-import {defineProps, onMounted, ref} from 'vue'
+import {defineProps, onBeforeUnmount, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {fetchProfile} from "../../main.js"
 import {finishQuiz, startQuiz} from "../../quiz.js"
 import {getBotAvatar, playAudio} from "../../util.js"
 import LoadingAnimation from "../LoadingAnimation.vue"
+import HALO from 'vanta/dist/vanta.halo.min'
+import * as THREE from 'three'
 
 const props = defineProps({
   personality: String
@@ -230,6 +235,9 @@ const router = useRouter()
 
 const profile = ref(null)
 const imageError = ref(false)
+
+const vantaRef = ref(null)
+let vantaEffect
 
 function showModal() {
   const modal = document.getElementById('errorModal')
@@ -264,6 +272,12 @@ async function submitAnswer() {
 }
 
 onMounted(async () => {
+  vantaEffect = HALO({
+    el: vantaRef.value,
+    THREE: THREE,
+    size: 2
+  })
+
   loading.value = true
 
   const startQuizData = await startQuiz(props.personality, 'sequel-salad')
@@ -284,5 +298,11 @@ onMounted(async () => {
   gameStarted.value = true
 
   await playAudio(`${API_BASE_URI}${quizData.value.speech}`)
+})
+
+onBeforeUnmount(() => {
+  if (vantaEffect) {
+    vantaEffect.destroy()
+  }
 })
 </script>
