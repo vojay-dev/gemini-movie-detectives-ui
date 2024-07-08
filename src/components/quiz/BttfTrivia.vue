@@ -9,14 +9,14 @@
         :options=particleSettings
     />
 
-    <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4 px-4">
+    <div v-if="gameStarted || loading" class="container mx-auto flex justify-center py-4 px-4 pb-20">
       <!-- loading -->
       <div v-if="loading" class="text-center"><LoadingAnimation loadingText="Loading" /></div>
 
       <!-- game started -->
-      <div v-if="gameStarted && !loading" class="grid grid-cols-3 gap-4 w-full">
+      <div v-if="gameStarted && !loading" class="grid md:grid-cols-3 grid-cols-1 gap-4 w-full">
 
-        <div class="row-span-2 bg-base-300 p-2 rounded-3xl">
+        <div class="md:row-span-2 bg-base-300 p-2 rounded-3xl">
           <div>
             <kinesis-container>
               <kinesis-element :strength="20" type="depth">
@@ -79,7 +79,7 @@
         </div>
 
         <!-- Game running -->
-        <div v-if="!processingAnswer && !gameFinished" class="col-span-2 col-start-2 row-start-1 mockup-window bg-base-300">
+        <div v-if="!processingAnswer && !gameFinished" class="md:col-span-2 md:col-start-2 row-start-1 mockup-window bg-base-300">
           <div class="grid grid-cols-1 gap-4 px-4 py-4">
 
             <div class="w-full quiz-mode-title text-center">
@@ -156,7 +156,7 @@
 
         </div>
 
-        <div class="col-span-2 col-start-2 row-start-2">
+        <div class="md:col-span-2 md:col-start-2 row-start-2">
           <div v-if="!gameFinished" class="flex flex-row gap-2">
             <div role="alert" class="alert">
               <svg
@@ -170,7 +170,7 @@
                     stroke-width="2"
                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>Choose your answer on the left</span>
+              <span>Choose your answer</span>
             </div>
           </div>
           <div v-if="gameFinished" class="flex flex-row justify-end gap-2">
