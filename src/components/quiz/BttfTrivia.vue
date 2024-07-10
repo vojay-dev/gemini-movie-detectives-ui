@@ -4,7 +4,7 @@
     <div>
     <!-- particles for correct answers -->
     <vue-particles
-        v-if="quizResult && quizResult.result.points > 1"
+        v-if="quizResult && quizResult.points > 1"
         id="tsparticles"
         :options=particleSettings
     />
