@@ -140,7 +140,7 @@
 }
 
 .gemini-loading-wrapper {
-    width: 200px;
+    width: 300px;
     height: 60px;
     position: absolute;
     left: 50%;
@@ -226,14 +226,14 @@
     animation-delay: .3s;
 }
 
-.gemini-loading-wrapper span{
+.gemini-loading-wrapper span {
     position: absolute;
     top: 75px;
     font-family: 'Luckiest Guy', cursive;
-    font-size: 20px;
-    letter-spacing: 12px;
+    font-size: 18px;
+    letter-spacing: 8px;
     color: #fff;
-    left: 15%;
+    left: 6%;
 }
 
 .vue-flow__edges path {
