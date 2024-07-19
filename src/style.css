@@ -101,6 +101,7 @@
     1px 4px 1px #919191,
     1px 5px 1px #919191;
     z-index: 100;
+    text-align: center;
 }
 
 .loading-xl {
