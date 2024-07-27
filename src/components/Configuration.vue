@@ -10,7 +10,7 @@
       <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-20">
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/cool.jpg" alt="The cool kid" /></figure>
                 <div class="card-body">
@@ -30,7 +30,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/dad.jpg" alt="Dad jokes dad" /></figure>
                 <div class="card-body">
@@ -50,7 +50,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/santa.jpg" alt="Santa Claus" /></figure>
                 <div class="card-body">
@@ -70,7 +70,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/prof.jpg" alt="The scientist" /></figure>
                 <div class="card-body">
@@ -105,6 +105,7 @@ import NET from 'vanta/dist/vanta.net.min'
 import * as THREE from 'three'
 import {useSound} from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
+import {isMobile} from 'mobile-device-detect'
 
 const props = defineProps({
   mode: String

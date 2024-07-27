@@ -17,6 +17,7 @@
     "daisyui": "^4.9.0",
     "firebase": "^10.12.2",
     "fslightbox-vue": "^2.1.3",
+    "mobile-device-detect": "^0.4.3",
     "pixelate": "^0.0.5",
     "three": "^0.134.0",
     "tsparticles": "^3.3.0",

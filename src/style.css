@@ -255,3 +255,9 @@
     height: 100%;
     z-index: -1;
 }
+
+@media only screen and (max-width: 1230px) {
+    .card {
+        margin-bottom: 24px;
+    }
+}

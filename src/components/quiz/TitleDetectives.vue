@@ -225,6 +225,7 @@ import {getBotAvatar, playAudio} from "../../util.js"
 import LoadingAnimation from "../LoadingAnimation.vue"
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
+import {isMobile} from "mobile-device-detect";
 
 const props = defineProps({
   personality: String
@@ -269,6 +270,10 @@ function closeModal() {
 async function submitAnswer() {
   if (gameFinished.value || !userInput.value.trim()) {
     return
+  }
+
+  if (isMobile) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   processingAnswer.value = true

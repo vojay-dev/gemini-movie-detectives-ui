@@ -19,7 +19,7 @@
         <div class="md:row-span-2 bg-base-300 p-2 rounded-3xl">
           <div>
             <kinesis-container>
-              <kinesis-element :strength="20" type="depth">
+              <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
                 <div @click="submitAnswer(1)" v-bind:class="getOptionClasses(1)">
                   <div class="card-body">
                     <div class="flex flex-row items-center gap-6">
@@ -34,7 +34,7 @@
 
           <div>
             <kinesis-container>
-              <kinesis-element :strength="20" type="depth">
+              <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
                 <div @click="submitAnswer(2)" v-bind:class="getOptionClasses(2)">
                   <div class="card-body">
                     <div class="flex flex-row items-center gap-6">
@@ -49,7 +49,7 @@
 
           <div>
             <kinesis-container>
-              <kinesis-element :strength="20" type="depth">
+              <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
                 <div @click="submitAnswer(3)" v-bind:class="getOptionClasses(3)">
                   <div class="card-body">
                     <div class="flex flex-row items-center gap-6">
@@ -64,7 +64,7 @@
 
           <div>
             <kinesis-container>
-              <kinesis-element :strength="20" type="depth">
+              <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
                 <div @click="submitAnswer(4)" v-bind:class="getOptionClasses(4)">
                   <div class="card-body">
                     <div class="flex flex-row items-center gap-6">
@@ -237,6 +237,7 @@ import {getBotAvatar, playAudio} from "../../util.js"
 import LoadingAnimation from "../LoadingAnimation.vue"
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
+import {isMobile} from 'mobile-device-detect'
 
 const props = defineProps({
   personality: String
@@ -297,6 +298,10 @@ function getOptionClasses(answer) {
 async function submitAnswer(answer) {
   if (gameFinished.value) {
     return
+  }
+
+  if (isMobile) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   userOption.value = answer

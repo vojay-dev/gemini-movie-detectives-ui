@@ -10,7 +10,7 @@
       <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-20">
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('title-detectives'), getTooltipClass('title-detectives')]" :data-tip="getUsageTip('title-detectives')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type1.jpg" alt="Title Detectives" /></figure>
                 <div class="card-body">
@@ -31,7 +31,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('sequel-salad'), getTooltipClass('sequel-salad')]" :data-tip="getUsageTip('sequel-salad')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type2.jpg" alt="AI Sequel Salad" /></figure>
                 <div class="card-body">
@@ -52,7 +52,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('bttf-trivia'), getTooltipClass('bttf-trivia')]" :data-tip="getUsageTip('bttf-trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type4.jpg" alt="Back to the Future Trivia" /></figure>
                 <div class="card-body">
@@ -73,7 +73,7 @@
         </div>
         <div>
           <kinesis-container>
-            <kinesis-element :strength="20" type="depth">
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
               <div :class="['card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all tooltip tooltip-bottom tooltip-primary', getHoverClass('trivia'), getTooltipClass('trivia')]" :data-tip="getUsageTip('trivia')" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/type3.jpg" alt="Movie Fun Facts" /></figure>
                 <div class="card-body">
@@ -104,6 +104,7 @@ import CLOUDS from 'vanta/dist/vanta.clouds.min'
 import * as THREE from 'three'
 import { useSound } from '@vueuse/sound'
 import selectionSfx from '../assets/selection.mp3'
+import {isMobile} from 'mobile-device-detect'
 import {API_BASE_URI} from "../config.js"
 
 const { play, stop } = useSound(selectionSfx)
