@@ -66,6 +66,19 @@
         12px 12px 0 #654ea7;
 }
 
+@media only screen and (max-width: 600px) {
+    .selection-title {
+        font-size: 3rem;
+        text-shadow:
+            1px 1px 0 #f9a271,
+            2px 2px 0 #fcd777,
+            3px 3px 0 #f66b6b,
+            4px 4px 0 #ef333e,
+            5px 5px 0 #3284b9,
+            6px 6px 0 #654ea7;
+    }
+}
+
 .quiz-mode-title {
     font-family: 'Calligraffitti', cursive;
     font-weight: 700;
