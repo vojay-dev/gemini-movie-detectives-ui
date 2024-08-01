@@ -80,6 +80,9 @@ for accessible, engaging, and effective learning experiences.
 ![system overview](doc/architecture.png)
 *Movie Detectives - System Overview*
 
+The frontend experience is best on desktop browser *but* everything is responsive using Tailwind CSS and daisyUI so
+all quiz modes and pages can be used on mobile as well.
+
 ## Quiz client
 
 Even though Movie Detectives offers different game modes, all of them are handled via the same start and finish quiz
