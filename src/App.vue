@@ -3,7 +3,7 @@
     <div :key="$route.path">
     <CustomCursor />
     <header>
-      <nav class="navbar w-full bg-base-100 bg-opacity-20 shadow-lg text-neutral-content backdrop-blur z-50">
+      <nav class="navbar w-full bg-base-100 bg-opacity-20 shadow-lg text-neutral-content backdrop-blur z-50 relative">
         <div class="navbar-start">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle hover:ring-primary hover:ring-2 hover:ring-opacity-80" v-bind:class="{ 'text-white': ['Selection', 'Profile'].includes(currentRouteName) }">
