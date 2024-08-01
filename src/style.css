@@ -15,6 +15,14 @@
     background-size: 200% 200%;
 }
 
+.gemini-light {
+    color: #ffffff;
+    text-shadow:
+        1px 1px 0 #f9a271,
+        2px 2px 0 #fcd777,
+        3px 3px 0 #f66b6b;
+}
+
 .gemini-button {
     background: linear-gradient(61deg, #217BFE 0.0%, #078EFB 27.0%, #A190FF 78.0%, #BD99FE 100.0%);
     animation: gemini 5s linear infinite;
