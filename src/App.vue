@@ -62,7 +62,7 @@
                 <img :src="user ? user.photoURL : generateRoboHash()" />
               </div>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
+            <ul tabindex="0" class="menu menu-md dropdown-content mt-4 z-[1] p-2 shadow bg-base-100 bg-opacity-85 backdrop-blur rounded-box w-52">
               <li v-if="user">
                 <a @click="signOutUser()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="white" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg>
