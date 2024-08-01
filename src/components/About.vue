@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="vantaRef" class="vanta-bg"></div>
-    <div class="flex w-3/5 flex-col border-opacity-50 mx-auto pt-10">
+    <div class="flex w-4/5 lg:w-3/5 flex-col border-opacity-50 mx-auto pt-10">
       <div class="flex flex-row flex-wrap gap-4 justify-center items-center mb-5">
         <h1 class="mb-5 text-5xl font-bold">About <span class="gemini">Movie Detectives</span></h1>
       </div>
