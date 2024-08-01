@@ -16,11 +16,7 @@
 }
 
 .gemini-light {
-    color: #ffffff;
-    text-shadow:
-        1px 1px 0 #f9a271,
-        2px 2px 0 #fcd777,
-        3px 3px 0 #f66b6b;
+    color: rgba(255, 255, 255, 0.87);
 }
 
 .gemini-button {

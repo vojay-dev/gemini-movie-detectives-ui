@@ -6,10 +6,10 @@
       <nav class="navbar w-full bg-base-100 bg-opacity-20 shadow-lg text-neutral-content backdrop-blur z-50">
         <div class="navbar-start">
           <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle"  v-bind:class="{ 'text-white': currentRouteName === 'Selection' }">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle hover:ring-primary hover:ring-2 hover:ring-opacity-80" v-bind:class="{ 'text-white': ['Selection', 'Profile'].includes(currentRouteName) }">
               <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </div>
-            <ul tabindex="0" class="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-900 bg-opacity-80 rounded-box w-52">
+            <ul tabindex="0" class="menu menu-md dropdown-content mt-4 z-[1] p-2 shadow bg-base-100 bg-opacity-85 backdrop-blur rounded-box w-52">
               <li class="px-1"><router-link to="/" v-bind:class="{ 'active': currentRouteName === 'Home' }">
                 <svg class="h-5 w-5 text-fuchsia-400" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z"/></svg>
                 Home
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="navbar-center">
-          <router-link to="/" tag="button" class="btn btn-ghost text-lg gemini" v-bind:class="{ 'gemini-light': currentRouteName === 'Selection' }">
+          <router-link to="/" tag="button" class="btn btn-ghost text-lg gemini" v-bind:class="{ 'gemini-light': ['Selection', 'Profile'].includes(currentRouteName) }">
           <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#ffffff" d="M12 20h8v2h-8C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10a9.96 9.96 0 0 1-2 6h-2.708A8 8 0 1 0 12 20m0-10a2 2 0 1 1 0-4a2 2 0 0 1 0 4m-4 4a2 2 0 1 1 0-4a2 2 0 0 1 0 4m8 0a2 2 0 1 1 0-4a2 2 0 0 1 0 4m-4 4a2 2 0 1 1 0-4a2 2 0 0 1 0 4"/></svg>
           Movie Detectives
           </router-link>

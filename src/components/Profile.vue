@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div ref="vantaRef" class="h-[calc(100vh-68px)]">
+    <div ref="vantaRef" class="vanta-bg"></div>
+    <div class="h-[calc(100vh-68px)]">
 
       <div v-if="loading" class="flex flex-row justify-center pt-10">
         <div class="text-center"><span class="loading loading-lg loading-spinner text-white pt-10 z-10"></span></div>
@@ -36,7 +37,7 @@
       </div>
 
       <div v-if="profile" class="flex flex-row justify-center pt-3 pb-3">
-        <div class="stats shadow z-50">
+        <div class="stats bg-opacity-70 backdrop-blur shadow z-50">
 
           <div class="stat">
             <div class="stat-figure text-primary">
@@ -59,7 +60,7 @@
 
       <div v-if="profile" class="flex flex-row justify-center pt-1 pb-3">
         <div class="overflow-x-auto z-50">
-          <table class="table table-xs bg-primary-content/30 bg-opacity-80 rounded-lg">
+          <table class="table table-xs bg-primary-content/30 bg-opacity-80 backdrop-blur rounded-lg">
             <thead>
             <tr class="border-none">
               <th></th>
