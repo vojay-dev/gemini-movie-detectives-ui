@@ -11,7 +11,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-35 backdrop-blur hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/cool.jpg" alt="The cool kid" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">The cool kid</h2>
@@ -31,7 +31,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-35 backdrop-blur hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/dad.jpg" alt="Dad jokes dad" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Dad jokes dad</h2>
@@ -51,7 +51,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-35 backdrop-blur hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/santa.jpg" alt="Santa Claus" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">Santa Claus</h2>
@@ -71,7 +71,7 @@
         <div>
           <kinesis-container>
             <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
-              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
+              <div class="card w-72 bg-base-100 shadow-xl bg-opacity-35 backdrop-blur hover:bg-opacity-85 hover:ring-4 hover:ring-purple-500 transition-all" @mouseenter="play" @mouseleave="stop">
                 <figure><img src="../assets/prof.jpg" alt="The scientist" /></figure>
                 <div class="card-body">
                   <h2 class="card-title selection-card-title">The scientist</h2>
